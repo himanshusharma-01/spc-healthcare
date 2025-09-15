@@ -60,36 +60,36 @@ const Homepage: React.FC = () => {
         </div>
       </section>
 
-       {/* // Add this section after the Testimonials section and before the CTA section */}
-<section className="quotes-section">
-  <div className="container">
-    <div className="plus-sign-container">
-      <div className="rotating-plus">
-        <div className="plus-horizontal"></div>
-        <div className="plus-vertical"></div>
-        <div className="pink-fumes"></div>
-      </div>
-    </div>
-    <div className="healthcare-quotes">
-      <div className="quote fade-in">
-        <h3>Innovation in Healthcare</h3>
-        <p>Advancing medicine through cutting-edge research and development</p>
-      </div>
-      <div className="quote fade-in">
-        <h3>Quality Assurance</h3>
-        <p>Rigorous testing standards ensuring safety and efficacy</p>
-      </div>
-      <div className="quote fade-in">
-        <h3>Patient-Centered Care</h3>
-        <p>Putting patient wellbeing at the heart of everything we do</p>
-      </div>
-      <div className="quote fade-in">
-        <h3>Global Standards</h3>
-        <p>Meeting international pharmaceutical excellence benchmarks</p>
-      </div>
-    </div>
-  </div>
-</section>
+       {/* Add this section after the Testimonials section and before the CTA section */}
+      <section className="quotes-section">
+        <div className="container">
+          <div className="plus-sign-container">
+            <div className="rotating-plus">
+              <div className="plus-horizontal"></div>
+              <div className="plus-vertical"></div>
+              <div className="pink-fumes"></div>
+            </div>
+          </div>
+          <div className="healthcare-quotes">
+            <div className="quote fade-in">
+              <h3>Innovation in Healthcare</h3>
+              <p>Advancing medicine through cutting-edge research and development</p>
+            </div>
+            <div className="quote fade-in">
+              <h3>Quality Assurance</h3>
+              <p>Rigorous testing standards ensuring safety and efficacy</p>
+            </div>
+            <div className="quote fade-in">
+              <h3>Patient-Centered Care</h3>
+              <p>Putting patient wellbeing at the heart of everything we do</p>
+            </div>
+            <div className="quote fade-in">
+              <h3>Global Standards</h3>
+              <p>Meeting international pharmaceutical excellence benchmarks</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Services Section */}
       <section className="services">
@@ -249,7 +249,7 @@ const Homepage: React.FC = () => {
             </div>
             
             <div className="testimonial-card fade-in">
-              <p className="testimonial-text">As a senior, I've struggled with memory issues. Neurozen has helped me maintain mental clarity and focus throughout my day. Highly recommended!</p>
+              <p className="testimonial-text">As a senior, I&apos;ve struggled with memory issues. Neurozen has helped me maintain mental clarity and focus throughout my day. Highly recommended!</p>
               <div className="testimonial-author">
                 <div className="author-image">
                   <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Margaret Williams" />
@@ -262,7 +262,7 @@ const Homepage: React.FC = () => {
             </div>
             
             <div className="testimonial-card fade-in">
-              <p className="testimonial-text">ImmunoPlus has been a game-changer for our family. We've noticed significantly fewer sick days since incorporating it into our daily routine.</p>
+              <p className="testimonial-text">ImmunoPlus has been a game-changer for our family. We&apos;ve noticed significantly fewer sick days since incorporating it into our daily routine.</p>
               <div className="testimonial-author">
                 <div className="author-image">
                   <img src="https://images.unsplash.com/photo-1567532939604-b6b5b0db1604?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Maria Garcia" />
@@ -276,8 +276,6 @@ const Homepage: React.FC = () => {
           </div>
         </div>
       </section>
-
-     
 
       {/* CTA Section */}
       <section className="cta">
