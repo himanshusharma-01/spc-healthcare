@@ -450,6 +450,17 @@
   transform: scale(1.1);
 }
 
+/* Custom styling for 3rd product card image - zoomed out */
+.doctor-image.zoomed-out img {
+  object-fit: contain;
+  transform: scale(0.9);
+  background-color: #f8f9fa;
+}
+
+.doctor-card:hover .doctor-image.zoomed-out img {
+  transform: scale(0.95);
+}
+
 .doctor-info {
   padding: 25px;
   text-align: center;
