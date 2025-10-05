@@ -212,8 +212,8 @@ const Homepage: React.FC = () => {
             </div>
             
             <div className="doctor-card fade-in">
-              <div className="doctor-image zoomed-out">
-                <img src="/3rd_card_image.png" alt="ImmunoPlus Syrup" />
+              <div className="doctor-image">
+                <img src="https://images.unsplash.com/photo-1591746316584-4210d0536af8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="ImmunoPlus Syrup" />
               </div>
               <div className="doctor-info">
                 <h3 className="doctor-name">ImmunoPlus Syrup</h3>
