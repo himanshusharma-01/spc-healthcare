@@ -38,9 +38,6 @@ const Navbar: React.FC = () => {
     return pathname === path ? 'active' : '';
   };
 
-  const handleEmergencyClick = () => {
-    window.open('tel:+1-800-911-HELP', '_self');
-  };
 
   const handleBookAppointment = () => {
     // Implement appointment booking logic
@@ -56,8 +53,8 @@ const Navbar: React.FC = () => {
       icon: 'fas fa-info-circle',
       dropdown: [
         { href: '/about/company', label: 'Our Company' },
-        { href: '/about/leadership', label: 'Leadership' },
-        { href: '/about/mission', label: 'Mission & Vision' }
+        { href: '/about/leadership', label: 'Leadership' }
+       
       ]
     },
     { 
@@ -80,11 +77,9 @@ const Navbar: React.FC = () => {
       {/* Top Announcement Bar */}
       <div className="announcement-bar">
         <div className="announcement-content">
-          <i className="fas fa-exclamation-circle"></i>
+         
           <span>Breakthrough in Cancer Research - New Treatment Now Available</span>
-          <button className="announcement-cta">
-            Learn More <i className="fas fa-arrow-right"></i>
-          </button>
+         
         </div>
       </div>
 
@@ -152,16 +147,7 @@ const Navbar: React.FC = () => {
               onClick={handleBookAppointment}
             >
               <i className="fas fa-calendar-check"></i>
-              <span>Book Appointment</span>
-            </button>
-            
-            <button 
-              className="action-btn emergency-btn"
-              onClick={handleEmergencyClick}
-            >
-              <i className="fas fa-phone-alt"></i>
-              <span>Emergency</span>
-              <div className="emergency-pulse"></div>
+              <span>Get in touch</span>
             </button>
           </div>
 
@@ -228,13 +214,6 @@ const Navbar: React.FC = () => {
               >
                 <i className="fas fa-calendar-check"></i>
                 Book Appointment
-              </button>
-              <button 
-                className="mobile-action-btn emergency"
-                onClick={handleEmergencyClick}
-              >
-                <i className="fas fa-phone-alt"></i>
-                Emergency Help
               </button>
             </div>
 

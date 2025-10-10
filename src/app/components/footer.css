@@ -352,47 +352,6 @@
   color: #00A3B4;
 }
 
-/* Floating Emergency Button */
-.floating-emergency {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 1000;
-}
-
-.emergency-floating-btn {
-  background: linear-gradient(135deg, #dc3545, #ff6b7a);
-  color: white;
-  border: none;
-  padding: 1rem 1.5rem;
-  border-radius: 50px;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 8px 30px rgba(220, 53, 69, 0.4);
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  animation: pulse-emergency 2s infinite;
-  font-size: 0.9rem;
-}
-
-.emergency-floating-btn:hover {
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 15px 40px rgba(220, 53, 69, 0.6);
-  animation: none;
-}
-
-@keyframes pulse-emergency {
-  0%, 100% {
-    box-shadow: 0 8px 30px rgba(220, 53, 69, 0.4);
-    transform: scale(1);
-  }
-  50% {
-    box-shadow: 0 8px 40px rgba(220, 53, 69, 0.8);
-    transform: scale(1.02);
-  }
-}
 
 /* RESPONSIVE DESIGN */
 @media (max-width: 1024px) {
@@ -465,15 +424,6 @@
     font-size: 0.8rem;
   }
   
-  .floating-emergency {
-    bottom: 1rem;
-    right: 1rem;
-  }
-  
-  .emergency-floating-btn {
-    padding: 0.8rem 1.2rem;
-    font-size: 0.85rem;
-  }
 }
 
 @media (max-width: 480px) {
@@ -496,11 +446,4 @@
     gap: 0.5rem;
   }
   
-  .emergency-floating-btn span {
-    display: none;
-  }
-  
-  .emergency-floating-btn::before {
-    content: '🆘';
-  }
 }

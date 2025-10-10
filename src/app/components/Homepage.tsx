@@ -54,6 +54,7 @@ export default function Homepage() {
     }, stepDuration);
   };
 
+
   useEffect(() => {
 
     // Intersection Observer for animations
@@ -171,7 +172,7 @@ export default function Homepage() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="l3-about l3-section" ref={statsRef}>
+      {/* <section id="about" className="l3-about l3-section" ref={statsRef}>
         <div className="l3-container-inner">
           <div className="l3-about-content">
             <div className="l3-about-image">
@@ -211,7 +212,155 @@ export default function Homepage() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
+
+      {/* About Section */}
+{/* <section id="about" className="l3-about l3-section">
+  <div className="l3-container-inner">
+    <div className="l3-about-content">
+      <div className="l3-about-image">
+        <div className="l3-image-placeholder">
+          <div className="l3-lab-equipment"></div>
+          <div className="l3-scientists"></div>
+        </div>
+      </div>
+      <div className="l3-about-text">
+        <h2 className="l3-section-title">Trusted Healthcare Innovation Since 1999</h2>
+        <p className="l3-about-desc">
+          For over two decades, SPC Healthcare has been at the forefront of medical innovation, 
+          delivering trusted healthcare solutions that improve patient lives across the globe.
+        </p>
+        <p className="l3-about-desc">
+          Our commitment to research excellence, quality manufacturing, and patient-centric 
+          approach drives everything we do, ensuring better health outcomes for communities worldwide.
+        </p>
+        <div className="l3-stats-section">
+          <div className="l3-stat-item">
+            <div className="l3-stat-number" data-target="25">0</div>
+            <div className="l3-stat-label">Years of Innovation</div>
+          </div>
+          <div className="l3-stat-item">
+            <div className="l3-stat-number" data-target="150">0</div>
+            <div className="l3-stat-label">Healthcare Products</div>
+          </div>
+          <div className="l3-stat-item">
+            <div className="l3-stat-number" data-target="80">0</div>
+            <div className="l3-stat-label">Countries Served</div>
+          </div>
+          <div className="l3-stat-item">
+            <div className="l3-stat-number" data-target="500">0</div>
+            <div className="l3-stat-label">Research Papers</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> */}
+
+
+<section className="about-section">
+  <div className="about-container">
+    <div className="about-grid">
+      {/* Left Column - Main Content */}
+      <div className="about-main">
+        <div className="section-badge">
+          <span>About Us</span>
+        </div>
+        
+        <h2 className="about-title">
+          Trusted Healthcare Innovation 
+          <span className="highlight"> Since 1999</span>
+        </h2>
+        
+        <div className="about-description">
+          <p>
+            For over two decades, SPC Healthcare has been at the forefront of medical innovation, 
+            delivering trusted healthcare solutions that improve patient lives across the globe.
+          </p>
+          <p>
+            Our commitment to research excellence, quality manufacturing, and patient-centric 
+            approach drives everything we do, ensuring better health outcomes for communities worldwide.
+          </p>
+        </div>
+
+        {/* Feature List */}
+        <div className="features-grid">
+          <div className="feature-item">
+            <div className="feature-icon">🔬</div>
+            <div className="feature-content">
+              <h4>Research Excellence</h4>
+              <p>Cutting-edge medical research and development</p>
+            </div>
+          </div>
+          
+          <div className="feature-item">
+            <div className="feature-icon">🌍</div>
+            <div className="feature-content">
+              <h4>Global Reach</h4>
+              <p>Serving communities across 80+ countries worldwide</p>
+            </div>
+          </div>
+          
+          <div className="feature-item">
+            <div className="feature-icon">⭐</div>
+            <div className="feature-content">
+              <h4>Quality Focus</h4>
+              <p>Highest standards in manufacturing and safety</p>
+            </div>
+          </div>
+          
+          <div className="feature-item">
+            <div className="feature-icon">💡</div>
+            <div className="feature-content">
+              <h4>Innovation Driven</h4>
+              <p>Continuous improvement and technological advancement</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Right Column - Stats */}
+      <div className="about-stats">
+        <div className="stats-container">
+          <div className="stat-item">
+            <div className="stat-number" data-target="25">25+</div>
+            <div className="stat-label">Years of Innovation</div>
+            <div className="stat-bar">
+              <div className="stat-progress" style={{width: '100%'}}></div>
+            </div>
+          </div>
+          
+          <div className="stat-item">
+            <div className="stat-number" data-target="150">500+</div>
+            <div className="stat-label">Healthcare Products</div>
+            <div className="stat-bar">
+              <div className="stat-progress" style={{width: '100%'}}></div>
+            </div>
+          </div>
+          
+          <div className="stat-item">
+            <div className="stat-number" data-target="80">80+</div>
+            <div className="stat-label">Countries Served</div>
+            <div className="stat-bar">
+              <div className="stat-progress" style={{width: '100%'}}></div>
+            </div>
+          </div>
+          
+          <div className="stat-item">
+            <div className="stat-number" data-target="500">200+</div>
+            <div className="stat-label">Research Papers</div>
+            <div className="stat-bar">
+              <div className="stat-progress" style={{width: '100%'}}></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
 
       {/* Product Divisions */}
       <section id="products" className="l3-divisions l3-section">
@@ -368,7 +517,6 @@ export default function Homepage() {
             </p>
             <div className="l3-cta-buttons">
               <button className="l3-btn l3-btn-primary l3-btn-large">Get in Touch</button>
-              <button className="l3-btn l3-btn-secondary l3-btn-large">Become a Partner</button>
             </div>
           </div>
         </div>

@@ -1,12 +1,16 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import './footer.css';
 
 const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
-  const currentYear = new Date().getFullYear();
+  const [currentYear, setCurrentYear] = useState(2024);
+
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear());
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,9 +19,6 @@ const Footer: React.FC = () => {
     setEmail('');
   };
 
-  const handleEmergencyClick = () => {
-    window.open('tel:+1-800-911-HELP', '_self');
-  };
 
   return (
     <footer className="footer">
@@ -104,7 +105,7 @@ const Footer: React.FC = () => {
           {/* Contact & Emergency */}
           <div className="footer-section contact-info">
             <h4 className="footer-title">Contact Us</h4>
-            <div className="contact-details">
+            <div className="contact-info">
               <div className="contact-item">
                 <i className="fas fa-map-marker-alt"></i>
                 <span>123 Innovation Drive<br />Pharma Park, CA 94203</span>
@@ -151,20 +152,13 @@ const Footer: React.FC = () => {
             <div className="footer-legal">
               <Link href="/privacy">Privacy Policy</Link>
               <Link href="/terms">Terms of Service</Link>
-              <Link href="/cookies">Cookie Policy</Link>
-              <Link href="/compliance">Compliance</Link>
+              
             </div>
           </div>
         </div>
       </div>
 
       {/* Floating Emergency Button */}
-      <div className="floating-emergency">
-        <button className="emergency-floating-btn" onClick={handleEmergencyClick}>
-          <i className="fas fa-phone-alt"></i>
-          <span>Emergency</span>
-        </button>
-      </div>
     </footer>
   );
 };

@@ -87,6 +87,7 @@
   filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
 }
 
+
 @keyframes l3-logoFloat {
   0%, 100% {
     opacity: 0;
@@ -355,7 +356,7 @@
 }
 
 /* About Section */
-.l3-about {
+/* .l3-about {
   background: var(--l3-gray-light);
 }
 
@@ -427,8 +428,240 @@
 .l3-stat-item .l3-stat-label {
   color: var(--l3-text-light);
   font-weight: 500;
+} */
+
+.about-section {
+  padding: 100px 0;
+  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f1f5f9 100%);
+  position: relative;
 }
 
+.about-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+}
+
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 80px;
+  align-items: start;
+}
+
+/* Left Column Styles */
+.about-main {
+  padding-right: 40px;
+}
+
+.section-badge {
+  margin-bottom: 24px;
+}
+
+.section-badge span {
+  background: var(--l3-teal);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.about-title {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--l3-navy-dark);
+  margin-bottom: 32px;
+}
+
+.about-title .highlight {
+  color: var(--l3-teal);
+  display: block;
+  margin-top: 8px;
+}
+
+.about-description p {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--l3-text-light);
+  margin-bottom: 20px;
+}
+
+/* Features Grid */
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 48px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #f1f5f9;
+  transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  border-color: #0ea5e9;
+}
+
+.feature-icon {
+  font-size: 1.5rem;
+  background: #f0f9ff;
+  padding: 12px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.feature-content h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--l3-navy-dark);
+  margin-bottom: 8px;
+}
+
+.feature-content p {
+  font-size: 0.875rem;
+  color: var(--l3-text-light);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Right Column - Stats */
+.about-stats {
+  position: sticky;
+  top: 100px;
+}
+
+.stats-container {
+  background: white;
+  padding: 40px 32px;
+  border-radius: 20px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.06);
+  border: 1px solid #f1f5f9;
+}
+
+.stat-item {
+  margin-bottom: 40px;
+}
+
+.stat-item:last-child {
+  margin-bottom: 0;
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--l3-teal);
+  line-height: 1;
+  margin-bottom: 8px;
+  transition: all 0.5s ease-out;
+}
+
+.stat-label {
+  font-size: 1rem;
+  color: var(--l3-text-light);
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.stat-bar {
+  height: 4px;
+  background: var(--l3-gray-light);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.stat-progress {
+  height: 100%;
+  background: linear-gradient(90deg, var(--l3-teal), var(--l3-green));
+  border-radius: 2px;
+  transition: width 1.5s ease-out;
+}
+
+/* Animations */
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stat-number.animated {
+  animation: countUp 0.6s ease-out;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+  
+  .about-main {
+    padding-right: 0;
+  }
+  
+  .about-stats {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-section {
+    padding: 60px 0;
+  }
+  
+  .about-title {
+    font-size: 2.25rem;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .stat-number {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .about-container {
+    padding: 0 20px;
+  }
+  
+  .about-title {
+    font-size: 2rem;
+  }
+  
+  .stats-container {
+    padding: 32px 24px;
+  }
+}
 /* Product Divisions */
 .l3-divisions {
   background: white;
