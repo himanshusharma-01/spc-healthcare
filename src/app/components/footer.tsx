@@ -1,111 +1,169 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
+import Link from 'next/link';
 import './footer.css';
 
 const Footer: React.FC = () => {
+  const [email, setEmail] = useState('');
+  const currentYear = new Date().getFullYear();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle newsletter subscription
+    console.log('Subscribed with:', email);
+    setEmail('');
+  };
+
+  const handleEmergencyClick = () => {
+    window.open('tel:+1-800-911-HELP', '_self');
+  };
+
   return (
     <footer className="footer">
-      <div className="footer-container">
-        {/* Main Footer Content */}
-        <div className="footer-content">
-          {/* Company Info */}
-          <div className="footer-section">
+      {/* Newsletter Section - MOVED TO TOP */}
+      <div className="footer-newsletter">
+        <div className="footer-container">
+          <div className="newsletter-content">
+            <div className="newsletter-text">
+              <h3>Stay Informed</h3>
+              <p>Subscribe to our newsletter for the latest medical breakthroughs and updates</p>
+            </div>
+            <form className="newsletter-form" onSubmit={handleSubmit}>
+              <input 
+                type="email" 
+                placeholder="Enter your email address" 
+                className="newsletter-input"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <button type="submit" className="newsletter-btn">
+                <i className="fas fa-paper-plane"></i>
+                Subscribe
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Footer Content */}
+      <div className="footer-main">
+        <div className="footer-container">
+          
+          {/* Company Info Section */}
+          <div className="footer-section company-info">
             <div className="footer-logo">
               <i className="fas fa-heartbeat logo-icon"></i>
               <div className="logo-text">SPC<span>Healthcare</span></div>
             </div>
-            <p className="footer-description">
-              Providing premium pharmaceutical solutions with precision and care. 
-              Your health is our priority.
+            <p className="footer-desc">
+              Pioneering pharmaceutical innovations for a healthier tomorrow. 
+              Committed to research, development, and delivery of life-changing medications.
             </p>
-            <div className="social-links">
-              <a href="#" aria-label="Facebook"><i className="fab fa-facebook-f"></i></a>
-              <a href="#" aria-label="Twitter"><i className="fab fa-twitter"></i></a>
-              <a href="#" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
-              <a href="#" aria-label="LinkedIn"><i className="fab fa-linkedin-in"></i></a>
+            <div className="footer-social">
+              <a href="#" className="social-link" aria-label="LinkedIn">
+                <i className="fab fa-linkedin-in"></i>
+              </a>
+              <a href="#" className="social-link" aria-label="Twitter">
+                <i className="fab fa-twitter"></i>
+              </a>
+              <a href="#" className="social-link" aria-label="Facebook">
+                <i className="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" className="social-link" aria-label="YouTube">
+                <i className="fab fa-youtube"></i>
+              </a>
             </div>
           </div>
 
           {/* Quick Links */}
           <div className="footer-section">
-            <h3>Quick Links</h3>
+            <h4 className="footer-title">Quick Links</h4>
             <ul className="footer-links">
-              <li><a href="#">Home</a></li>
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Services</a></li>
-              <li><a href="#">Products</a></li>
-              <li><a href="#">Doctors</a></li>
-              <li><a href="#">Contact</a></li>
+              <li><Link href="/about">About Us</Link></li>
+              <li><Link href="/research">Research & Development</Link></li>
+              <li><Link href="/products">Our Products</Link></li>
+              <li><Link href="/quality">Quality & Safety</Link></li>
+              <li><Link href="/careers">Careers</Link></li>
             </ul>
           </div>
 
-          {/* Services */}
+          {/* Products */}
           <div className="footer-section">
-            <h3>Our Services</h3>
+            <h4 className="footer-title">Products</h4>
             <ul className="footer-links">
-              <li><a href="#">Prescription Medicines</a></li>
-              <li><a href="#">Over-the-Counter</a></li>
-              <li><a href="#">Specialty Drugs</a></li>
-              <li><a href="#">Health Consultations</a></li>
-              <li><a href="#">Medical Advice</a></li>
-              <li><a href="#">Emergency Care</a></li>
+              <li><Link href="/products/oncology">Oncology</Link></li>
+              <li><Link href="/products/cardiology">Cardiology</Link></li>
+              <li><Link href="/products/neurology">Neurology</Link></li>
+              <li><Link href="/products/vaccines">Vaccines</Link></li>
+              <li><Link href="/products/generics">Generic Medicines</Link></li>
             </ul>
           </div>
 
-          {/* Contact Info */}
-          <div className="footer-section">
-            <h3>Contact Us</h3>
-            <div className="contact-info">
+          {/* Contact & Emergency */}
+          <div className="footer-section contact-info">
+            <h4 className="footer-title">Contact Us</h4>
+            <div className="contact-details">
               <div className="contact-item">
                 <i className="fas fa-map-marker-alt"></i>
-                <span>123 Medical Avenue, Health City, HC 12345</span>
+                <span>123 Innovation Drive<br />Pharma Park, CA 94203</span>
               </div>
               <div className="contact-item">
-                <i className="fas fa-phone-alt"></i>
-                <span>(123) 456-7890</span>
+                <i className="fas fa-phone"></i>
+                <span>+1 (800) HEALTH-01</span>
               </div>
               <div className="contact-item">
                 <i className="fas fa-envelope"></i>
                 <span>info@spchealthcare.com</span>
               </div>
-              <div className="contact-item">
-                <i className="fas fa-clock"></i>
-                <span>Mon-Fri: 8:00 AM - 8:00 PM<br/>Sat-Sun: 10:00 AM - 4:00 PM</span>
+              <div className="contact-item emergency">
+                <i className="fas fa-ambulance"></i>
+                <span>Medical Emergency<br /><strong>+1 (800) 911-HELP</strong></span>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Newsletter Subscription */}
-        <div className="newsletter-section">
-          <div className="newsletter-content">
-            <h3>Subscribe to Our Newsletter</h3>
-            <p>Stay updated with our latest news and health tips</p>
-            <form className="newsletter-form">
-              <input 
-                type="email" 
-                placeholder="Enter your email address" 
-                required 
-              />
-              <button type="submit" className="btn btn-primary">
-                Subscribe <i className="fas fa-paper-plane"></i>
-              </button>
-            </form>
+        </div>
+      </div>
+
+      {/* Certifications & Awards */}
+      <div className="footer-certifications">
+        <div className="footer-container">
+          <h5>CERTIFIED & REGULATED BY</h5>
+          <div className="certification-logos">
+            <div className="cert-logo">FDA</div>
+            <div className="cert-logo">EMA</div>
+            <div className="cert-logo">WHO</div>
+            <div className="cert-logo">ISO 9001</div>
+            <div className="cert-logo">GMP</div>
           </div>
         </div>
+      </div>
 
-        {/* Footer Bottom */}
-        <div className="footer-bottom">
+      {/* Footer Bottom */}
+      <div className="footer-bottom">
+        <div className="footer-container">
           <div className="footer-bottom-content">
-            <p>&copy; {new Date().getFullYear()} SPC Healthcare. All rights reserved.</p>
-            <div className="legal-links">
-              <a href="#">Privacy Policy</a>
-              <a href="#">Terms of Service</a>
-              <a href="#">Cookie Policy</a>
+            <div className="copyright">
+              &copy; {currentYear} SPC Healthcare. All rights reserved.
+            </div>
+            <div className="footer-legal">
+              <Link href="/privacy">Privacy Policy</Link>
+              <Link href="/terms">Terms of Service</Link>
+              <Link href="/cookies">Cookie Policy</Link>
+              <Link href="/compliance">Compliance</Link>
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Floating Emergency Button */}
+      <div className="floating-emergency">
+        <button className="emergency-floating-btn" onClick={handleEmergencyClick}>
+          <i className="fas fa-phone-alt"></i>
+          <span>Emergency</span>
+        </button>
       </div>
     </footer>
   );
