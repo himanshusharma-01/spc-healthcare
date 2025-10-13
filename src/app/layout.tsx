@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/footer";
+import WhatsAppFloating from "./floatingWhatapp/whatsapp";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,7 +17,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "SPC Healthcare - Premium Healthcare Solutions",
-  description: "Experience world-class medical care with cutting-edge technology and compassionate healthcare professionals dedicated to your wellbeing.",
+  description:
+    "Experience world-class medical care with cutting-edge technology and compassionate healthcare professionals dedicated to your wellbeing.",
 };
 
 export default function RootLayout({
@@ -27,13 +29,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Navbar />
         {children}
+        <WhatsAppFloating phoneNumber="919780834843" position="bottom-right" showPopup={true} popupText="Chat with us on WhatsApp" />
         <Footer />
       </body>
     </html>

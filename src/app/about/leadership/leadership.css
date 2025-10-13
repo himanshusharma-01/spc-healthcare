@@ -1,16 +1,100 @@
 /* Leadership Page Specific Styles */
 .leadership-page {
     background: var(--l3-gray-light);
+    margin: 0;
+    padding: 0;
   }
+
+/* Base styles from Homepage.css - add missing classes */
+.l3-container-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.l3-hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.l3-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.l3-section {
+  padding: 0;
+}
+
+.leadership-page .l3-section {
+  padding: 0;
+  margin: 0;
+}
+
+.l3-title-line {
+  display: block;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.l3-container {
+  margin: 0;
+  padding: 0;
+}
+
+/* Override Homepage.css l3-section padding that's causing white space */
+.leadership-page .l3-section {
+  padding: 0 !important;
+  margin: 0 !important;
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+/* Specifically target the first section to remove top padding */
+.leadership-page .l3-section:first-of-type {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* Override any global section styles */
+.leadership-page .leadership-hero.l3-section {
+  padding: 1rem 0 !important;
+  margin: 0 !important;
+}
+
+/* Only add padding to specific sections that need it */
+.leadership-page .executive-team-section {
+  padding: 2rem 0 !important;
+}
+
+.leadership-page .board-section {
+  padding: 2rem 0 !important;
+}
+
+.leadership-page .leadership-cta-section {
+  padding: 2rem 0 !important;
+}
   
   /* Leadership Hero Section */
   .leadership-hero {
-    min-height: 70vh;
+    min-height: 30vh;
     background: var(--l3-gradient-hero);
     position: relative;
     display: flex;
     align-items: center;
     overflow: hidden;
+    margin: 0;
+    padding: 1rem 0;
   }
   
   .leadership-hero-pattern {
@@ -39,6 +123,7 @@
     line-height: 1.1;
     margin-bottom: 1.5rem;
     color: white;
+    text-align: center;
   }
   
   .leadership-hero-subtitle {
@@ -47,11 +132,14 @@
     opacity: 0.9;
     line-height: 1.6;
     color: white;
+    text-align: center;
   }
   
   .leadership-stats {
     display: flex;
     gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
   }
   
   .leadership-stat {
@@ -492,10 +580,35 @@
   
     .leadership-hero-title {
       font-size: 2.5rem;
+      text-align: center;
+    }
+  
+    .leadership-hero-subtitle {
+      text-align: center;
+      margin: 0 auto 2rem auto;
+      max-width: 90%;
     }
   
     .leadership-stats {
       justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+  
+    .leadership-stat {
+      text-align: center;
+      min-width: 120px;
+    }
+  
+    .leadership-hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .leadership-visual-element {
+      width: 200px;
+      height: 200px;
     }
   
     .executive-header {
@@ -522,45 +635,103 @@
     .specialties-list {
       justify-content: center;
     }
+  
+    .executive-card {
+      text-align: center;
+    }
+  
+    .executive-bio {
+      text-align: center;
+    }
   }
   
   @media (max-width: 480px) {
     .leadership-hero-title {
       font-size: 2rem;
+      text-align: center;
     }
   
     .leadership-hero-subtitle {
       font-size: 1.1rem;
+      text-align: center;
+      margin: 0 auto 2rem auto;
+      max-width: 95%;
     }
   
     .leadership-stats {
       flex-direction: column;
       gap: 1.5rem;
+      align-items: center;
+    }
+  
+    .leadership-stat {
+      text-align: center;
+      width: 100%;
+      max-width: 200px;
+    }
+  
+    .leadership-hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 2rem;
+    }
+  
+    .leadership-visual-element {
+      width: 180px;
+      height: 180px;
+    }
+  
+    .orbit-1 {
+      width: 120px;
+      height: 120px;
+    }
+  
+    .orbit-2 {
+      width: 100px;
+      height: 100px;
     }
   
     .executive-card {
       padding: 2rem 1.5rem;
+      text-align: center;
     }
   
     .department-card,
     .board-card,
     .philosophy-item {
       padding: 2rem 1.5rem;
+      text-align: center;
     }
   
-    .leadership-visual-element {
-      width: 250px;
-      height: 250px;
+    .executive-bio {
+      text-align: center;
     }
   
-    .orbit-1 {
-      width: 150px;
-      height: 150px;
+    .specialties-list {
+      justify-content: center;
+      flex-wrap: wrap;
     }
   
-    .orbit-2 {
-      width: 120px;
-      height: 120px;
+    .leadership-cta-title {
+      font-size: 2rem;
+      text-align: center;
+    }
+  
+    .leadership-cta-text {
+      text-align: center;
+      font-size: 1.1rem;
+    }
+  
+    /* Ensure footer is visible and properly spaced */
+    .leadership-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+  
+    .leadership-page .l3-section:last-child {
+      margin-top: auto;
     }
   
     .orbit-3 {

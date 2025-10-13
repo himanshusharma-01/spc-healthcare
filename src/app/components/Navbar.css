@@ -233,12 +233,25 @@
   transform: translateY(10px);
   transition: all 0.3s ease;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 999;
 }
 
 .dropdown-menu.active {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
+}
+
+/* Dropdown Backdrop */
+.dropdown-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 998;
+  cursor: pointer;
 }
 
 .dropdown-link {

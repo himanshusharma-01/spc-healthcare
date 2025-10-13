@@ -19,6 +19,11 @@ const Navbar: React.FC = () => {
     setActiveDropdown(activeDropdown === dropdown ? null : dropdown);
   };
 
+  const closeAllDropdowns = () => {
+    setActiveDropdown(null);
+    setIsMobileMenuOpen(false);
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       const isScrolled = window.scrollY > 50;
@@ -33,6 +38,51 @@ const Navbar: React.FC = () => {
     setIsMobileMenuOpen(false);
     setActiveDropdown(null);
   }, [pathname]);
+
+  // Close dropdowns when clicking outside or pressing Escape
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      
+      // Check if click is outside navbar dropdowns
+      if (!target.closest('.nav-dropdown') && !target.closest('.nav-item')) {
+        setActiveDropdown(null);
+      }
+    };
+
+    // Close mobile menu when clicking outside
+    const handleMobileClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      
+      if (!target.closest('.navbar') && !target.closest('.mobile-toggle')) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    // Close dropdowns on Escape key
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        closeAllDropdowns();
+      }
+    };
+
+    if (activeDropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    if (isMobileMenuOpen) {
+      document.addEventListener('mousedown', handleMobileClickOutside);
+    }
+
+    // Always listen for Escape key
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('mousedown', handleMobileClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [activeDropdown, isMobileMenuOpen]);
 
   const isActiveLink = (path: string) => {
     return pathname === path ? 'active' : '';
@@ -78,7 +128,7 @@ const Navbar: React.FC = () => {
       <div className="announcement-bar">
         <div className="announcement-content">
          
-          <span>Breakthrough in Cancer Research - New Treatment Now Available</span>
+          <span>"Your Health, Our Priority – Trusted Care for Every Step of Life."</span>
          
         </div>
       </div>
@@ -120,6 +170,7 @@ const Navbar: React.FC = () => {
                             key={dropdownItem.href} 
                             href={dropdownItem.href}
                             className="dropdown-link"
+                            onClick={() => setActiveDropdown(null)}
                           >
                             {dropdownItem.label}
                           </Link>
@@ -144,7 +195,7 @@ const Navbar: React.FC = () => {
           <div className="nav-actions">
             <button 
               className="action-btn appointment-btn"
-              onClick={handleBookAppointment}
+              onClick={() => window.location.href = '/contact'}
             >
               <i className="fas fa-calendar-check"></i>
               <span>Get in touch</span>
@@ -164,6 +215,14 @@ const Navbar: React.FC = () => {
             </div>
           </button>
         </div>
+
+        {/* Dropdown Backdrop */}
+        {activeDropdown && (
+          <div 
+            className="dropdown-backdrop"
+            onClick={() => setActiveDropdown(null)}
+          />
+        )}
 
         {/* Mobile Menu */}
         <div className={`mobile-menu ${isMobileMenuOpen ? 'active' : ''}`}>

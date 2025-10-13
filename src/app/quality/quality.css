@@ -1,0 +1,930 @@
+/* Quality & Safety Page Specific Styles */
+.quality-safety-page {
+    background: var(--l3-gray-light);
+    margin: 0;
+    padding: 0;
+  }
+
+/* Base styles from Homepage.css - add missing classes */
+.l3-container-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.l3-hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.l3-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.l3-section {
+  padding: 0;
+}
+
+.quality-safety-page .l3-section {
+  padding: 0;
+  margin: 0;
+}
+
+.l3-title-line {
+  display: block;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.l3-container {
+  margin: 0;
+  padding: 0;
+}
+
+/* Override Homepage.css l3-section padding that's causing white space */
+.quality-safety-page .l3-section {
+  padding: 0 !important;
+  margin: 0 !important;
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+/* Specifically target the first section to remove top padding */
+.quality-safety-page .l3-section:first-of-type {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* Override any global section styles */
+.quality-safety-page .quality-hero.l3-section {
+  padding: 1rem 0 !important;
+  margin: 0 !important;
+}
+
+/* Only add padding to specific sections that need it */
+.quality-safety-page .quality-systems-section {
+  padding: 2rem 0 !important;
+}
+
+.quality-safety-page .certifications-section {
+  padding: 2rem 0 !important;
+}
+
+.quality-safety-page .safety-measures-section {
+  padding: 2rem 0 !important;
+}
+
+.quality-safety-page .compliance-section {
+  padding: 2rem 0 !important;
+}
+
+.quality-safety-page .quality-cta-section {
+  padding: 2rem 0 !important;
+}
+  
+  /* Quality Hero Section */
+  .quality-hero {
+    min-height: 30vh;
+    background: var(--l3-gradient-hero);
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    margin: 0;
+    padding: 1rem 0;
+  }
+  
+  .quality-hero-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+  }
+  
+  .quality-hero-content {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .quality-hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: white;
+  }
+  
+  .quality-hero-subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 2.5rem;
+    opacity: 0.9;
+    line-height: 1.6;
+    color: white;
+  }
+  
+  .quality-hero-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .quality-stat {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .quality-stat-icon {
+    font-size: 2rem;
+  }
+  
+  .quality-stat-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .quality-stat-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--l3-teal);
+    line-height: 1;
+  }
+  
+  .quality-stat-label {
+    font-size: 0.875rem;
+    opacity: 0.8;
+    color: white;
+    margin-top: 0.25rem;
+  }
+  
+  .quality-hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .quality-visual-element {
+    position: relative;
+    width: 250px;
+    height: 250px;
+  }
+  
+  .quality-shield {
+    font-size: 5rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    opacity: 0.9;
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .quality-certificate {
+    font-size: 3rem;
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    color: white;
+    opacity: 0.7;
+    animation: float 3s ease-in-out infinite 1s;
+  }
+  
+  .quality-badge {
+    font-size: 2.5rem;
+    position: absolute;
+    bottom: 25%;
+    right: 25%;
+    color: white;
+    opacity: 0.8;
+    animation: float 3s ease-in-out infinite 2s;
+  }
+  
+  /* Quality Tabs Section */
+  .quality-tabs-section {
+    padding: 2rem 0;
+    background: white;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--l3-gray-medium);
+  }
+  
+  .quality-tabs-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .quality-tab {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    background: var(--l3-gray-light);
+    border: 2px solid var(--l3-gray-medium);
+    border-radius: var(--l3-border-radius);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--l3-text-light);
+  }
+  
+  .quality-tab:hover {
+    border-color: var(--l3-teal);
+    transform: translateY(-2px);
+  }
+  
+  .quality-tab.active {
+    background: var(--l3-teal);
+    color: white;
+    border-color: var(--l3-teal);
+  }
+  
+  .tab-icon {
+    font-size: 1.25rem;
+  }
+  
+  /* Content Sections */
+  .quality-content-section,
+  .safety-content-section,
+  .certifications-content-section {
+    padding: 5rem 0;
+    background: white;
+  }
+  
+  /* Quality Systems Grid */
+  .quality-systems-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+  
+  .quality-system-card {
+    background: var(--l3-gray-light);
+    padding: 2.5rem;
+    border-radius: var(--l3-border-radius-lg);
+    border: 1px solid var(--l3-gray-medium);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .quality-system-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--l3-gradient);
+  }
+  
+  .quality-system-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--l3-shadow-medium);
+  }
+  
+  .system-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .system-icon {
+    font-size: 2.5rem;
+  }
+  
+  .system-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--l3-navy-dark);
+    margin: 0;
+  }
+  
+  .system-description {
+    color: var(--l3-text-light);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+  
+  .system-features h4 {
+    color: var(--l3-navy-dark);
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+  }
+  
+  .system-features ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .system-features li {
+    padding: 0.5rem 0;
+    color: var(--l3-text-light);
+    position: relative;
+    padding-left: 1.5rem;
+  }
+  
+  .system-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--l3-teal);
+    font-weight: bold;
+  }
+  
+  /* Quality Principles */
+  .quality-principles-section {
+    background: var(--l3-gray-light);
+    padding: 3rem;
+    border-radius: var(--l3-border-radius-lg);
+    border: 1px solid var(--l3-gray-medium);
+  }
+  
+  .principles-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--l3-navy-dark);
+    font-size: 1.75rem;
+  }
+  
+  .principles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+  
+  .principle-card {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--l3-border-radius);
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid var(--l3-gray-medium);
+  }
+  
+  .principle-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--l3-shadow-soft);
+  }
+  
+  .principle-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .principle-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--l3-navy-dark);
+  }
+  
+  .principle-description {
+    color: var(--l3-text-light);
+    line-height: 1.5;
+  }
+  
+  /* Safety Programs */
+  .safety-programs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  .safety-program-card {
+    background: var(--l3-gray-light);
+    padding: 2.5rem;
+    border-radius: var(--l3-border-radius-lg);
+    border: 1px solid var(--l3-gray-medium);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .safety-program-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(135deg, #00A3B4, #00A676);
+  }
+  
+  .safety-program-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--l3-shadow-medium);
+  }
+  
+  .program-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .program-icon {
+    font-size: 2.5rem;
+  }
+  
+  .program-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--l3-navy-dark);
+    margin: 0;
+  }
+  
+  .program-description {
+    color: var(--l3-text-light);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+  
+  .program-features h4 {
+    color: var(--l3-navy-dark);
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+  }
+  
+  .program-features ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .program-features li {
+    padding: 0.5rem 0;
+    color: var(--l3-text-light);
+    position: relative;
+    padding-left: 1.5rem;
+  }
+  
+  .program-features li::before {
+    content: '🛡️';
+    position: absolute;
+    left: 0;
+    color: var(--l3-teal);
+  }
+  
+  /* Safety Commitment */
+  .safety-commitment {
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    padding: 3rem;
+    border-radius: var(--l3-border-radius-lg);
+    margin-top: 3rem;
+  }
+  
+  .commitment-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  .commitment-icon {
+    font-size: 4rem;
+    flex-shrink: 0;
+  }
+  
+  .commitment-text h3 {
+    color: var(--l3-navy-dark);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+  
+  .commitment-text p {
+    color: var(--l3-text-light);
+    line-height: 1.6;
+    margin: 0;
+  }
+  
+  /* Certifications Grid */
+  .certifications-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+  
+  .certification-card {
+    background: var(--l3-gray-light);
+    padding: 2.5rem 2rem;
+    border-radius: var(--l3-border-radius-lg);
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid var(--l3-gray-medium);
+    position: relative;
+  }
+  
+  .certification-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--l3-shadow-medium);
+  }
+  
+  .certification-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: var(--l3-gradient);
+    border-radius: 0 0 3px 3px;
+  }
+  
+  .certification-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .certification-icon {
+    font-size: 2.5rem;
+  }
+  
+  .certification-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--l3-navy-dark);
+    margin: 0;
+  }
+  
+  .certification-scope {
+    color: var(--l3-text-light);
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+  }
+  
+  .certification-status {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center;
+  }
+  
+  .status-badge {
+    background: var(--l3-teal);
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  
+  .status-date {
+    color: var(--l3-text-light);
+    font-size: 0.9rem;
+  }
+  
+  /* Regulatory Map */
+  .regulatory-map-section {
+    background: var(--l3-gray-light);
+    padding: 3rem;
+    border-radius: var(--l3-border-radius-lg);
+    border: 1px solid var(--l3-gray-medium);
+  }
+  
+  .regulatory-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--l3-navy-dark);
+    font-size: 1.75rem;
+  }
+  
+  .regulatory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+  
+  .regulatory-region {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--l3-border-radius);
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid var(--l3-gray-medium);
+  }
+  
+  .regulatory-region:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--l3-shadow-soft);
+  }
+  
+  .region-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .regulatory-region h4 {
+    color: var(--l3-navy-dark);
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+  }
+  
+  .regulatory-region p {
+    color: var(--l3-text-light);
+    line-height: 1.5;
+    margin: 0;
+  }
+  
+  /* Manufacturing Section */
+  .manufacturing-section {
+    padding: 5rem 0;
+    background: var(--l3-gray-light);
+  }
+  
+  .manufacturing-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  
+  .manufacturing-text h2 {
+    margin-bottom: 1.5rem;
+  }
+  
+  .manufacturing-text p {
+    color: var(--l3-text-light);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+  
+  .manufacturing-features {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .manufacturing-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .feature-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+  }
+  
+  .feature-content h4 {
+    color: var(--l3-navy-dark);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+  }
+  
+  .feature-content p {
+    color: var(--l3-text-light);
+    line-height: 1.5;
+    margin: 0;
+  }
+  
+  .manufacturing-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .manufacturing-placeholder {
+    background: var(--l3-gradient);
+    padding: 3rem;
+    border-radius: var(--l3-border-radius-lg);
+    text-align: center;
+    color: white;
+    width: 100%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .manufacturing-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+  }
+  
+  .manufacturing-placeholder p {
+    color: white;
+    opacity: 0.9;
+    margin: 0;
+  }
+  
+  /* QA Process Section */
+  .qa-process-section {
+    padding: 5rem 0;
+    background: white;
+  }
+  
+  .process-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .process-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    padding: 2rem;
+    background: var(--l3-gray-light);
+    border-radius: var(--l3-border-radius-lg);
+    border: 1px solid var(--l3-gray-medium);
+    transition: all 0.3s ease;
+  }
+  
+  .process-step:hover {
+    transform: translateX(10px);
+    box-shadow: var(--l3-shadow-soft);
+  }
+  
+  .step-number {
+    background: var(--l3-teal);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  
+  .step-content h4 {
+    color: var(--l3-navy-dark);
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+  }
+  
+  .step-content p {
+    color: var(--l3-text-light);
+    line-height: 1.5;
+    margin: 0;
+  }
+  
+  /* Quality CTA Section */
+  .quality-cta-section {
+    padding: 5rem 0;
+    background: var(--l3-navy-medium);
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .quality-cta-content {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .quality-cta-title {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    color: white;
+  }
+  
+  .quality-cta-text {
+    font-size: 1.2rem;
+    margin-bottom: 2.5rem;
+    opacity: 0.9;
+    line-height: 1.6;
+    color: white;
+  }
+  
+  .quality-cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  /* Animations */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .quality-hero-content {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      text-align: center;
+    }
+  
+    .quality-hero-title {
+      font-size: 2.5rem;
+    }
+  
+    .quality-hero-stats {
+      grid-template-columns: 1fr;
+    }
+  
+    .quality-stat {
+      justify-content: center;
+    }
+  
+    .quality-tabs-container {
+      flex-direction: column;
+    }
+  
+    .quality-systems-grid,
+    .safety-programs-grid,
+    .certifications-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .principles-grid,
+    .regulatory-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .manufacturing-content {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  
+    .commitment-content {
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem;
+    }
+  
+    .process-step {
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+    }
+  
+    .quality-cta-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .quality-hero-title {
+      font-size: 2rem;
+    }
+  
+    .quality-hero-subtitle {
+      font-size: 1.1rem;
+    }
+  
+    .quality-visual-element {
+      width: 200px;
+      height: 200px;
+    }
+  
+    .quality-system-card,
+    .safety-program-card,
+    .certification-card {
+      padding: 2rem 1.5rem;
+    }
+  
+    .manufacturing-placeholder {
+      padding: 2rem 1.5rem;
+      height: 250px;
+    }
+  }

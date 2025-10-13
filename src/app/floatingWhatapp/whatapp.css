@@ -1,0 +1,113 @@
+/* components/WhatsAppFloating.module.css */
+.whatsappContainer {
+    position: fixed;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .bottom-right {
+    bottom: 20px;
+    right: 20px;
+  }
+  
+  .bottom-left {
+    bottom: 20px;
+    left: 20px;
+  }
+  
+  .whatsappButton {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #25d366;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    transition: all 0.3s ease;
+    color: white;
+  }
+  
+  .whatsappButton:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
+    background-color: #128c7e;
+  }
+  
+  .whatsappButton:active {
+    transform: scale(0.95);
+  }
+  
+  .popup {
+    background-color: white;
+    color: #333;
+    padding: 10px 15px;
+    border-radius: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    animation: fadeIn 0.3s ease;
+    position: relative;
+  }
+  
+  .popupArrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid white;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .bottom-right .popupArrow {
+    left: auto;
+    right: 20px;
+    transform: translateX(0);
+  }
+  
+  .bottom-left .popupArrow {
+    left: 20px;
+    transform: translateX(0);
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .whatsappButton {
+      width: 55px;
+      height: 55px;
+    }
+    
+    .popup {
+      font-size: 12px;
+      padding: 8px 12px;
+    }
+    
+    .bottom-right {
+      bottom: 15px;
+      right: 15px;
+    }
+    
+    .bottom-left {
+      bottom: 15px;
+      left: 15px;
+    }
+  }

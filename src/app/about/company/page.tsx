@@ -238,7 +238,7 @@ export default function OurCompany() {
           )}
 
           {/* Awards Content */}
-          {activeTab === 'awards' && (
+          {activeTab === 'awards' && 'awards' in currentData && (
             <div className="awards-content">
               <div className="awards-list">
                 {currentData.awards.map((award, index) => (

@@ -82,8 +82,8 @@ const Footer: React.FC = () => {
           <div className="footer-section">
             <h4 className="footer-title">Quick Links</h4>
             <ul className="footer-links">
-              <li><Link href="/about">About Us</Link></li>
-              <li><Link href="/research">Research & Development</Link></li>
+              <li><Link href="/about/company">About Us</Link></li>
+              <li><Link href="/about/leadership">Leadership</Link></li>
               <li><Link href="/products">Our Products</Link></li>
               <li><Link href="/quality">Quality & Safety</Link></li>
               <li><Link href="/careers">Careers</Link></li>

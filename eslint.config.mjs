@@ -20,6 +20,14 @@ const eslintConfig = [
       "next-env.d.ts",
     ],
   },
+  {
+    rules: {
+      // Allow apostrophes/quotes in JSX text content without needing HTML entities
+      "react/no-unescaped-entities": "off",
+      // Optional: relax this rule to avoid warnings during build; you can remove later if you prefer using next/image
+      "@next/next/no-img-element": "warn",
+    },
+  },
 ];
 
 export default eslintConfig;

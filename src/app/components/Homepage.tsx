@@ -142,7 +142,12 @@ export default function Homepage() {
             </p>
             <div className="l3-hero-buttons">
               <button className="l3-btn l3-btn-primary">Explore Our Products</button>
-              <button className="l3-btn l3-btn-secondary">Learn About Us</button>
+              <button 
+                className="l3-btn l3-btn-secondary"
+                onClick={() => window.location.href = '/about/company'}
+              >
+                Learn About Us
+              </button>
             </div>
             <div className="l3-hero-stats">
               <div className="l3-hero-stat">
@@ -516,7 +521,12 @@ export default function Homepage() {
               Partner with SPC Healthcare to deliver innovative healthcare solutions that make a difference in people&apos;s lives worldwide.
             </p>
             <div className="l3-cta-buttons">
-              <button className="l3-btn l3-btn-primary l3-btn-large">Get in Touch</button>
+              <button 
+                className="l3-btn l3-btn-primary l3-btn-large"
+                onClick={() => window.location.href = '/contact'}
+              >
+                Get in Touch
+              </button>
             </div>
           </div>
         </div>
