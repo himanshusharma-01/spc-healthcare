@@ -112,11 +112,11 @@ const Navbar: React.FC = () => {
       label: 'Products', 
       icon: 'fas fa-pills',
       dropdown: [
-        { href: '/products/oncology', label: 'Oncology' },
-        { href: '/products/cardiology', label: 'Cardiology' },
-        { href: '/products/neurology', label: 'Neurology' },
-        { href: '/products/vaccines', label: 'Vaccines' },
-        { href: '/products/generics', label: 'Generic Medicines' }
+        { href: '/products/Syrups', label: 'Syrups' },
+        { href: '/products/OralSuspensions', label: 'Oral Suspensions' },
+        { href: '/products/OralDrops', label: 'Oral Drops' },
+        { href: '/products/Tablets', label: 'Tablets' },
+        { href: '/products/Capsules', label: 'Capsules' }
       ]
     },
     { href: '/contact', label: 'Contact', icon: 'fas fa-envelope' }

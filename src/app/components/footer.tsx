@@ -63,16 +63,16 @@ const Footer: React.FC = () => {
               Committed to research, development, and delivery of life-changing medications.
             </p>
             <div className="footer-social">
-              <a href="#" className="social-link" aria-label="LinkedIn">
+              <a href="http://linkedin.com/company/104264815/admin/page-posts/published" className="social-link" aria-label="LinkedIn">
                 <i className="fab fa-linkedin-in"></i>
               </a>
-              <a href="#" className="social-link" aria-label="Twitter">
+              <a href="https://x.com/SpcHealthcare" className="social-link" aria-label="Twitter">
                 <i className="fab fa-twitter"></i>
               </a>
-              <a href="#" className="social-link" aria-label="Facebook">
+              <a href="https://www.facebook.com/spchealthcarein" className="social-link" aria-label="Facebook">
                 <i className="fab fa-facebook-f"></i>
               </a>
-              <a href="#" className="social-link" aria-label="YouTube">
+              <a href="http://www.youtube.com/@spchealthcarepvt.ltd.3413" className="social-link" aria-label="YouTube">
                 <i className="fab fa-youtube"></i>
               </a>
             </div>
