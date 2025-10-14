@@ -228,9 +228,9 @@ const ProductsPage: React.FC = () => {
             </div>
           ) : (
             <div className="products-grid">
-              {filteredProducts.map((product) => (
+              {filteredProducts.map((product, index) => (
                 <ProductCard
-                  key={product.id}
+                  key={`${product.id}-${index}`}
                   product={product}
                   onViewDetails={handleViewDetails}
                 />

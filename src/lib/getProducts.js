@@ -4,7 +4,18 @@
 // Make sure to deploy as "Anyone" for CORS to work
 const API_URL = "https://script.google.com/macros/s/AKfycby0QnDhYUggQ1p6Au7pOsvqxKXf-C6ThCvD4oB08hpkVCoUukuUVHK0fKuC7_mOXH5u/exec"
 
+// Cache for storing products data
+let productsCache = null;
+let cacheTimestamp = null;
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
 export async function getProducts() {
+  // Check if we have valid cached data
+  if (productsCache && cacheTimestamp && (Date.now() - cacheTimestamp) < CACHE_DURATION) {
+    console.log('Using cached products data');
+    return productsCache;
+  }
+
   try {
     const res = await fetch(
       API_URL,
@@ -26,7 +37,19 @@ export async function getProducts() {
     }
     
     const data = await res.json();
-    return data;
+    
+    // Ensure unique IDs by adding index if duplicates exist
+    const processedData = data.map((product, index) => ({
+      ...product,
+      id: `${product.id}-${index}` // Make IDs unique
+    }));
+    
+    // Cache the data
+    productsCache = processedData;
+    cacheTimestamp = Date.now();
+    console.log('Products data cached with unique IDs');
+    
+    return processedData;
   } catch (error) {
     console.error('Error in getProducts:', error);
     
@@ -34,7 +57,7 @@ export async function getProducts() {
     console.log('Using sample data for testing...');
     return [
       {
-        id: "1",
+        id: "sample-1",
         name: "Sample Product 1",
         slug: "sample-product-1",
         shortDescription: "This is a sample product for testing",
@@ -44,7 +67,7 @@ export async function getProducts() {
         usagePoints: ["Pain relief", "Anti-inflammatory", "Fever reduction"]
       },
       {
-        id: "2", 
+        id: "sample-2", 
         name: "Sample Product 2",
         slug: "sample-product-2",
         shortDescription: "Another sample product for testing",

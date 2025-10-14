@@ -1,17 +1,44 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import './OralDropsPage.css';
+import { loadCategoryProducts, generateFilterCounts, Product } from '@/lib/productCategoryUtils';
 
 export default function OralDropsPage() {
   const [activeFilter, setActiveFilter] = useState('all');
+  const [products, setProducts] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const productFilters = [
-    { id: 'all', name: 'All Drops', count: 6 },
-    { id: 'vitamin', name: 'Vitamins', count: 2 },
-    { id: 'pediatric', name: 'Pediatric', count: 2 },
-    { id: 'digestive', name: 'Digestive', count: 2 }
+  // Load products from Google Sheets
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        setLoading(true);
+        const dropsProducts = await loadCategoryProducts('drops');
+        setProducts(dropsProducts);
+        setFilteredProducts(dropsProducts);
+      } catch (error) {
+        console.error('Error loading products:', error);
+        setProducts([]);
+        setFilteredProducts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProducts();
+  }, []);
+
+  const filterDefinitions = [
+    { id: 'all', name: 'All Drops', keywords: [] },
+    { id: 'vitamin', name: 'Vitamins', keywords: ['vitamin', 'vit', 'nutritional', 'supplement'] },
+    { id: 'pediatric', name: 'Pediatric', keywords: ['pediatric', 'kids', 'baby', 'child'] },
+    { id: 'digestive', name: 'Digestive', keywords: ['digestive', 'stomach', 'gut', 'digestion'] }
   ];
+
+  const productFilters = generateFilterCounts(products, filterDefinitions);
 
   const dropsProducts = [
     {
@@ -44,9 +71,30 @@ export default function OralDropsPage() {
     }
   ];
 
-  const filteredProducts = activeFilter === 'all' 
-    ? dropsProducts 
-    : dropsProducts.filter(product => product.category === activeFilter);
+  // Filter products based on active filter
+  useEffect(() => {
+    if (activeFilter === 'all') {
+      setFilteredProducts(products);
+    } else {
+      const filter = filterDefinitions.find(f => f.id === activeFilter);
+      if (filter) {
+        const filtered = products.filter(product => {
+          const name = product.name.toLowerCase();
+          const description = product.shortDescription.toLowerCase();
+          const usagePoints = product.usagePoints?.join(' ').toLowerCase() || '';
+          
+          return filter.keywords.some(keyword => 
+            name.includes(keyword) || 
+            description.includes(keyword) || 
+            usagePoints.includes(keyword)
+          );
+        });
+        setFilteredProducts(filtered);
+      } else {
+        setFilteredProducts(products);
+      }
+    }
+  }, [activeFilter, products]);
 
   const productCategories = {
     vitamin: { name: 'Vitamins', color: '#f59e0b' },
@@ -98,79 +146,104 @@ export default function OralDropsPage() {
             </div>
           </div>
 
-          <div className="products-grid">
-            {filteredProducts.map(product => (
-              <div key={product.id} className="product-card">
-                <div className="product-image-container">
-                  <img 
-                    src={product.productImage} 
-                    alt={product.name}
-                    className="product-image"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                      e.currentTarget.nextElementSibling.style.display = 'flex';
-                    }}
-                  />
-                  <div className="product-image-fallback" style={{ display: 'none' }}>
-                    <span className="product-icon">{product.image}</span>
-                  </div>
-                </div>
-                
-                <div className="product-header">
-                  <div className="product-basic-info">
-                    <h3 className="product-name">{product.name}</h3>
-                    <div className="product-type">{product.type}</div>
-                    <div 
-                      className="product-category"
-                      style={{ 
-                        backgroundColor: `${productCategories[product.category].color}20`,
-                        color: productCategories[product.category].color
-                      }}
-                    >
-                      {productCategories[product.category].name}
+          {loading ? (
+            <div className="loading-container">
+              <div className="loading-spinner"></div>
+              <p>Loading products from Google Sheets...</p>
+            </div>
+          ) : filteredProducts.length > 0 ? (
+            <div className="products-grid">
+              {filteredProducts.map((product, index) => (
+                <Link key={`${product.id}-${index}`} href={`/products/${product.slug}`} className="product-card-link">
+                  <div className="product-card">
+                  <div className="product-image-container">
+                    {product.imageUrls && product.imageUrls.length > 0 ? (
+                      <img 
+                        src={product.imageUrls[0]}
+                        alt={product.name}
+                        className="product-image"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                          const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
+                          if (nextElement) {
+                            nextElement.style.display = 'flex';
+                          }
+                        }}
+                      />
+                    ) : null}
+                    <div className="product-image-fallback" style={{ display: product.imageUrls && product.imageUrls.length > 0 ? 'none' : 'flex' }}>
+                      <span className="product-icon">💧</span>
                     </div>
                   </div>
-                </div>
-
-                <div className="product-indication">
-                  <strong>Indication:</strong> {product.indication}
-                </div>
-
-                <p className="product-description">{product.description}</p>
-
-                <div className="product-details">
-                  <div className="detail-item">
-                    <span className="detail-label">Strength:</span>
-                    <span className="detail-value">{product.strength}</span>
+                  
+                  <div className="product-header">
+                    <div className="product-basic-info">
+                      <h3 className="product-name">{product.name}</h3>
+                      <div className="product-type">{product.drugType}</div>
+                      {product.category && (
+                        <div 
+                          className="product-category"
+                          style={{ 
+                            backgroundColor: '#06b6d420',
+                            color: '#06b6d4'
+                          }}
+                        >
+                          {product.category}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                  <div className="detail-item">
-                    <span className="detail-label">Packaging:</span>
-                    <span className="detail-value">{product.packaging}</span>
-                  </div>
-                  <div className="detail-item">
-                    <span className="detail-label">Status:</span>
-                    <span className={`detail-value status-${product.status.toLowerCase()}`}>
-                      {product.status}
-                    </span>
-                  </div>
-                </div>
 
-                <div className="product-features">
-                  <h4>Key Features:</h4>
-                  <ul>
-                    {product.features.map((feature, index) => (
-                      <li key={index}>{feature}</li>
-                    ))}
-                  </ul>
-                </div>
+                  <div className="product-indication">
+                    <strong>Description:</strong> {product.shortDescription}
+                  </div>
 
-                <div className="product-actions">
-                  <button className="l3-btn l3-btn-primary">Product Details</button>
-                  <button className="l3-btn l3-btn-secondary">Prescribing Info</button>
-                </div>
-              </div>
-            ))}
-          </div>
+                  {product.longDescription && (
+                    <div className="product-description" dangerouslySetInnerHTML={{ __html: product.longDescription }} />
+                  )}
+
+                  <div className="product-details">
+                    <div className="detail-item">
+                      <span className="detail-label">Type:</span>
+                      <span className="detail-value">{product.drugType}</span>
+                    </div>
+                    {product.category && (
+                      <div className="detail-item">
+                        <span className="detail-label">Category:</span>
+                        <span className="detail-value">{product.category}</span>
+                      </div>
+                    )}
+                    <div className="detail-item">
+                      <span className="detail-label">Status:</span>
+                      <span className="detail-value status-available">Available</span>
+                    </div>
+                  </div>
+
+                  {product.usagePoints && product.usagePoints.length > 0 && (
+                    <div className="product-features">
+                      <h4>Key Benefits:</h4>
+                      <ul>
+                        {product.usagePoints.map((point, index) => (
+                          <li key={index}>{point}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                    <div className="product-actions">
+                      <button className="l3-btn l3-btn-primary">Product Details</button>
+                      <button className="l3-btn l3-btn-secondary">Prescribing Info</button>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="no-products">
+              <h3>No products found</h3>
+              <p>No oral drops products match your current filter. Try selecting a different category.</p>
+            </div>
+          )}
         </div>
       </section>
     </div>

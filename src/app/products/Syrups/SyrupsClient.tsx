@@ -1,9 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import './SyrupsPage.css';
-import { getProducts } from '@/lib/getProducts';
 
 interface Product {
   id: string;
@@ -17,52 +14,14 @@ interface Product {
   category?: string;
 }
 
-export default function SyrupsPage() {
+interface SyrupsClientProps {
+  initialProducts: Product[];
+}
+
+export default function SyrupsClient({ initialProducts }: SyrupsClientProps) {
   const [activeFilter, setActiveFilter] = useState('all');
-  const [products, setProducts] = useState<Product[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  // Keywords to identify syrup products
-  const syrupKeywords = ['syrup', 'liquid', 'oral solution', 'elixir', 'tonic'];
-  
-  // Filter products that contain syrup-related keywords
-  const filterSyrupProducts = (products: Product[]) => {
-    return products.filter(product => {
-      const category = product.category?.toLowerCase() || '';
-      const name = product.name.toLowerCase();
-      const description = product.shortDescription.toLowerCase();
-      
-      return syrupKeywords.some(keyword => 
-        category.includes(keyword) || 
-        name.includes(keyword) || 
-        description.includes(keyword)
-      );
-    });
-  };
-
-  // Load products from Google Sheets
-  useEffect(() => {
-    const loadProducts = async () => {
-      try {
-        setLoading(true);
-        const allProducts = await getProducts();
-        const syrupProducts = filterSyrupProducts(allProducts);
-        
-        setProducts(syrupProducts);
-        setFilteredProducts(syrupProducts);
-      } catch (error) {
-        console.error('Error loading products:', error);
-        // Fallback to sample data
-        setProducts([]);
-        setFilteredProducts([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadProducts();
-  }, []);
+  const [products] = useState<Product[]>(initialProducts);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>(initialProducts);
 
   const productFilters = [
     { id: 'all', name: 'All Syrups', count: products.length },
@@ -125,26 +84,21 @@ export default function SyrupsPage() {
 
   return (
     <div className="l3-container syrups-page">
-      {/* Hero Section */}
       <section className="syrups-hero">
         <div className="l3-container-inner">
           <div className="syrups-hero-content">
             <div className="syrups-hero-text">
               <h1 className="syrups-hero-title">
                 <span className="l3-title-line">Syrups</span>
-                <span className="l3-title-line">Liquid Health Solutions</span>
+                <span className="l3-title-line">Liquid Solutions</span>
               </h1>
               <p className="syrups-hero-subtitle">
-                High-quality liquid formulations designed for easy administration and effective treatment across various therapeutic areas.
+                High-quality liquid formulations for easy administration and effective treatment across all age groups.
               </p>
-              <div className="syrups-hero-stats">
+              <div className="syrups-stats">
                 <div className="syrups-stat">
-                  <div className="syrups-stat-number">12+</div>
-                  <div className="syrups-stat-label">Syrup Products</div>
-                </div>
-                <div className="syrups-stat">
-                  <div className="syrups-stat-number">4</div>
-                  <div className="syrups-stat-label">Categories</div>
+                  <div className="syrups-stat-number">{products.length}+</div>
+                  <div className="syrups-stat-label">Products</div>
                 </div>
                 <div className="syrups-stat">
                   <div className="syrups-stat-number">100%</div>
@@ -243,17 +197,11 @@ export default function SyrupsPage() {
             </div>
           </div>
 
-          {/* Products Grid */}
-          {loading ? (
-            <div className="loading-container">
-              <div className="loading-spinner"></div>
-              <p>Loading products from Google Sheets...</p>
-            </div>
-          ) : filteredProducts.length > 0 ? (
+          {/* Products Grid - No Loading State Needed! */}
+          {filteredProducts.length > 0 ? (
             <div className="products-grid">
-              {filteredProducts.map((product, index) => (
-                <Link key={`${product.id}-${index}`} href={`/products/${product.slug}`} className="product-card-link">
-                  <div className="product-card">
+              {filteredProducts.map(product => (
+                <div key={product.id} className="product-card">
                   <div className="product-image-container">
                     {product.imageUrls && product.imageUrls.length > 0 ? (
                       <img 
@@ -328,26 +276,17 @@ export default function SyrupsPage() {
                     </div>
                   )}
 
-                    <div className="product-actions">
-                      <button className="l3-btn l3-btn-primary">Product Details</button>
-                      <button className="l3-btn l3-btn-secondary">Prescribing Info</button>
-                    </div>
+                  <div className="product-actions">
+                    <button className="l3-btn l3-btn-primary">Product Details</button>
+                    <button className="l3-btn l3-btn-secondary">Prescribing Info</button>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
           ) : (
             <div className="no-products">
               <h3>No products found</h3>
               <p>No syrup products match your current filter. Try selecting a different category.</p>
-            </div>
-          )}
-
-          {filteredProducts.length === 0 && (
-            <div className="no-products-message">
-              <div className="no-products-icon">🔍</div>
-              <h3>No products found</h3>
-              <p>Try selecting a different category or browse all products.</p>
             </div>
           )}
         </div>

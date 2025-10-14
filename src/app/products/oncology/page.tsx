@@ -162,8 +162,8 @@ export default function OncologyProductsPage() {
      
           {/* Products Grid */}
           <div className="products-grid">
-            {filteredProducts.map(product => (
-              <div key={product.id} className="product-card">
+            {filteredProducts.map((product, index) => (
+              <div key={`${product.id}-${index}`} className="product-card">
                 <div className="product-image-container">
                   <img 
                     src={product.productImage} 
