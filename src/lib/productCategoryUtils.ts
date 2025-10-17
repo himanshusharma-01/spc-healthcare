@@ -51,7 +51,7 @@ export const filterProductsByCategory = (products: Product[], category: string):
   return filtered;
 };
 
-// Load products from Google Sheets with category filtering
+// Load products with category filtering
 export const loadCategoryProducts = async (category: string): Promise<Product[]> => {
   try {
     const allProducts = await getProducts();

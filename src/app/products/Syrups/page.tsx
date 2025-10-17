@@ -39,7 +39,7 @@ export default function SyrupsPage() {
     });
   };
 
-  // Load products from Google Sheets
+  // Load products
   useEffect(() => {
     const loadProducts = async () => {
       try {
@@ -119,7 +119,7 @@ export default function SyrupsPage() {
           {loading ? (
             <div className="loading-container">
               <div className="loading-spinner"></div>
-              <p>Loading products from Google Sheets...</p>
+              <p>Loading our products...</p>
             </div>
           ) : filteredProducts.length > 0 ? (
             <div className="products-grid">
@@ -146,23 +146,18 @@ export default function SyrupsPage() {
                       </div>
                     </div>
 
-                    <h3 className="product-name">{product.name}</h3>
-                    <p className="product-short">{product.shortDescription}</p>
-                    <div className="product-actions">
-                      <span className="l3-btn l3-btn-primary">View product details</span>
+                    <div className="product-content">
+                      <h3 className="product-name">{product.name}</h3>
+                      <p className="product-short">{product.shortDescription}</p>
+                      <div className="product-actions">
+                        <span className="l3-product-btn">View product details</span>
+                      </div>
                     </div>
                   </div>
                 </Link>
               ))}
             </div>
-          ) : (
-            <div className="no-products">
-              <h3>No products found</h3>
-              <p>No syrup products match your current filter. Try selecting a different category.</p>
-            </div>
-          )}
-
-          {filteredProducts.length === 0 && (
+          ) : !loading && (
             <div className="no-products-message">
               <div className="no-products-icon">🔍</div>
               <h3>No products found</h3>

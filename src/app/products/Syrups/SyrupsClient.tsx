@@ -163,11 +163,13 @@ export default function SyrupsClient({ initialProducts }: SyrupsClientProps) {
                       <span className="product-icon">💊</span>
                     </div>
                   </div>
-                  <h3 className="product-name">{product.name}</h3>
-                  <p className="product-short">{product.shortDescription}</p>
-                  <div className="product-actions">
-                    <span className="l3-btn l3-btn-primary">View product details</span>
-                  </div>
+                    <div className="product-content">
+                      <h3 className="product-name">{product.name}</h3>
+                      <p className="product-short">{product.shortDescription}</p>
+                      <div className="product-actions">
+                        <span className="l3-product-btn">View product details</span>
+                      </div>
+                    </div>
                 </div>
               ))}
             </div>

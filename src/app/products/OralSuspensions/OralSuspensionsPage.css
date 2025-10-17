@@ -156,55 +156,37 @@
 
 .oral-suspensions-page .product-card {
   background: white;
-  padding: 1.25rem;
   border-radius: var(--l3-border-radius-lg);
+  overflow: hidden;
   box-shadow: var(--l3-shadow-soft);
   transition: all 0.3s ease;
-  border: 1px solid var(--l3-gray-medium);
   position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
 }
 
-.oral-suspensions-page .product-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 100%;
-  background: var(--l3-gradient);
-}
-
-.product-card:hover {
+.oral-suspensions-page .product-card:hover {
   transform: translateY(-5px);
   box-shadow: var(--l3-shadow-medium);
 }
 
 .oral-suspensions-page .product-image-container {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  margin-bottom: 0.75rem;
-  border-radius: var(--l3-border-radius);
-  overflow: hidden;
-  background: var(--l3-gray-light);
+  height: 200px;
+  background: var(--l3-gradient);
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
+}
+
+.oral-suspensions-page .product-image-container.square {
+  aspect-ratio: 1 / 1;
+  height: auto;
 }
 
 .oral-suspensions-page .product-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.product-image:hover {
-  transform: scale(1.05);
+  display: block;
 }
 
 .oral-suspensions-page .product-image-fallback {
@@ -222,22 +204,14 @@
   opacity: 0.8;
 }
 
-.oral-suspensions-page .product-header {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.oral-suspensions-page .product-basic-info {
-  flex: 1;
+.oral-suspensions-page .product-content {
+  padding: 1.5rem 1.5rem 2rem 1.5rem;
 }
 
 .oral-suspensions-page .product-name {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--l3-navy-dark);
+  font-size: 1.25rem;
   margin-bottom: 0.5rem;
+  color: var(--l3-navy-dark);
 }
 
 .oral-suspensions-page .product-type {
@@ -338,10 +312,29 @@
 .oral-suspensions-page .product-actions {
   display: flex;
   gap: 1rem;
+  justify-content: flex-start;
+  margin-top: 1rem;
+  padding-left: 0.5rem;
 }
 
-.oral-suspensions-page .product-actions .l3-btn {
-  flex: 1;
+.oral-suspensions-page .product-actions .l3-product-btn {
+  background: transparent;
+  color: var(--l3-teal);
+  border: 2px solid var(--l3-teal);
+  padding: 0.5rem 1rem;
+  border-radius: var(--l3-border-radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: auto;
+  font-size: 0.9rem;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.oral-suspensions-page .product-actions .l3-product-btn:hover {
+  background: var(--l3-teal);
+  color: white;
 }
 
 /* Animations */

@@ -1,6 +1,6 @@
 // /src/lib/getProducts.js
 
-// Google Sheets API URL - can be overridden with environment variable
+// API URL - can be overridden with environment variable
 const API_URL = process.env.GOOGLE_SHEETS_API_URL || 
   "https://script.google.com/macros/s/AKfycby0QnDhYUggQ1p6Au7pOsvqxKXf-C6ThCvD4oB08hpkVCoUukuUVHK0fKuC7_mOXH5u/exec"
 
@@ -24,7 +24,7 @@ export async function getProducts() {
     );
 
     if (!res.ok) {
-      throw new Error(`Failed to fetch products from Google Sheet: ${res.status} ${res.statusText}`);
+      throw new Error(`Failed to fetch products: ${res.status} ${res.statusText}`);
     }
     
     // Check if response is JSON
