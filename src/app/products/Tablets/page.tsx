@@ -174,45 +174,7 @@ export default function TabletsPage() {
         </div>
       </section>
 
-      {/* Product Categories */}
-      <section className="product-categories-section">
-        <div className="l3-container-inner">
-          <div className="section-header">
-            <h2 className="l3-section-title">Tablet Categories</h2>
-            <p className="l3-section-subtitle">
-              Specialized tablet formulations for different therapeutic needs.
-            </p>
-          </div>
-          <div className="categories-grid">
-            {Object.entries(productCategories).map(([key, category]) => (
-              <div key={key} className="category-card">
-                <div 
-                  className="category-icon"
-                  style={{ backgroundColor: `${category.color}20`, color: category.color }}
-                >
-                  {key === 'cardio' && '❤️'}
-                  {key === 'cns' && '🧠'}
-                  {key === 'diabetes' && '🩸'}
-                  {key === 'pain' && '⚡'}
-                  {key === 'antibiotic' && '🦠'}
-                </div>
-                <h3 className="category-name">{category.name}</h3>
-                <p className="category-description">
-                  {key === 'cardio' && 'Cardiovascular health and heart-related conditions'}
-                  {key === 'cns' && 'Central nervous system and mental health'}
-                  {key === 'diabetes' && 'Diabetes management and blood sugar control'}
-                  {key === 'pain' && 'Pain relief and inflammation management'}
-                  {key === 'antibiotic' && 'Antimicrobial therapy and infection control'}
-                </p>
-                <div className="category-count">
-                  {tabletProducts.filter(p => p.category === key).length} Products
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
+    
       {/* Products Section */}
       <section className="products-section">
         <div className="l3-container-inner">
@@ -223,21 +185,7 @@ export default function TabletsPage() {
             </p>
           </div>
 
-          {/* Filter Tabs */}
-          <div className="products-filter-container">
-            <div className="filter-tabs">
-              {productFilters.map(filter => (
-                <button
-                  key={filter.id}
-                  className={`filter-tab ${activeFilter === filter.id ? 'active' : ''}`}
-                  onClick={() => setActiveFilter(filter.id)}
-                >
-                  <span className="filter-name">{filter.name}</span>
-                  <span className="filter-count">{filter.count}</span>
-                </button>
-              ))}
-            </div>
-          </div>
+     
 
           {/* Products Grid */}
           {loading ? (
@@ -248,85 +196,31 @@ export default function TabletsPage() {
           ) : filteredProducts.length > 0 ? (
             <div className="products-grid">
               {filteredProducts.map((product, index) => (
-                <Link key={`${product.id}-${index}`} href={`/products/${product.slug}`} className="product-card-link">
+                <Link prefetch key={`${product.id}-${index}`} href={`/products/${product.slug}`} className="product-card-link">
                   <div className="product-card">
-                  <div className="product-image-container">
-                    {product.imageUrls && product.imageUrls.length > 0 ? (
-                      <img 
-                        src={product.imageUrls[0]}
-                        alt={product.name}
-                        className="product-image"
-                        onError={(e) => {
-                          e.currentTarget.style.display = 'none';
-                          const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
-                          if (nextElement) {
-                            nextElement.style.display = 'flex';
-                          }
-                        }}
-                      />
-                    ) : null}
-                    <div className="product-image-fallback" style={{ display: product.imageUrls && product.imageUrls.length > 0 ? 'none' : 'flex' }}>
-                      <span className="product-icon">💊</span>
-                    </div>
-                  </div>
-                  
-                  <div className="product-header">
-                    <div className="product-basic-info">
-                      <h3 className="product-name">{product.name}</h3>
-                      <div className="product-type">{product.drugType}</div>
-                      {product.category && (
-                        <div 
-                          className="product-category"
-                          style={{ 
-                            backgroundColor: '#ef444420',
-                            color: '#ef4444'
+                    <div className="product-image-container square">
+                      {product.imageUrls && product.imageUrls.length > 0 ? (
+                        <img 
+                          src={product.imageUrls[0]}
+                          alt={product.name}
+                          className="product-image"
+                          onError={(e) => {
+                            e.currentTarget.style.display = 'none';
+                            const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
+                            if (nextElement) {
+                              nextElement.style.display = 'flex';
+                            }
                           }}
-                        >
-                          {product.category}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="product-indication">
-                    <strong>Description:</strong> {product.shortDescription}
-                  </div>
-
-                  {product.longDescription && (
-                    <div className="product-description" dangerouslySetInnerHTML={{ __html: product.longDescription }} />
-                  )}
-
-                  <div className="product-details">
-                    <div className="detail-item">
-                      <span className="detail-label">Type:</span>
-                      <span className="detail-value">{product.drugType}</span>
-                    </div>
-                    {product.category && (
-                      <div className="detail-item">
-                        <span className="detail-label">Category:</span>
-                        <span className="detail-value">{product.category}</span>
+                        />
+                      ) : null}
+                      <div className="product-image-fallback" style={{ display: product.imageUrls && product.imageUrls.length > 0 ? 'none' : 'flex' }}>
+                        <span className="product-icon">💊</span>
                       </div>
-                    )}
-                    <div className="detail-item">
-                      <span className="detail-label">Status:</span>
-                      <span className="detail-value status-available">Available</span>
                     </div>
-                  </div>
-
-                  {product.usagePoints && product.usagePoints.length > 0 && (
-                    <div className="product-features">
-                      <h4>Key Benefits:</h4>
-                      <ul>
-                        {product.usagePoints.map((point, index) => (
-                          <li key={index}>{point}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
+                    <h3 className="product-name">{product.name}</h3>
+                    <p className="product-short">{product.shortDescription}</p>
                     <div className="product-actions">
-                      <button className="l3-btn l3-btn-primary">Product Details</button>
-                      <button className="l3-btn l3-btn-secondary">Prescribing Info</button>
+                      <span className="l3-btn l3-btn-primary">View product details</span>
                     </div>
                   </div>
                 </Link>

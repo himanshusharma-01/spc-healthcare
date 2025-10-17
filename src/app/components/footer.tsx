@@ -84,7 +84,7 @@ const Footer: React.FC = () => {
             <ul className="footer-links">
               <li><Link href="/about/company">About Us</Link></li>
               <li><Link href="/about/leadership">Leadership</Link></li>
-              <li><Link href="/products">Our Products</Link></li>
+              <li><Link href="/products/Syrups">Our Products</Link></li>
               <li><Link href="/quality">Quality & Safety</Link></li>
               <li><Link href="/careers">Careers</Link></li>
             </ul>
@@ -94,11 +94,11 @@ const Footer: React.FC = () => {
           <div className="footer-section">
             <h4 className="footer-title">Products</h4>
             <ul className="footer-links">
-              <li><Link href="/products/oncology">Oncology</Link></li>
-              <li><Link href="/products/cardiology">Cardiology</Link></li>
-              <li><Link href="/products/neurology">Neurology</Link></li>
-              <li><Link href="/products/vaccines">Vaccines</Link></li>
-              <li><Link href="/products/generics">Generic Medicines</Link></li>
+              <li><Link href="/products/Syrups">Syrups</Link></li>
+              <li><Link href="/products/Tablets">Tablets</Link></li>
+              <li><Link href="/products/Capsules">Capsules</Link></li>
+              <li><Link href="/products/OralDrops">Oral Drops</Link></li>
+              <li><Link href="/products/OralSuspensions">Oral Suspensions</Link></li>
             </ul>
           </div>
 
@@ -108,15 +108,19 @@ const Footer: React.FC = () => {
             <div className="contact-info">
               <div className="contact-item">
                 <i className="fas fa-map-marker-alt"></i>
-                <span>123 Innovation Drive<br />Pharma Park, CA 94203</span>
+                <span>SPC Healthcare Private Limited<br />7455 Ground floor St no 1, Maha Singh Nagar,<br />Daba Lohara Road Ludhiana, Punjab 141014.</span>
               </div>
               <div className="contact-item">
                 <i className="fas fa-phone"></i>
-                <span>+1 (800) HEALTH-01</span>
+                <span>7710301301</span>
               </div>
               <div className="contact-item">
                 <i className="fas fa-envelope"></i>
-                <span>info@spchealthcare.com</span>
+                <span>mail@spchealthcare.com</span>
+              </div>
+              <div className="contact-item">
+                <i className="fas fa-clock"></i>
+                <span><strong>Hours of Business</strong><br />Monday – Saturday	9 am to 6 pm<br />Sunday	Closed<br />Public Holidays	Closed</span>
               </div>
               <div className="contact-item emergency">
                 <i className="fas fa-ambulance"></i>

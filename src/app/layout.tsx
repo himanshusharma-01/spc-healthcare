@@ -37,7 +37,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Navbar />
         {children}
-        <WhatsAppFloating phoneNumber="919780834843" position="bottom-right" showPopup={true} popupText="Chat with us on WhatsApp" />
+        <WhatsAppFloating phoneNumber="917710301301" position="bottom-right" showPopup={true} popupText="Chat with us on WhatsApp" />
         <Footer />
       </body>
     </html>

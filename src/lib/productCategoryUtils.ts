@@ -55,7 +55,10 @@ export const loadCategoryProducts = async (category: string): Promise<Product[]>
 };
 
 // Generate filter counts for category pages
-export const generateFilterCounts = (products: Product[], filters: { id: string; keywords: string[] }[]) => {
+export const generateFilterCounts = (
+  products: Product[],
+  filters: { id: string; name?: string; keywords: string[] }[]
+) => {
   return filters.map(filter => ({
     ...filter,
     count: products.filter(product => {

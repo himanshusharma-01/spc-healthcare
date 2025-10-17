@@ -11,6 +11,10 @@ export async function generateStaticParams() {
   }));
 }
 
+// Ensure product pages are statically generated and cached
+export const dynamic = 'force-static';
+export const revalidate = 300; // seconds
+
 // Generate metadata for SEO
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const product = await getProductBySlug(params.slug);

@@ -1,6 +1,9 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
+import Link from 'next/link';
+import { getProducts } from '@/lib/getProducts';
+import { filterProductsByCategory, type Product as SPCProduct } from '@/lib/productCategoryUtils';
 import './Homepage.css';
 
 export default function Homepage() {
@@ -8,18 +11,13 @@ export default function Homepage() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const statsRef = useRef<HTMLDivElement>(null);
 
-  const featuredProducts = [
-    { id: 1, name: 'CardioPlus', benefit: 'Advanced Cardiovascular Support', category: 'Pharmaceuticals' },
-    { id: 2, name: 'NeuroCalm', benefit: 'Cognitive Health & Mental Clarity', category: 'Nutraceuticals' },
-    { id: 3, name: 'ImmuneShield', benefit: 'Enhanced Immune Protection', category: 'OTC & Wellness' },
-    { id: 4, name: 'DermaCare', benefit: 'Advanced Skin Solutions', category: 'Dermatology' },
-  ];
+  const [featuredProducts, setFeaturedProducts] = useState<SPCProduct[]>([]);
 
   const productDivisions = [
-    { id: 1, title: 'Pharmaceuticals', desc: 'Research-based prescription medicines', icon: '💊', count: '200+ Products' },
-    { id: 2, title: 'Nutraceuticals', desc: 'Science-backed health supplements', icon: '🌿', count: '150+ Formulas' },
-    { id: 3, title: 'OTC & Wellness', desc: 'Everyday healthcare solutions', icon: '🏠', count: '100+ Products' },
-    { id: 4, title: 'Dermatology', desc: 'Advanced skincare treatments', icon: '✨', count: '50+ Solutions' },
+    { id: 1, title: 'Syrups', desc: 'Liquid medications for easy administration', icon: '🍯', count: '50+ Syrups', href: '/products/Syrups' },
+    { id: 2, title: 'Capsules', desc: 'Encapsulated medicines for controlled release', icon: '💊', count: '80+ Capsules', href: '/products/Capsules' },
+    { id: 3, title: 'Tablets', desc: 'Solid dosage forms for precise medication', icon: '🔲', count: '120+ Tablets', href: '/products/Tablets' },
+    { id: 4, title: 'Oral Drops', desc: 'Concentrated liquid drops for accurate dosing', icon: '💧', count: '30+ Drops', href: '/products/OralDrops' },
   ];
 
   const testimonials = [
@@ -56,6 +54,19 @@ export default function Homepage() {
 
 
   useEffect(() => {
+    const loadFeatured = async () => {
+      try {
+        const all = await getProducts();
+        const categories = ['syrups', 'tablets', 'capsules', 'drops'];
+        const picks: SPCProduct[] = [];
+        for (const cat of categories) {
+          const list = filterProductsByCategory(all, cat);
+          if (list.length > 0) picks.push(list[0]);
+        }
+        setFeaturedProducts(picks);
+      } catch {}
+    };
+    loadFeatured();
 
     // Intersection Observer for animations
     const observer = new IntersectionObserver(
@@ -141,7 +152,7 @@ export default function Homepage() {
               Trusted by healthcare professionals worldwide, delivering innovative solutions for better patient outcomes through cutting-edge research and development.
             </p>
             <div className="l3-hero-buttons">
-              <button className="l3-btn l3-btn-primary">Explore Our Products</button>
+              <Link prefetch href="/products/Syrups" className="l3-btn l3-btn-primary">Explore Our Products</Link>
               <button 
                 className="l3-btn l3-btn-secondary"
                 onClick={() => window.location.href = '/about/company'}
@@ -379,7 +390,7 @@ export default function Homepage() {
                 <h3>{division.title}</h3>
                 <p>{division.desc}</p>
                 <div className="l3-division-count">{division.count}</div>
-                <button className="l3-division-btn">Explore Division</button>
+                <Link prefetch href={division.href} className="l3-division-btn">Explore Division</Link>
               </div>
             ))}
           </div>
@@ -393,17 +404,29 @@ export default function Homepage() {
           <p className="l3-section-subtitle">Our latest innovations making a difference in patient care</p>
           <div className="l3-products-grid">
             {featuredProducts.map(product => (
-              <div key={product.id} className="l3-product-card">
-                <div className="l3-product-badge">{product.category}</div>
+              <Link prefetch key={product.id} href={`/products/${product.slug}`} className="l3-product-card">
+                <div className="l3-product-badge">Featured</div>
                 <div className="l3-product-image">
-                  <div className="l3-product-visual"></div>
+                  {product.imageUrls && product.imageUrls.length > 0 ? (
+                    <img 
+                      src={product.imageUrls[0]} 
+                      alt={product.name}
+                      className="l3-product-img"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        const next = e.currentTarget.nextElementSibling as HTMLElement;
+                        if (next) next.style.display = 'block';
+                      }}
+                    />
+                  ) : null}
+                  <div className="l3-product-visual" style={{ display: product.imageUrls && product.imageUrls.length > 0 ? 'none' : 'block' }}></div>
                 </div>
                 <div className="l3-product-content">
                   <h3>{product.name}</h3>
-                  <p>{product.benefit}</p>
-                  <button className="l3-product-btn">View Details</button>
+                  <p>{product.shortDescription}</p>
+                  <span className="l3-product-btn">View Details</span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
