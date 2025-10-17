@@ -1,8 +1,8 @@
 // /src/lib/getProducts.js
 
-// IMPORTANT: PASTE THE WEB APP URL YOU COPIED FROM GOOGLE APPS SCRIPT HERE
-// Make sure to deploy as "Anyone" for CORS to work
-const API_URL = "https://script.google.com/macros/s/AKfycby0QnDhYUggQ1p6Au7pOsvqxKXf-C6ThCvD4oB08hpkVCoUukuUVHK0fKuC7_mOXH5u/exec"
+// Google Sheets API URL - can be overridden with environment variable
+const API_URL = process.env.GOOGLE_SHEETS_API_URL || 
+  "https://script.google.com/macros/s/AKfycby0QnDhYUggQ1p6Au7pOsvqxKXf-C6ThCvD4oB08hpkVCoUukuUVHK0fKuC7_mOXH5u/exec"
 
 // Cache for storing products data
 let productsCache = null;

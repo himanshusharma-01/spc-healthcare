@@ -29,22 +29,15 @@ export default function Homepage() {
   useEffect(() => {
     const loadFeatured = async () => {
       try {
-        console.log('Loading featured products...');
         const all = await getProducts();
-        console.log('Loaded products:', all.length);
         const categories = ['syrups', 'tablets', 'capsules', 'drops'];
         const picks: SPCProduct[] = [];
         for (const cat of categories) {
           const list = filterProductsByCategory(all, cat);
-          console.log(`Category ${cat}: ${list.length} products`);
           if (list.length > 0) {
-            console.log(`Adding product "${list[0].name}" from category ${cat}`);
             picks.push(list[0]);
-          } else {
-            console.log(`No products found for category ${cat}`);
           }
         }
-        console.log('Featured products selected:', picks.length);
         setFeaturedProducts(picks);
       } catch (error) {
         console.error('Error loading featured products:', error);
@@ -413,7 +406,7 @@ export default function Homepage() {
               ))
             ) : (
               <div className="l3-loading-message">
-                <p>Loading featured products...</p>
+                <p>Loading featured products... ({featuredProducts.length} loaded)</p>
               </div>
             )}
           </div>

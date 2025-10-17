@@ -58,7 +58,7 @@ export default function SyrupsPage() {
     };
 
     loadProducts();
-  }, [filterSyrupProducts]);
+  }, []);
 
 
   return (

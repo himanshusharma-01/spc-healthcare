@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import './ProductDetails.css';
 
 interface Product {
@@ -21,6 +22,7 @@ interface ProductDetailsProps {
 }
 
 export default function ProductDetails({ product }: ProductDetailsProps) {
+  const router = useRouter();
   const [selectedImage, setSelectedImage] = useState(0);
   const categorySlug = (product.category || '').toLowerCase();
   let backHref = '/';
@@ -118,9 +120,9 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                   <p>Visit your nearest medical store.</p>
                   <p>Reach out to us in case, if you are unable to get one.</p>
                 </div>
-                <button className="cta-button">
+                <Link prefetch href="/contact" className="cta-button" aria-label="Go to Contact page">
                   Reach Us
-                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -130,10 +132,23 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
       {/* Back to Products Link */}
       <div className="back-to-products">
         <div className="container">
-          <Link href={backHref} className="back-link">
+          <a
+            href={backHref}
+            className="back-link"
+            onClick={(e) => {
+              // Prefer true back to the exact grid user came from
+              e.preventDefault();
+              if (typeof window !== 'undefined' && window.history.length > 1) {
+                router.back();
+              } else {
+                // Fallback to category-derived URL if no history
+                window.location.href = backHref;
+              }
+            }}
+          >
             <span className="back-arrow">←</span>
             Back to All Products
-          </Link>
+          </a>
         </div>
       </div>
     </div>
