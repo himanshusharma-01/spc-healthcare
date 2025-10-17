@@ -22,35 +22,16 @@ interface ProductDetailsProps {
 
 export default function ProductDetails({ product }: ProductDetailsProps) {
   const [selectedImage, setSelectedImage] = useState(0);
+  const categorySlug = (product.category || '').toLowerCase();
+  let backHref = '/';
+  if (categorySlug.includes('syrup')) backHref = '/products/Syrups';
+  else if (categorySlug.includes('tablet')) backHref = '/products/Tablets';
+  else if (categorySlug.includes('capsule')) backHref = '/products/Capsules';
+  else if (categorySlug.includes('drop')) backHref = '/products/OralDrops';
+  else if (categorySlug.includes('susp')) backHref = '/products/OralSuspensions';
 
   return (
     <div className="product-details-page">
-      {/* Header */}
-      <header className="product-details-header">
-        <div className="container">
-          <div className="header-content">
-            <Link href="/" className="logo">
-              <div className="logo-icon">🌿</div>
-              <div className="logo-text">
-                <span className="logo-main">SPC</span>
-                <span className="logo-sub">HEALTHCARE</span>
-              </div>
-            </Link>
-            
-            <nav className="header-nav">
-              <Link href="/" className="nav-link">HOME</Link>
-              <Link href="/about" className="nav-link">ABOUT US</Link>
-              <div className="nav-dropdown">
-                <Link href="/products" className="nav-link">PRODUCTS</Link>
-                <span className="dropdown-arrow">▼</span>
-              </div>
-              <Link href="/careers" className="nav-link">CAREER</Link>
-              <Link href="/contact" className="nav-link">CONTACT US</Link>
-            </nav>
-          </div>
-        </div>
-      </header>
-
       {/* Main Content */}
       <main className="product-details-main">
         <div className="container">
@@ -149,7 +130,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
       {/* Back to Products Link */}
       <div className="back-to-products">
         <div className="container">
-          <Link href="/products" className="back-link">
+          <Link href={backHref} className="back-link">
             <span className="back-arrow">←</span>
             Back to All Products
           </Link>
