@@ -19,28 +19,48 @@ export interface CategoryKeywords {
 
 // Define keywords for each product category
 export const categoryKeywords: CategoryKeywords = {
-  syrups: ['syrup', 'liquid', 'oral solution', 'elixir', 'tonic'],
-  suspensions: ['suspension', 'oral suspension', 'powder', 'granules', 'reconstitute'],
-  tablets: ['tablet', 'tab', 'oral tablet', 'coated', 'uncoated'],
-  capsules: ['capsule', 'cap', 'gelatin', 'hard capsule', 'soft capsule'],
-  drops: ['drops', 'oral drops', 'ear drops', 'eye drops', 'nasal drops']
+  syrups: ['syrup', 'liquid', 'oral solution', 'elixir', 'tonic', 'syrups'],
+  suspensions: ['suspension', 'oral suspension', 'powder', 'granules', 'reconstitute', 'suspensions', 'oral suspensions'],
+  tablets: ['tablet', 'tab', 'oral tablet', 'coated', 'uncoated', 'tablets'],
+  capsules: ['capsule', 'cap', 'gelatin', 'hard capsule', 'soft capsule', 'capsules'],
+  drops: ['drops', 'oral drops', 'ear drops', 'eye drops', 'nasal drops', 'drops', 'oral drops']
 };
 
 // Filter products based on category keywords
 export const filterProductsByCategory = (products: Product[], category: string): Product[] => {
   const keywords = categoryKeywords[category] || [];
   
-  return products.filter(product => {
+  console.log(`Filtering products for category: ${category}`);
+  console.log(`Keywords: ${keywords.join(', ')}`);
+  console.log(`Total products to filter: ${products.length}`);
+  
+  const filtered = products.filter(product => {
     const categoryField = product.category?.toLowerCase() || '';
     const name = product.name.toLowerCase();
     const description = product.shortDescription.toLowerCase();
     
-    return keywords.some(keyword => 
+    // Direct category match first
+    if (categoryField === category) {
+      console.log(`Product "${product.name}" matches category "${category}" by direct match`);
+      return true;
+    }
+    
+    // Then check keywords
+    const matches = keywords.some(keyword => 
       categoryField.includes(keyword) || 
       name.includes(keyword) || 
       description.includes(keyword)
     );
+    
+    if (matches) {
+      console.log(`Product "${product.name}" matches category "${category}" by keyword`);
+    }
+    
+    return matches;
   });
+  
+  console.log(`Filtered ${filtered.length} products for category ${category}`);
+  return filtered;
 };
 
 // Load products from Google Sheets with category filtering

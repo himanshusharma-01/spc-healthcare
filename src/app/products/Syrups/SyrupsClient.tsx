@@ -75,12 +75,6 @@ export default function SyrupsClient({ initialProducts }: SyrupsClientProps) {
     }
   }, [activeFilter, products]);
 
-  const productCategories = {
-    cough: { name: 'Cough & Cold', color: '#3b82f6' },
-    digestive: { name: 'Digestive', color: '#10b981' },
-    vitamin: { name: 'Vitamins', color: '#f59e0b' },
-    pediatric: { name: 'Pediatric', color: '#8b5cf6' }
-  };
 
   return (
     <div className="l3-container syrups-page">

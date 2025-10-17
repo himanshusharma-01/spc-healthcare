@@ -1,15 +1,13 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getProducts } from '@/lib/getProducts';
 import { filterProductsByCategory, type Product as SPCProduct } from '@/lib/productCategoryUtils';
 import './Homepage.css';
 
 export default function Homepage() {
-  const [stats, setStats] = useState({ years: 0, products: 0, countries: 0, research: 0 });
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
-  const statsRef = useRef<HTMLDivElement>(null);
 
   const [featuredProducts, setFeaturedProducts] = useState<SPCProduct[]>([]);
 
@@ -26,45 +24,32 @@ export default function Homepage() {
     { id: 3, name: 'Emma Thompson', role: 'Global Distribution Partner', text: 'Working with SPC Healthcare for over a decade - their reliability and product excellence are unmatched in the industry.', avatar: '👩‍💼' },
   ];
 
-  const animateStats = () => {
-    const duration = 2000;
-    const steps = 60;
-    const stepDuration = duration / steps;
-
-    const targetStats = { years: 25, products: 500, countries: 80, research: 50 };
-    
-    let currentStep = 0;
-    const timer = setInterval(() => {
-      currentStep++;
-      const progress = currentStep / steps;
-      
-      setStats({
-        years: Math.min(Math.floor(targetStats.years * progress), targetStats.years),
-        products: Math.min(Math.floor(targetStats.products * progress), targetStats.products),
-        countries: Math.min(Math.floor(targetStats.countries * progress), targetStats.countries),
-        research: Math.min(Math.floor(targetStats.research * progress), targetStats.research)
-      });
-
-      if (currentStep >= steps) {
-        clearInterval(timer);
-        setStats(targetStats);
-      }
-    }, stepDuration);
-  };
 
 
   useEffect(() => {
     const loadFeatured = async () => {
       try {
+        console.log('Loading featured products...');
         const all = await getProducts();
+        console.log('Loaded products:', all.length);
         const categories = ['syrups', 'tablets', 'capsules', 'drops'];
         const picks: SPCProduct[] = [];
         for (const cat of categories) {
           const list = filterProductsByCategory(all, cat);
-          if (list.length > 0) picks.push(list[0]);
+          console.log(`Category ${cat}: ${list.length} products`);
+          if (list.length > 0) {
+            console.log(`Adding product "${list[0].name}" from category ${cat}`);
+            picks.push(list[0]);
+          } else {
+            console.log(`No products found for category ${cat}`);
+          }
         }
+        console.log('Featured products selected:', picks.length);
         setFeaturedProducts(picks);
-      } catch {}
+      } catch (error) {
+        console.error('Error loading featured products:', error);
+        setFeaturedProducts([]);
+      }
     };
     loadFeatured();
 
@@ -74,9 +59,6 @@ export default function Homepage() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('l3-animate-in');
-            if (entry.target.classList.contains('l3-stats-section')) {
-              animateStats();
-            }
           }
         });
       },
@@ -403,31 +385,37 @@ export default function Homepage() {
           <h2 className="l3-section-title">Featured Products</h2>
           <p className="l3-section-subtitle">Our latest innovations making a difference in patient care</p>
           <div className="l3-products-grid">
-            {featuredProducts.map(product => (
-              <Link prefetch key={product.id} href={`/products/${product.slug}`} className="l3-product-card">
-                <div className="l3-product-badge">Featured</div>
-                <div className="l3-product-image">
-                  {product.imageUrls && product.imageUrls.length > 0 ? (
-                    <img 
-                      src={product.imageUrls[0]} 
-                      alt={product.name}
-                      className="l3-product-img"
-                      onError={(e) => {
-                        e.currentTarget.style.display = 'none';
-                        const next = e.currentTarget.nextElementSibling as HTMLElement;
-                        if (next) next.style.display = 'block';
-                      }}
-                    />
-                  ) : null}
-                  <div className="l3-product-visual" style={{ display: product.imageUrls && product.imageUrls.length > 0 ? 'none' : 'block' }}></div>
-                </div>
-                <div className="l3-product-content">
-                  <h3>{product.name}</h3>
-                  <p>{product.shortDescription}</p>
-                  <span className="l3-product-btn">View Details</span>
-                </div>
-              </Link>
-            ))}
+            {featuredProducts.length > 0 ? (
+              featuredProducts.map(product => (
+                <Link prefetch key={product.id} href={`/products/${product.slug}`} className="l3-product-card">
+                  <div className="l3-product-badge">Featured</div>
+                  <div className="l3-product-image">
+                    {product.imageUrls && product.imageUrls.length > 0 ? (
+                      <img 
+                        src={product.imageUrls[0]} 
+                        alt={product.name}
+                        className="l3-product-img"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                          const next = e.currentTarget.nextElementSibling as HTMLElement;
+                          if (next) next.style.display = 'block';
+                        }}
+                      />
+                    ) : null}
+                    <div className="l3-product-visual" style={{ display: product.imageUrls && product.imageUrls.length > 0 ? 'none' : 'block' }}></div>
+                  </div>
+                  <div className="l3-product-content">
+                    <h3>{product.name}</h3>
+                    <p>{product.shortDescription}</p>
+                    <span className="l3-product-btn">View Details</span>
+                  </div>
+                </Link>
+              ))
+            ) : (
+              <div className="l3-loading-message">
+                <p>Loading featured products...</p>
+              </div>
+            )}
           </div>
         </div>
       </section>

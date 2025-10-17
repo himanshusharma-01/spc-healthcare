@@ -3,11 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import './TabletsPage.css';
-import { loadCategoryProducts, generateFilterCounts, Product } from '@/lib/productCategoryUtils';
+import { loadCategoryProducts, Product } from '@/lib/productCategoryUtils';
 
 export default function TabletsPage() {
-  const [activeFilter, setActiveFilter] = useState('all');
-  const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -17,11 +15,9 @@ export default function TabletsPage() {
       try {
         setLoading(true);
         const tabletProducts = await loadCategoryProducts('tablets');
-        setProducts(tabletProducts);
         setFilteredProducts(tabletProducts);
       } catch (error) {
         console.error('Error loading products:', error);
-        setProducts([]);
         setFilteredProducts([]);
       } finally {
         setLoading(false);
@@ -31,108 +27,7 @@ export default function TabletsPage() {
     loadProducts();
   }, []);
 
-  const filterDefinitions = [
-    { id: 'all', name: 'All Tablets', keywords: [] },
-    { id: 'cardio', name: 'Cardiology', keywords: ['cardio', 'heart', 'blood pressure', 'hypertension'] },
-    { id: 'cns', name: 'CNS', keywords: ['cns', 'neurological', 'brain', 'nervous'] },
-    { id: 'diabetes', name: 'Diabetes', keywords: ['diabetes', 'diabetic', 'glucose', 'insulin'] },
-    { id: 'pain', name: 'Pain Management', keywords: ['pain', 'analgesic', 'relief', 'ache'] },
-    { id: 'antibiotic', name: 'Antibiotics', keywords: ['antibiotic', 'bacterial', 'infection'] }
-  ];
 
-  const productFilters = generateFilterCounts(products, filterDefinitions);
-
-  const tabletProducts = [
-    {
-      id: 1,
-      name: 'CardioMax',
-      category: 'cardio',
-      type: 'ACE Inhibitor',
-      indication: 'Hypertension, Heart Failure',
-      description: 'Effective ACE inhibitor for managing hypertension and heart failure with proven clinical efficacy.',
-      strength: '5mg',
-      packaging: '10x10 Tablets',
-      status: 'Available',
-      features: ['Once daily dosing', 'Well tolerated', 'Proven efficacy', 'Cost effective'],
-      image: '💊',
-      productImage: '/api/placeholder/300/200?text=CardioMax'
-    },
-    {
-      id: 2,
-      name: 'NeuroCalm',
-      category: 'cns',
-      type: 'SSRI',
-      indication: 'Depression, Anxiety',
-      description: 'Selective serotonin reuptake inhibitor for treatment of depression and anxiety disorders.',
-      strength: '50mg',
-      packaging: '10x10 Tablets',
-      status: 'Available',
-      features: ['SSRI class', 'Mood improvement', 'Anxiety reduction', 'Well studied'],
-      image: '🧠',
-      productImage: '/api/placeholder/300/200?text=NeuroCalm'
-    },
-    {
-      id: 3,
-      name: 'GlucoControl',
-      category: 'diabetes',
-      type: 'Biguanide',
-      indication: 'Type 2 Diabetes',
-      description: 'Metformin-based tablet for effective blood glucose control in type 2 diabetes patients.',
-      strength: '500mg',
-      packaging: '10x15 Tablets',
-      status: 'Available',
-      features: ['Blood sugar control', 'Weight neutral', 'Cardioprotective', 'First line therapy'],
-      image: '🩸',
-      productImage: '/api/placeholder/300/200?text=GlucoControl'
-    },
-    {
-      id: 4,
-      name: 'PainRelief',
-      category: 'pain',
-      type: 'NSAID',
-      indication: 'Pain, Inflammation',
-      description: 'Non-steroidal anti-inflammatory drug for effective pain relief and inflammation reduction.',
-      strength: '400mg',
-      packaging: '10x10 Tablets',
-      status: 'Available',
-      features: ['Fast acting', 'Anti-inflammatory', 'Pain relief', 'Well tolerated'],
-      image: '⚡',
-      productImage: '/api/placeholder/300/200?text=PainRelief'
-    }
-  ];
-
-  // Filter products based on active filter
-  useEffect(() => {
-    if (activeFilter === 'all') {
-      setFilteredProducts(products);
-    } else {
-      const filter = filterDefinitions.find(f => f.id === activeFilter);
-      if (filter) {
-        const filtered = products.filter(product => {
-          const name = product.name.toLowerCase();
-          const description = product.shortDescription.toLowerCase();
-          const usagePoints = product.usagePoints?.join(' ').toLowerCase() || '';
-          
-          return filter.keywords.some(keyword => 
-            name.includes(keyword) || 
-            description.includes(keyword) || 
-            usagePoints.includes(keyword)
-          );
-        });
-        setFilteredProducts(filtered);
-      } else {
-        setFilteredProducts(products);
-      }
-    }
-  }, [activeFilter, products]);
-
-  const productCategories = {
-    cardio: { name: 'Cardiology', color: '#ef4444' },
-    cns: { name: 'CNS', color: '#8b5cf6' },
-    diabetes: { name: 'Diabetes', color: '#f59e0b' },
-    pain: { name: 'Pain Management', color: '#06b6d4' },
-    antibiotic: { name: 'Antibiotics', color: '#10b981' }
-  };
 
   return (
     <div className="l3-container tablets-page">
