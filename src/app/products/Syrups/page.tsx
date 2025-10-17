@@ -18,8 +18,6 @@ interface Product {
 }
 
 export default function SyrupsPage() {
-  const [activeFilter, setActiveFilter] = useState('all');
-  const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -49,12 +47,10 @@ export default function SyrupsPage() {
         const allProducts = await getProducts();
         const syrupProducts = filterSyrupProducts(allProducts);
         
-        setProducts(syrupProducts);
         setFilteredProducts(syrupProducts);
       } catch (error) {
         console.error('Error loading products:', error);
-        // Fallback to sample data
-        setProducts([]);
+        // Fallback to empty array
         setFilteredProducts([]);
       } finally {
         setLoading(false);
@@ -62,66 +58,8 @@ export default function SyrupsPage() {
     };
 
     loadProducts();
-  }, []);
+  }, [filterSyrupProducts]);
 
-  const productFilters = [
-    { id: 'all', name: 'All Syrups', count: products.length },
-    { id: 'cough', name: 'Cough & Cold', count: products.filter(p => 
-      p.name.toLowerCase().includes('cough') || 
-      p.shortDescription.toLowerCase().includes('cough') ||
-      p.usagePoints?.some(point => point.toLowerCase().includes('cough'))
-    ).length },
-    { id: 'digestive', name: 'Digestive', count: products.filter(p => 
-      p.name.toLowerCase().includes('digest') || 
-      p.shortDescription.toLowerCase().includes('digest') ||
-      p.usagePoints?.some(point => point.toLowerCase().includes('digest'))
-    ).length },
-    { id: 'vitamin', name: 'Vitamins', count: products.filter(p => 
-      p.name.toLowerCase().includes('vitamin') || 
-      p.shortDescription.toLowerCase().includes('vitamin') ||
-      p.usagePoints?.some(point => point.toLowerCase().includes('vitamin'))
-    ).length },
-    { id: 'pediatric', name: 'Pediatric', count: products.filter(p => 
-      p.name.toLowerCase().includes('kids') || 
-      p.name.toLowerCase().includes('baby') ||
-      p.shortDescription.toLowerCase().includes('pediatric') ||
-      p.usagePoints?.some(point => point.toLowerCase().includes('pediatric'))
-    ).length }
-  ];
-
-  // Filter products based on active filter
-  useEffect(() => {
-    if (activeFilter === 'all') {
-      setFilteredProducts(products);
-    } else {
-      const filtered = products.filter(product => {
-        const name = product.name.toLowerCase();
-        const description = product.shortDescription.toLowerCase();
-        const usagePoints = product.usagePoints?.join(' ').toLowerCase() || '';
-        
-        switch (activeFilter) {
-          case 'cough':
-            return name.includes('cough') || description.includes('cough') || usagePoints.includes('cough');
-          case 'digestive':
-            return name.includes('digest') || description.includes('digest') || usagePoints.includes('digest');
-          case 'vitamin':
-            return name.includes('vitamin') || description.includes('vitamin') || usagePoints.includes('vitamin');
-          case 'pediatric':
-            return name.includes('kids') || name.includes('baby') || description.includes('pediatric') || usagePoints.includes('pediatric');
-          default:
-            return true;
-        }
-      });
-      setFilteredProducts(filtered);
-    }
-  }, [activeFilter, products]);
-
-  const productCategories = {
-    cough: { name: 'Cough & Cold', color: '#3b82f6' },
-    digestive: { name: 'Digestive', color: '#10b981' },
-    vitamin: { name: 'Vitamins', color: '#f59e0b' },
-    pediatric: { name: 'Pediatric', color: '#8b5cf6' }
-  };
 
   return (
     <div className="l3-container syrups-page">

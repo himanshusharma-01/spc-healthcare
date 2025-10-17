@@ -3,11 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import './OralDropsPage.css';
-import { loadCategoryProducts, generateFilterCounts, Product } from '@/lib/productCategoryUtils';
+import { loadCategoryProducts, Product } from '@/lib/productCategoryUtils';
 
 export default function OralDropsPage() {
-  const [activeFilter, setActiveFilter] = useState('all');
-  const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -17,11 +15,9 @@ export default function OralDropsPage() {
       try {
         setLoading(true);
         const dropsProducts = await loadCategoryProducts('drops');
-        setProducts(dropsProducts);
         setFilteredProducts(dropsProducts);
       } catch (error) {
         console.error('Error loading products:', error);
-        setProducts([]);
         setFilteredProducts([]);
       } finally {
         setLoading(false);
@@ -31,76 +27,7 @@ export default function OralDropsPage() {
     loadProducts();
   }, []);
 
-  const filterDefinitions = [
-    { id: 'all', name: 'All Drops', keywords: [] },
-    { id: 'vitamin', name: 'Vitamins', keywords: ['vitamin', 'vit', 'nutritional', 'supplement'] },
-    { id: 'pediatric', name: 'Pediatric', keywords: ['pediatric', 'kids', 'baby', 'child'] },
-    { id: 'digestive', name: 'Digestive', keywords: ['digestive', 'stomach', 'gut', 'digestion'] }
-  ];
 
-  const productFilters = generateFilterCounts(products, filterDefinitions);
-
-  const dropsProducts = [
-    {
-      id: 1,
-      name: 'VitaDrops',
-      category: 'vitamin',
-      type: 'Vitamin Drops',
-      indication: 'Vitamin Deficiency',
-      description: 'Concentrated vitamin drops for quick absorption and easy administration.',
-      strength: '1ml per dose',
-      packaging: '30ml Bottle',
-      status: 'Available',
-      features: ['High concentration', 'Quick absorption', 'Easy dosing', 'Tasty flavor'],
-      image: '💧',
-      productImage: '/api/placeholder/300/200?text=VitaDrops'
-    },
-    {
-      id: 2,
-      name: 'BabyCalm Drops',
-      category: 'pediatric',
-      type: 'Pediatric Sedative',
-      indication: 'Colic, Restlessness',
-      description: 'Gentle pediatric drops to soothe colicky babies and reduce restlessness.',
-      strength: '0.5ml per dose',
-      packaging: '15ml Bottle',
-      status: 'Available',
-      features: ['Pediatric safe', 'Natural ingredients', 'Fast acting', 'Easy to administer'],
-      image: '👶',
-      productImage: '/api/placeholder/300/200?text=BabyCalm+Drops'
-    }
-  ];
-
-  // Filter products based on active filter
-  useEffect(() => {
-    if (activeFilter === 'all') {
-      setFilteredProducts(products);
-    } else {
-      const filter = filterDefinitions.find(f => f.id === activeFilter);
-      if (filter) {
-        const filtered = products.filter(product => {
-          const name = product.name.toLowerCase();
-          const description = product.shortDescription.toLowerCase();
-          const usagePoints = product.usagePoints?.join(' ').toLowerCase() || '';
-          
-          return filter.keywords.some(keyword => 
-            name.includes(keyword) || 
-            description.includes(keyword) || 
-            usagePoints.includes(keyword)
-          );
-        });
-        setFilteredProducts(filtered);
-      } else {
-        setFilteredProducts(products);
-      }
-    }
-  }, [activeFilter, products]);
-
-  const productCategories = {
-    vitamin: { name: 'Vitamins', color: '#f59e0b' },
-    pediatric: { name: 'Pediatric', color: '#8b5cf6' },
-    digestive: { name: 'Digestive', color: '#10b981' }
-  };
 
   return (
     <div className="l3-container oral-drops-page">
