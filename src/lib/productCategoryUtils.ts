@@ -30,10 +30,6 @@ export const categoryKeywords: CategoryKeywords = {
 export const filterProductsByCategory = (products: Product[], category: string): Product[] => {
   const keywords = categoryKeywords[category] || [];
   
-  console.log(`Filtering products for category: ${category}`);
-  console.log(`Keywords: ${keywords.join(', ')}`);
-  console.log(`Total products to filter: ${products.length}`);
-  
   const filtered = products.filter(product => {
     const categoryField = product.category?.toLowerCase() || '';
     const name = product.name.toLowerCase();
@@ -41,25 +37,17 @@ export const filterProductsByCategory = (products: Product[], category: string):
     
     // Direct category match first
     if (categoryField === category) {
-      console.log(`Product "${product.name}" matches category "${category}" by direct match`);
       return true;
     }
     
     // Then check keywords
-    const matches = keywords.some(keyword => 
+    return keywords.some(keyword => 
       categoryField.includes(keyword) || 
       name.includes(keyword) || 
       description.includes(keyword)
     );
-    
-    if (matches) {
-      console.log(`Product "${product.name}" matches category "${category}" by keyword`);
-    }
-    
-    return matches;
   });
   
-  console.log(`Filtered ${filtered.length} products for category ${category}`);
   return filtered;
 };
 

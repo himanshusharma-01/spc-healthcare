@@ -14,9 +14,7 @@ export default function CapsulesPage() {
     const loadProducts = async () => {
       try {
         setLoading(true);
-        console.log('Loading capsule products...');
         const capsuleProducts = await loadCategoryProducts('capsules');
-        console.log('Loaded capsule products:', capsuleProducts.length);
         setFilteredProducts(capsuleProducts);
       } catch (error) {
         console.error('Error loading capsule products:', error);

@@ -190,10 +190,22 @@
 
 /* Call to Action Section */
 .product-details-page .cta-section {
-  background: var(--l3-gray-light);
-  padding: 2rem;
-  border-radius: 12px;
+  position: relative;
+  isolation: isolate;
+  background: linear-gradient(135deg, rgba(0,163,180,0.08), rgba(7,32,64,0.08));
+  padding: 2.25rem;
+  border-radius: 14px;
   border: 1px solid var(--l3-gray-medium);
+  overflow: hidden;
+}
+
+.product-details-page .cta-section::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(800px 800px at 0% 0%, rgba(0,163,180,0.18), transparent 60%),
+              radial-gradient(800px 800px at 100% 100%, rgba(7,32,64,0.16), transparent 60%);
+  z-index: -1;
 }
 
 .product-details-page .cta-question {
@@ -214,20 +226,28 @@
 }
 
 .product-details-page .cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: var(--l3-teal);
   color: white;
   border: none;
-  padding: 1rem 2rem;
-  border-radius: 8px;
+  padding: 0.9rem 1.5rem;
+  border-radius: 10px;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.2px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease;
   width: 100%;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(0, 163, 180, 0.25);
 }
 
 .product-details-page .cta-button:hover {
   background: var(--l3-navy-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(7,32,64,0.28);
 }
 
 /* Back to Products */
