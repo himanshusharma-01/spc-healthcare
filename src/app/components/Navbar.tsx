@@ -12,6 +12,7 @@ const Navbar: React.FC = () => {
   const pathname = usePathname();
 
   const toggleMobileMenu = () => {
+    console.log('Mobile menu toggle clicked, current state:', isMobileMenuOpen);
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
@@ -30,14 +31,39 @@ const Navbar: React.FC = () => {
       setScrolled(isScrolled);
     };
 
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        setIsMobileMenuOpen(false);
+        setActiveDropdown(null);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   useEffect(() => {
     setIsMobileMenuOpen(false);
     setActiveDropdown(null);
   }, [pathname]);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    console.log('Mobile menu state changed:', isMobileMenuOpen);
+    if (isMobileMenuOpen) {
+      document.body.classList.add('mobile-menu-open');
+    } else {
+      document.body.classList.remove('mobile-menu-open');
+    }
+
+    return () => {
+      document.body.classList.remove('mobile-menu-open');
+    };
+  }, [isMobileMenuOpen]);
 
   // Close dropdowns when clicking outside or pressing Escape
   useEffect(() => {
@@ -89,9 +115,9 @@ const Navbar: React.FC = () => {
   };
 
 
-  const handleBookAppointment = () => {
-    // Implement appointment booking logic
-    console.log('Book appointment clicked');
+  const handleGetInTouch = () => {
+    // Navigate to contact page
+    window.location.href = '/contact';
   };
 
   // Navigation data
@@ -125,7 +151,7 @@ const Navbar: React.FC = () => {
   return (
     <>
       {/* Top Announcement Bar */}
-      <div className="announcement-bar">
+      <div className="announcement-bar" id="navbar-announcement">
         <div className="announcement-content">
          
           <span>"Your Health, Our Priority – Trusted Care for Every Step of Life."</span>
@@ -134,7 +160,7 @@ const Navbar: React.FC = () => {
       </div>
 
       {/* Main Navbar */}
-      <header className={`navbar-header ${scrolled ? 'scrolled' : ''}`}>
+      <header className={`navbar-header ${scrolled ? 'scrolled' : ''}`} id="main-navbar">
         <div className="navbar-container">
           
           {/* Logo with Animation */}
@@ -225,7 +251,7 @@ const Navbar: React.FC = () => {
         )}
 
         {/* Mobile Menu */}
-        <div className={`mobile-menu ${isMobileMenuOpen ? 'active' : ''}`}>
+        <div className={`mobile-menu ${isMobileMenuOpen ? 'active' : ''}`} id="mobile-menu">
           <div className="mobile-menu-content">
             <div className="mobile-menu-header">
               <div className="mobile-logo">
@@ -266,24 +292,25 @@ const Navbar: React.FC = () => {
               ))}
             </ul>
 
-            <div className="mobile-actions">
+            <div className="mobile-actions" id="mobile-actions">
               <button 
                 className="mobile-action-btn primary"
-                onClick={handleBookAppointment}
+                onClick={handleGetInTouch}
+                id="mobile-get-in-touch-btn"
               >
-                <i className="fas fa-calendar-check"></i>
-                Book Appointment
+                <i className="fas fa-envelope"></i>
+                Get in touch
               </button>
             </div>
 
-            <div className="mobile-contact">
+            <div className="mobile-contact" id="mobile-contact">
               <div className="contact-item">
                 <i className="fas fa-phone"></i>
-                <span>+1 (800) HEALTH-01</span>
+                <span>7710301301</span>
               </div>
               <div className="contact-item">
                 <i className="fas fa-envelope"></i>
-                <span>info@spchealthcare.com</span>
+                <span>mail@spchealthcare.com</span>
               </div>
             </div>
           </div>

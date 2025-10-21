@@ -355,95 +355,129 @@
 
 /* RESPONSIVE DESIGN */
 @media (max-width: 1024px) {
-  .footer-container {
+  #main-footer .footer-container {
     grid-template-columns: 1fr 1fr;
     gap: 2.5rem;
   }
   
-  .company-info {
+  #main-footer .company-info {
     grid-column: 1 / -1;
     padding-right: 0;
     text-align: center;
   }
   
-  .footer-logo {
+  #main-footer .footer-logo {
     justify-content: center;
   }
   
-  .footer-social {
+  #main-footer .footer-social {
     justify-content: center;
   }
 }
 
 @media (max-width: 768px) {
-  .footer-main {
+  #main-footer .footer-main {
     padding: 3rem 0 1.5rem;
   }
   
-  .newsletter-content {
+  #footer-newsletter .newsletter-content {
     grid-template-columns: 1fr;
     gap: 1.5rem;
     text-align: center;
   }
   
-  .newsletter-form {
+  #footer-newsletter .newsletter-form {
     flex-direction: column;
     max-width: 400px;
     margin: 0 auto;
   }
   
-  .footer-main .footer-container {
+  #footer-main .footer-container {
     grid-template-columns: 1fr;
     gap: 2.5rem;
     text-align: center;
   }
   
-  .footer-section h4.footer-title::after {
+  #main-footer .footer-section h4.footer-title::after {
     left: 50%;
     transform: translateX(-50%);
   }
   
-  .footer-bottom-content {
+  #main-footer .footer-bottom-content {
     flex-direction: column;
     gap: 1rem;
     text-align: center;
   }
   
-  .footer-legal {
+  #main-footer .footer-legal {
     flex-wrap: wrap;
     justify-content: center;
     gap: 1rem;
   }
   
-  .certification-logos {
+  #main-footer .certification-logos {
     gap: 1rem;
   }
   
-  .cert-logo {
+  #main-footer .cert-logo {
     padding: 0.6rem 1rem;
     font-size: 0.8rem;
+  }
+  
+  /* Ensure all footer sections are centered on mobile */
+  #main-footer .footer-section {
+    align-items: center;
+    text-align: center;
+  }
+  
+  #main-footer .footer-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #main-footer .contact-info .contact-item {
+    justify-content: center;
+    text-align: center;
   }
   
 }
 
 @media (max-width: 480px) {
-  .footer-container {
+  #main-footer .footer-container {
     padding: 0 15px;
   }
   
-  .contact-info .contact-item {
+  #main-footer .contact-info .contact-item {
     flex-direction: column;
     gap: 0.5rem;
     text-align: center;
+    align-items: center;
   }
   
-  .contact-info .contact-item i {
+  #main-footer .contact-info .contact-item i {
     margin: 0 auto;
   }
   
-  .footer-legal {
+  #main-footer .footer-legal {
     flex-direction: column;
     gap: 0.5rem;
+  }
+  
+  /* Additional mobile centering for very small screens */
+  #main-footer .footer-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  #main-footer .footer-links {
+    align-items: center;
+  }
+  
+  #main-footer .footer-links li {
+    text-align: center;
   }
   
 }

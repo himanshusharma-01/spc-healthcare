@@ -62,11 +62,11 @@ export default function OralSuspensionsPage() {
 
 
   return (
-    <div className="l3-container oral-suspensions-page">
-      <section className="oral-suspensions-hero">
+    <div className="l3-container oral-suspensions-page" id="oral-suspensions-page">
+      <section className="oral-suspensions-hero" id="oral-suspensions-hero">
         <div className="l3-container-inner">
-          <div className="oral-suspensions-hero-content">
-            <div className="oral-suspensions-hero-text">
+          <div className="oral-suspensions-hero-content" id="oral-suspensions-hero-content">
+            <div className="oral-suspensions-hero-text" id="oral-suspensions-hero-text">
               <h1 className="oral-suspensions-hero-title">
                 <span className="l3-title-line">Oral Suspensions</span>
                 <span className="l3-title-line">Liquid Precision</span>
@@ -84,9 +84,9 @@ export default function OralSuspensionsPage() {
         </div>
       </section>
 
-      <section className="products-section">
+      <section className="products-section" id="oral-suspensions-products">
         <div className="l3-container-inner">
-          <div className="section-header">
+          <div className="section-header" id="oral-suspensions-header">
             <h2 className="l3-section-title">Our Oral Suspension Products</h2>
             <h3 className="l3-section-subtitle">Discover our range of high-quality liquid formulations.</h3>
           </div>

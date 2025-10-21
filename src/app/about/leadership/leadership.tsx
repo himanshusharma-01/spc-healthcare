@@ -152,14 +152,14 @@ export default function LeadershipPage() {
   return (
     <div className="l3-container leadership-page">
       {/* Hero Section */}
-      <section className="leadership-hero l3-section leadership-section">
+      <section className="leadership-hero l3-section leadership-section" id="leadership-hero">
         <div className="l3-hero-background">
           <div className="l3-hero-overlay"></div>
           <div className="leadership-hero-pattern"></div>
         </div>
         <div className="l3-container-inner">
-          <div className="leadership-hero-content">
-            <div className="leadership-hero-text">
+          <div className="leadership-hero-content" id="leadership-hero-content">
+            <div className="leadership-hero-text" id="leadership-hero-text">
               <h1 className="leadership-hero-title">
                 <span className="l3-title-line">Leadership</span>
                 <span className="l3-title-line">That Drives Innovation</span>

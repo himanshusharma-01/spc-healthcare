@@ -1,7 +1,7 @@
 /* Navbar.css - Creative Pharmaceutical Design */
 
 /* Announcement Bar */
-.announcement-bar {
+#navbar-announcement.announcement-bar {
   background: linear-gradient(135deg, #00A3B4, #00A676);
   color: white;
   padding: 0.5rem 0;
@@ -50,7 +50,7 @@
 }
 
 /* Main Navbar */
-.navbar-header {
+#main-navbar.navbar-header {
   background: linear-gradient(135deg, #0A1931, #1A365D);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -355,31 +355,28 @@
   transform-origin: center;
 }
 
-.hamburger.active span:nth-child(1) {
-  transform: rotate(45deg) translate(6px, 6px);
-}
-
-.hamburger.active span:nth-child(2) {
-  opacity: 0;
-}
-
-.hamburger.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(6px, -6px);
+.hamburger.active span {
+  background: #00A3B4;
 }
 
 /* Mobile Menu */
 .mobile-menu {
   position: fixed;
-  inset: 0; /* Match viewport without forcing 100vh */
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
   background: linear-gradient(135deg, #0A1931, #1A365D);
   z-index: 999;
   transform: translateX(-100%);
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   overflow-y: auto;
+  display: block;
 }
 
 .mobile-menu.active {
   transform: translateX(0);
+  display: block !important;
 }
 
 .mobile-menu-content {
@@ -465,7 +462,7 @@
   color: white;
 }
 
-.mobile-actions {
+#mobile-actions.mobile-actions {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -486,9 +483,16 @@
   transition: all 0.3s ease;
 }
 
-.mobile-action-btn.primary {
-  background: linear-gradient(135deg, #dc3545, #ff6b7a);
+#mobile-get-in-touch-btn.mobile-action-btn.primary {
+  background: linear-gradient(135deg, #00A3B4, #00A676);
   color: white;
+  box-shadow: 0 4px 15px rgba(0, 163, 180, 0.3);
+}
+
+#mobile-get-in-touch-btn.mobile-action-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 163, 180, 0.4);
+  background: linear-gradient(135deg, #00A676, #00A3B4);
 }
 
 .mobile-action-btn.emergency {
@@ -496,7 +500,7 @@
   color: white;
 }
 
-.mobile-contact {
+#mobile-contact.mobile-contact {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding-top: 2rem;
 }
@@ -588,6 +592,20 @@
   .logo-sub {
     font-size: 0.8rem;
   }
+}
+
+/* Ensure mobile menu is hidden on desktop */
+@media (min-width: 769px) {
+  .mobile-menu {
+    display: none !important;
+  }
+}
+
+/* Prevent body scroll when mobile menu is open */
+body.mobile-menu-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
 }
 
 @media (max-width: 480px) {
