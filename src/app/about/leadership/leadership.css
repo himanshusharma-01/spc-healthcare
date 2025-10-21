@@ -590,41 +590,55 @@
   }
   
   @media (max-width: 768px) {
-    .leadership-hero-content {
+    #leadership-hero-content.leadership-hero-content {
       grid-template-columns: 1fr;
       gap: 2rem;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
   
-    .leadership-hero-title {
+    #leadership-hero-text.leadership-hero-text {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+  
+    #leadership-hero .leadership-hero-title {
       font-size: 2.5rem;
       text-align: center;
+      margin: 0 auto;
     }
   
-    .leadership-hero-subtitle {
+    #leadership-hero .leadership-hero-subtitle {
       text-align: center;
       margin: 0 auto 2rem auto;
       max-width: 90%;
     }
   
-    .leadership-stats {
+    #leadership-hero .leadership-stats {
       justify-content: center;
       flex-wrap: wrap;
       gap: 1.5rem;
+      display: flex;
+      align-items: center;
     }
   
-    .leadership-stat {
+    #leadership-hero .leadership-stat {
       text-align: center;
       min-width: 120px;
     }
   
-    .leadership-hero-visual {
+    #leadership-hero .leadership-hero-visual {
       display: flex;
       justify-content: center;
       align-items: center;
     }
   
-    .leadership-visual-element {
+    #leadership-hero .leadership-visual-element {
       width: 200px;
       height: 200px;
     }
@@ -664,40 +678,55 @@
   }
   
   @media (max-width: 480px) {
-    .leadership-hero-title {
+    #leadership-hero .leadership-hero-title {
       font-size: 2rem;
       text-align: center;
+      margin: 0 auto;
     }
   
-    .leadership-hero-subtitle {
+    #leadership-hero .leadership-hero-subtitle {
       font-size: 1.1rem;
       text-align: center;
       margin: 0 auto 2rem auto;
       max-width: 95%;
     }
   
-    .leadership-stats {
+    #leadership-hero .leadership-stats {
       flex-direction: column;
       gap: 1.5rem;
       align-items: center;
+      justify-content: center;
     }
   
-    .leadership-stat {
+    #leadership-hero .leadership-stat {
       text-align: center;
       width: 100%;
       max-width: 200px;
     }
   
-    .leadership-hero-visual {
+    #leadership-hero .leadership-hero-visual {
       display: flex;
       justify-content: center;
       align-items: center;
       margin-top: 2rem;
     }
   
-    .leadership-visual-element {
+    #leadership-hero .leadership-visual-element {
       width: 180px;
       height: 180px;
+    }
+    
+    /* Ensure all hero content is perfectly centered */
+    #leadership-hero-content.leadership-hero-content {
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    #leadership-hero-text.leadership-hero-text {
+      text-align: center;
+      align-items: center;
+      justify-content: center;
     }
   
     .orbit-1 {

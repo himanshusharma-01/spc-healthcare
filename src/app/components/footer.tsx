@@ -21,9 +21,9 @@ const Footer: React.FC = () => {
 
 
   return (
-    <footer className="footer">
+    <footer className="footer" id="main-footer">
       {/* Newsletter Section - MOVED TO TOP */}
-      <div className="footer-newsletter">
+      <div className="footer-newsletter" id="footer-newsletter">
         <div className="footer-container">
           <div className="newsletter-content">
             <div className="newsletter-text">
@@ -49,7 +49,7 @@ const Footer: React.FC = () => {
       </div>
 
       {/* Main Footer Content */}
-      <div className="footer-main">
+      <div className="footer-main" id="footer-main">
         <div className="footer-container">
           
           {/* Company Info Section */}

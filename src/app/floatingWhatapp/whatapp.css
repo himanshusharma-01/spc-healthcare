@@ -1,16 +1,21 @@
 /* components/WhatsAppFloating.module.css */
 .whatsappContainer {
-    position: fixed;
-    z-index: 1000;
-    display: flex;
+    position: fixed !important;
+    z-index: 1000 !important;
+    display: flex !important;
     align-items: center;
     flex-direction: column;
     gap: 12px;
+    pointer-events: auto;
+    margin: 0 !important;
+    padding: 0 !important;
   }
   
   .bottom-right {
-    bottom: 20px;
-    right: 0;
+    bottom: 20px !important;
+    right: 20px !important;
+    left: auto !important;
+    top: auto !important;
   }
   
   .bottom-left {
@@ -106,8 +111,10 @@
     }
     
     .bottom-right {
-      bottom: 15px;
-      right: 15px;
+      bottom: 20px !important;
+      right: 20px !important;
+      left: auto !important;
+      top: auto !important;
     }
     
     .bottom-left {
