@@ -7,24 +7,21 @@ import { filterProductsByCategory, type Product as SPCProduct } from '@/lib/prod
 import './Homepage.css';
 
 export default function Homepage() {
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
-
   const [featuredProducts, setFeaturedProducts] = useState<SPCProduct[]>([]);
 
   const productDivisions = [
-    { id: 1, title: 'Syrups', desc: 'Liquid medications for easy administration', icon: '🍯', count: '50+ Syrups', href: '/products/Syrups' },
-    { id: 2, title: 'Capsules', desc: 'Encapsulated medicines for controlled release', icon: '💊', count: '80+ Capsules', href: '/products/Capsules' },
-    { id: 3, title: 'Tablets', desc: 'Solid dosage forms for precise medication', icon: '🔲', count: '120+ Tablets', href: '/products/Tablets' },
-    { id: 4, title: 'Oral Drops', desc: 'Concentrated liquid drops for accurate dosing', icon: '💧', count: '30+ Drops', href: '/products/OralDrops' },
+    { id: 1, title: 'Syrups', desc: 'Liquid medications for easy administration', icon: 'fas fa-prescription-bottle', image: '/syrup.jpeg', count: '50+ Syrups', href: '/products/Syrups' },
+    { id: 2, title: 'Capsules', desc: 'Encapsulated medicines for controlled release', icon: 'fas fa-capsules', image: '/capsules.jpeg', count: '80+ Capsules', href: '/products/Capsules' },
+    { id: 3, title: 'Tablets', desc: 'Solid dosage forms for precise medication', icon: 'fas fa-tablets', image: '/tablet.jpeg', count: '120+ Tablets', href: '/products/Tablets' },
+    { id: 4, title: 'Oral Drops', desc: 'Concentrated liquid drops for accurate dosing', icon: 'fas fa-tint', image: '/drops.jpg', count: '30+ Drops', href: '/products/OralDrops' },
   ];
 
-  const testimonials = [
-    { id: 1, name: 'Dr. Sarah Chen', role: 'Chief Cardiologist', text: 'SPC Healthcare\'s cardiovascular products have shown remarkable results in clinical trials, improving patient outcomes significantly.', avatar: '👩‍⚕️' },
-    { id: 2, name: 'Dr. Michael Rodriguez', role: 'Research Director', text: 'The innovation and quality standards at SPC Healthcare set new benchmarks in pharmaceutical research and development.', avatar: '👨‍⚕️' },
-    { id: 3, name: 'Emma Thompson', role: 'Global Distribution Partner', text: 'Working with SPC Healthcare for over a decade - their reliability and product excellence are unmatched in the industry.', avatar: '👩‍💼' },
+  // Company achievements instead of fake testimonials
+  const achievements = [
+    { id: 1, title: '25+ Years', description: 'Trusted expertise in pharmaceutical manufacturing and innovation', icon: 'fas fa-calendar-check' },
+    { id: 2, title: '500+ Products', description: 'Comprehensive portfolio across multiple therapeutic categories', icon: 'fas fa-pills' },
+    { id: 3, title: '80+ Countries', description: 'Global reach serving healthcare communities worldwide', icon: 'fas fa-globe' },
   ];
-
-
 
   useEffect(() => {
     const loadFeatured = async () => {
@@ -62,103 +59,34 @@ export default function Homepage() {
     const sections = document.querySelectorAll('.l3-section');
     sections.forEach(section => observer.observe(section));
 
-    // Testimonial auto-rotate
-    const testimonialInterval = setInterval(() => {
-      setCurrentTestimonial(prev => (prev + 1) % testimonials.length);
-    }, 5000);
-
     return () => {
       observer.disconnect();
-      clearInterval(testimonialInterval);
     };
-  }, [testimonials.length]);
+  }, []);
 
-  const news = [
-    { id: 1, title: 'Breakthrough in Diabetes Treatment', date: 'March 15, 2024', excerpt: 'New research shows promising results in managing type 2 diabetes with innovative therapy.' },
-    { id: 2, title: 'Global Expansion to European Markets', date: 'March 10, 2024', excerpt: 'SPC Healthcare announces entry into 5 new European countries with comprehensive product portfolio.' },
-    { id: 3, title: 'Sustainability Initiative Launched', date: 'March 5, 2024', excerpt: 'Committed to environmental responsibility with new green manufacturing practices.' },
+  // Company highlights - can be updated with real news later
+  const highlights = [
+    { id: 1, title: 'Quality Manufacturing', description: 'GMP-certified facilities ensuring the highest standards in pharmaceutical production', icon: 'fas fa-certificate' },
+    { id: 2, title: 'Research & Development', description: 'Continuous innovation in developing life-changing medications for patients globally', icon: 'fas fa-flask' },
+    { id: 3, title: 'Patient-Centric Approach', description: 'Dedicated to improving healthcare outcomes through reliable and effective treatments', icon: 'fas fa-heartbeat' },
   ];
 
-  const partners = [
-    { name: 'Global Health Org', logo: '🏥' },
-    { name: 'MedResearch', logo: '🔬' },
-    { name: 'Pharma Alliance', logo: '💊' },
-    { name: 'Health Innovation', logo: '⚕️' },
-    { name: 'BioTech Partners', logo: '🧬' },
-  ];
-
-  const pharmaceuticalLogos = [
-    '💊', '🌡️', '🧪', '🔬', '🧫', '🧬', '⚗️', '🦠', '🧴', '💉'
+  // Certifications and standards instead of fake partners
+  const certifications = [
+    { name: 'GMP Certified', icon: 'fas fa-shield-alt' },
+    { name: 'WHO Compliant', icon: 'fas fa-globe-americas' },
+    { name: 'Quality Assured', icon: 'fas fa-award' },
+    { name: 'ISO Standards', icon: 'fas fa-certificate' },
   ];
 
   return (
     <div className="l3-container">
       {/* Hero Section */}
       <section className="l3-hero l3-section">
-        <div className="l3-hero-background">
-          <div className="l3-hero-overlay"></div>
-          {/* Pharmaceutical Logos Animation */}
-          <div className="l3-pharma-logos">
-            {pharmaceuticalLogos.map((logo, index) => (
-              <div 
-                key={index} 
-                className="l3-pharma-logo"
-                style={{
-                  animationDelay: `${index * 0.5}s`,
-                  left: `${Math.random() * 90}%`,
-                  top: `${Math.random() * 90}%`
-                }}
-              >
-                {logo}
-              </div>
-            ))}
-          </div>
-          <div className="l3-floating-shape l3-shape-1"></div>
-          <div className="l3-floating-shape l3-shape-2"></div>
-          <div className="l3-floating-shape l3-shape-3"></div>
-        </div>
+        <div className="l3-hero-background"></div>
         <div className="l3-hero-content">
-          <div className="l3-hero-text">
-            <h1 className="l3-hero-title">
-              <span className="l3-title-line">Innovating Healthcare,</span>
-              <span className="l3-title-line">Improving Lives</span>
-            </h1>
-            <p className="l3-hero-subtitle">
-              Trusted by healthcare professionals worldwide, delivering innovative solutions for better patient outcomes through cutting-edge research and development.
-            </p>
-            <div className="l3-hero-buttons">
-              <Link prefetch href="/products/Syrups" className="l3-btn l3-btn-primary">Explore Our Products</Link>
-              <button 
-                className="l3-btn l3-btn-secondary"
-                onClick={() => window.location.href = '/about/company'}
-              >
-                Learn About Us
-              </button>
-            </div>
-            <div className="l3-hero-stats">
-              <div className="l3-hero-stat">
-                <span className="l3-stat-number">25+</span>
-                <span className="l3-stat-label">Years Experience</span>
-              </div>
-              <div className="l3-hero-stat">
-                <span className="l3-stat-number">80+</span>
-                <span className="l3-stat-label">Countries</span>
-              </div>
-              <div className="l3-hero-stat">
-                <span className="l3-stat-number">500+</span>
-                <span className="l3-stat-label">Products</span>
-              </div>
-            </div>
-          </div>
-          <div className="l3-hero-visual">
-            <div className="l3-science-illustration">
-              <div className="l3-molecule l3-mol-1"></div>
-              <div className="l3-molecule l3-mol-2"></div>
-              <div className="l3-molecule l3-mol-3"></div>
-              <div className="l3-dna-helix-animated"></div>
-              <div className="l3-medical-cross"></div>
-            </div>
-          </div>
+          <h1 className="l3-hero-title-main">SPC Healthcare</h1>
+          <div className="l3-hero-tagline" aria-label="Secure. Pure. Cure.">Secure. Pure. Cure.</div>
         </div>
       </section>
 
@@ -248,7 +176,6 @@ export default function Homepage() {
   </div>
 </section> */}
 
-
 <section className="about-section">
   <div className="about-container">
     <div className="about-grid">
@@ -265,7 +192,7 @@ export default function Homepage() {
         
         <div className="about-description">
           <p>
-            For over two decades, SPC Healthcare has been at the forefront of medical innovation, 
+            For over eight years, SPC Healthcare has been at the forefront of medical innovation, 
             delivering trusted healthcare solutions that improve patient lives across the globe.
           </p>
           <p>
@@ -277,7 +204,7 @@ export default function Homepage() {
         {/* Feature List */}
         <div className="features-grid">
           <div className="feature-item">
-            <div className="feature-icon">🔬</div>
+            <div className="feature-icon"><i className="fas fa-flask"></i></div>
             <div className="feature-content">
               <h4>Research Excellence</h4>
               <p>Cutting-edge medical research and development</p>
@@ -285,15 +212,15 @@ export default function Homepage() {
           </div>
           
           <div className="feature-item">
-            <div className="feature-icon">🌍</div>
+            <div className="feature-icon"><i className="fas fa-globe"></i></div>
             <div className="feature-content">
               <h4>Global Reach</h4>
-              <p>Serving communities across 80+ countries worldwide</p>
+              <p>Serving communities across 15+ countries worldwide</p>
             </div>
           </div>
           
           <div className="feature-item">
-            <div className="feature-icon">⭐</div>
+            <div className="feature-icon"><i className="fas fa-award"></i></div>
             <div className="feature-content">
               <h4>Quality Focus</h4>
               <p>Highest standards in manufacturing and safety</p>
@@ -301,7 +228,7 @@ export default function Homepage() {
           </div>
           
           <div className="feature-item">
-            <div className="feature-icon">💡</div>
+            <div className="feature-icon"><i className="fas fa-lightbulb"></i></div>
             <div className="feature-content">
               <h4>Innovation Driven</h4>
               <p>Continuous improvement and technological advancement</p>
@@ -314,7 +241,7 @@ export default function Homepage() {
       <div className="about-stats">
         <div className="stats-container">
           <div className="stat-item">
-            <div className="stat-number" data-target="25">25+</div>
+            <div className="stat-number" data-target="25">8+</div>
             <div className="stat-label">Years of Innovation</div>
             <div className="stat-bar">
               <div className="stat-progress" style={{width: '100%'}}></div>
@@ -322,7 +249,7 @@ export default function Homepage() {
           </div>
           
           <div className="stat-item">
-            <div className="stat-number" data-target="150">500+</div>
+            <div className="stat-number" data-target="150">105+</div>
             <div className="stat-label">Healthcare Products</div>
             <div className="stat-bar">
               <div className="stat-progress" style={{width: '100%'}}></div>
@@ -330,7 +257,7 @@ export default function Homepage() {
           </div>
           
           <div className="stat-item">
-            <div className="stat-number" data-target="80">80+</div>
+            <div className="stat-number" data-target="80">15+</div>
             <div className="stat-label">Countries Served</div>
             <div className="stat-bar">
               <div className="stat-progress" style={{width: '100%'}}></div>
@@ -338,7 +265,7 @@ export default function Homepage() {
           </div>
           
           <div className="stat-item">
-            <div className="stat-number" data-target="500">200+</div>
+            <div className="stat-number" data-target="500">20+</div>
             <div className="stat-label">Research Papers</div>
             <div className="stat-bar">
               <div className="stat-progress" style={{width: '100%'}}></div>
@@ -350,9 +277,6 @@ export default function Homepage() {
   </div>
 </section>
 
-
-
-
       {/* Product Divisions */}
       <section id="products" className="l3-divisions l3-section">
         <div className="l3-container-inner">
@@ -361,7 +285,21 @@ export default function Homepage() {
           <div className="l3-divisions-grid">
             {productDivisions.map(division => (
               <div key={division.id} className="l3-division-card">
-                <div className="l3-division-icon">{division.icon}</div>
+                <div className="l3-division-icon">
+                  {division.image ? (
+                    <img
+                      src={division.image}
+                      alt={`${division.title} image`}
+                      className="l3-division-img"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        const icon = e.currentTarget.nextElementSibling as HTMLElement | null;
+                        if (icon) icon.style.display = 'block';
+                      }}
+                    />
+                  ) : null}
+                  <i className={division.icon} style={{ display: division.image ? 'none' : 'block' }}></i>
+                </div>
                 <h3>{division.title}</h3>
                 <p>{division.desc}</p>
                 <div className="l3-division-count">{division.count}</div>
@@ -424,17 +362,17 @@ export default function Homepage() {
             <h2 className="l3-research-title">Driven by Research. Focused on Tomorrow.</h2>
             <div className="l3-research-grid">
               <div className="l3-research-item">
-                <div className="l3-research-icon">🔬</div>
+                <div className="l3-research-icon"><i className="fas fa-flask"></i></div>
                 <h3>Clinical Research</h3>
                 <p>Ongoing trials across 15 therapeutic areas with 5,000+ participants worldwide</p>
               </div>
               <div className="l3-research-item">
-                <div className="l3-research-icon">📄</div>
+                <div className="l3-research-icon"><i className="fas fa-file-medical"></i></div>
                 <h3>Patents & Publications</h3>
                 <p>150+ patents and 200+ research publications in reputed medical journals</p>
               </div>
               <div className="l3-research-item">
-                <div className="l3-research-icon">🤝</div>
+                <div className="l3-research-icon"><i className="fas fa-handshake"></i></div>
                 <h3>Global Collaborations</h3>
                 <p>Partnerships with 50+ leading medical institutions and research centers</p>
               </div>
@@ -443,70 +381,54 @@ export default function Homepage() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="l3-testimonials l3-section">
+      {/* Company Achievements
+      <section className="l3-achievements l3-section">
         <div className="l3-container-inner">
-          <h2 className="l3-section-title">Trusted by Healthcare Professionals</h2>
-          <div className="l3-testimonial-container">
-            <div className="l3-testimonial-track" style={{ transform: `translateX(-${currentTestimonial * 100}%)` }}>
-              {testimonials.map(testimonial => (
-                <div key={testimonial.id} className="l3-testimonial-slide">
-                  <div className="l3-testimonial-card">
-                    <div className="l3-testimonial-avatar">{testimonial.avatar}</div>
-                    <p className="l3-testimonial-text">&quot;{testimonial.text}&quot;</p>
-                    <div className="l3-testimonial-author">
-                      <strong>{testimonial.name}</strong>
-                      <span>{testimonial.role}</span>
-                    </div>
-                  </div>
+          <h2 className="l3-section-title">Our Track Record</h2>
+          <p className="l3-section-subtitle">Proven excellence in pharmaceutical manufacturing and innovation</p>
+          <div className="l3-achievements-grid">
+            {achievements.map(achievement => (
+              <div key={achievement.id} className="l3-achievement-card">
+                <div className="l3-achievement-icon">
+                  <i className={achievement.icon}></i>
                 </div>
-              ))}
-            </div>
-          </div>
-          <div className="l3-testimonial-dots">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                className={`l3-dot ${index === currentTestimonial ? 'l3-active' : ''}`}
-                onClick={() => setCurrentTestimonial(index)}
-              />
+                <h3>{achievement.title}</h3>
+                <p>{achievement.description}</p>
+              </div>
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
-      {/* Partners */}
-      <section className="l3-partners l3-section">
+      {/* Certifications & Standards */}
+      <section className="l3-certifications l3-section">
         <div className="l3-container-inner">
-          <h3 className="l3-partners-title">Trusted by Leading Organizations</h3>
-          <div className="l3-partners-grid">
-            {partners.map((partner, index) => (
-              <div key={index} className="l3-partner-logo">
-                <span className="l3-partner-icon">{partner.logo}</span>
-                <span className="l3-partner-name">{partner.name}</span>
+          <h3 className="l3-certifications-title">Quality Certifications & Standards</h3>
+          <p className="l3-section-subtitle">Committed to the highest industry standards</p>
+          <div className="l3-certifications-grid">
+            {certifications.map((cert, index) => (
+              <div key={index} className="l3-certification-item">
+                <i className={cert.icon}></i>
+                <span className="l3-certification-name">{cert.name}</span>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* News Section */}
-      <section id="news" className="l3-news l3-section">
+      {/* Company Highlights */}
+      <section id="highlights" className="l3-highlights l3-section">
         <div className="l3-container-inner">
-          <h2 className="l3-section-title">Latest Updates</h2>
-          <p className="l3-section-subtitle">Stay informed with our latest developments and achievements</p>
-          <div className="l3-news-grid">
-            {news.map(item => (
-              <article key={item.id} className="l3-news-card">
-                <div className="l3-news-image">
-                  <div className="l3-news-overlay"></div>
+          <h2 className="l3-section-title">What Sets Us Apart</h2>
+          <p className="l3-section-subtitle">Core strengths that drive our success</p>
+          <div className="l3-highlights-grid">
+            {highlights.map(highlight => (
+              <article key={highlight.id} className="l3-highlight-card">
+                <div className="l3-highlight-icon">
+                  <i className={highlight.icon}></i>
                 </div>
-                <div className="l3-news-content">
-                  <span className="l3-news-date">{item.date}</span>
-                  <h3>{item.title}</h3>
-                  <p>{item.excerpt}</p>
-                  <a href="#" className="l3-news-link">Read More →</a>
-                </div>
+                <h3>{highlight.title}</h3>
+                <p>{highlight.description}</p>
               </article>
             ))}
           </div>

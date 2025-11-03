@@ -41,26 +41,38 @@
 }
 
 /* Reset conflicting styles */
-html, body {
+html {
   width: 100%;
   height: auto;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden !important;
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
 }
 
 body {
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden !important;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   min-height: 100%;
   opacity: 1;
   visibility: visible;
-  width: 100%;
-  max-width: 100vw;
+  max-width: 100%;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  position: relative;
 }
 
 /* SPC Healthcare Layout Classes */
@@ -197,7 +209,7 @@ body {
 /* Critical Layout Fixes */
 .container, .container-fluid {
   width: 100%;
-  max-width: 100vw;
+  max-width: 100%;
 }
 
 /* Prevent horizontal scroll */
@@ -215,6 +227,17 @@ html {
 /* Ensure all sections are contained */
 section {
   width: 100%;
-  max-width: 100vw;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Ensure root elements prevent overflow */
+html,
+body,
+#__next,
+[data-nextjs-scroll-focus-boundary] {
+  overflow-x: hidden !important;
+  width: 100%;
+  max-width: 100%;
 }
 
