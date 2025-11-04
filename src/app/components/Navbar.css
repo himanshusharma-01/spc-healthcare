@@ -75,6 +75,7 @@
   align-items: center;
   justify-content: space-between;
   height: 80px;
+  min-height: 80px;
 }
 
 /* Logo Styles */
@@ -85,6 +86,8 @@
   transition: all 0.3s ease;
   position: relative;
   z-index: 1001;
+  height: 100%;
+  min-height: 60px;
 }
 
 .logo:hover {
@@ -122,6 +125,8 @@
   display: flex;
   flex-direction: column;
   line-height: 1;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .logo-main {
@@ -129,6 +134,9 @@
   font-weight: 800;
   color: white;
   letter-spacing: -0.5px;
+  line-height: 1.1;
+  margin: 0;
+  padding: 0;
 }
 
 .logo-sub {
@@ -136,6 +144,10 @@
   font-weight: 600;
   color: #00A3B4;
   letter-spacing: 1px;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+  margin-top: 2px;
 }
 
 /* Desktop Navigation */
@@ -336,7 +348,26 @@
   border: none;
   cursor: pointer;
   padding: 0.5rem;
-  z-index: 1001;
+  z-index: 1003;
+  position: relative;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+.mobile-toggle:focus {
+  outline: none;
+}
+
+.mobile-toggle:active {
+  transform: scale(0.95);
+}
+
+.mobile-toggle:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
 }
 
 .hamburger {
@@ -344,44 +375,100 @@
   flex-direction: column;
   gap: 4px;
   width: 24px;
+  position: relative;
 }
 
 .hamburger span {
   display: block;
   height: 2px;
+  width: 100%;
   background: white;
   border-radius: 2px;
   transition: all 0.3s ease;
   transform-origin: center;
+  position: relative;
 }
 
 .hamburger.active span:nth-child(1) {
-  transform: rotate(45deg) translate(6px, 6px);
+  transform: rotate(45deg) translateY(8px);
 }
 
 .hamburger.active span:nth-child(2) {
   opacity: 0;
+  transform: scaleX(0);
 }
 
 .hamburger.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(6px, -6px);
+  transform: rotate(-45deg) translateY(-8px);
 }
 
 /* Mobile Menu */
 .mobile-menu {
   position: fixed;
-  inset: 0; /* Match viewport without forcing 100vh */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
   background: linear-gradient(135deg, #0A1931, #1A365D);
-  z-index: 999;
+  z-index: 1002;
   transform: translateX(-100%);
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden !important; /* Remove internal scrollbar - force on reload */
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+              visibility 0s linear 0.4s,
+              opacity 0.3s ease;
+  overflow: hidden !important;
   overflow-y: hidden !important;
   overflow-x: hidden !important;
+  visibility: hidden;
+  opacity: 0;
+  display: block;
+}
+
+/* Prevent body scroll when mobile menu is open */
+body.mobile-menu-open {
+  overflow: hidden !important;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  touch-action: none;
+  -webkit-overflow-scrolling: none;
+}
+
+html.mobile-menu-open {
+  overflow: hidden !important;
+  touch-action: none;
+}
+
+/* Hide mobile menu on desktop */
+@media (min-width: 769px) {
+  .mobile-menu {
+    display: none !important;
+  }
+  
+  .mobile-toggle {
+    display: none !important;
+  }
+  
+  body.mobile-menu-open {
+    overflow: auto !important;
+    position: relative;
+    width: auto;
+    height: auto;
+    top: auto;
+    left: auto;
+  }
 }
 
 .mobile-menu.active {
-  transform: translateX(0);
+  transform: translateX(0) !important;
+  visibility: visible;
+  opacity: 1;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              visibility 0s linear 0s,
+              opacity 0.3s ease;
 }
 
 .mobile-menu-content {
@@ -572,23 +659,39 @@
 @media (max-width: 768px) {
   .desktop-nav,
   .nav-actions {
-    display: none;
+    display: none !important;
   }
   
   .mobile-toggle {
-    display: block;
+    display: block !important;
+    position: relative;
+    z-index: 1003;
   }
   
   .navbar-container {
     height: 70px;
+    min-height: 70px;
+  }
+  
+  .logo {
+    min-height: 50px;
+    align-items: center;
   }
   
   .logo-main {
     font-size: 1.5rem;
+    line-height: 1.1;
   }
   
   .logo-sub {
     font-size: 0.8rem;
+    line-height: 1;
+    margin-top: 1px;
+  }
+
+  /* Ensure mobile menu is visible on mobile */
+  .mobile-menu {
+    display: block !important;
   }
 }
 

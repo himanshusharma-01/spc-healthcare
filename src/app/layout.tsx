@@ -48,6 +48,16 @@ export default function RootLayout({
               (function() {
                 // Immediately hide scrollbars on internal components before React loads
                 function hideInternalScrollbars() {
+                  // Hide scrollbars on homepage container
+                  const homepageContainer = document.querySelector('.l3-container');
+                  if (homepageContainer) {
+                    homepageContainer.style.overflow = 'hidden';
+                    homepageContainer.style.overflowX = 'hidden';
+                    homepageContainer.style.overflowY = 'hidden';
+                    homepageContainer.style.scrollbarWidth = 'none';
+                    homepageContainer.style.msOverflowStyle = 'none';
+                  }
+                  
                   const mobileMenu = document.querySelector('.mobile-menu');
                   if (mobileMenu) {
                     mobileMenu.style.overflow = 'hidden';
@@ -66,8 +76,22 @@ export default function RootLayout({
                 } else {
                   hideInternalScrollbars();
                 }
-                // Also run after a short delay to catch dynamically added elements
+                // Also run multiple times to catch dynamically added elements
+                setTimeout(hideInternalScrollbars, 0);
                 setTimeout(hideInternalScrollbars, 50);
+                setTimeout(hideInternalScrollbars, 100);
+                setTimeout(hideInternalScrollbars, 200);
+                setTimeout(hideInternalScrollbars, 500);
+                setTimeout(hideInternalScrollbars, 1000);
+                // Handle page refresh
+                window.addEventListener('pageshow', function(e) {
+                  hideInternalScrollbars();
+                  setTimeout(hideInternalScrollbars, 0);
+                  setTimeout(hideInternalScrollbars, 50);
+                  setTimeout(hideInternalScrollbars, 100);
+                  setTimeout(hideInternalScrollbars, 200);
+                  setTimeout(hideInternalScrollbars, 500);
+                });
               })();
             `,
           }}

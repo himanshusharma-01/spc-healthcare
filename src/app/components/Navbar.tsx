@@ -11,9 +11,16 @@ const Navbar: React.FC = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const pathname = usePathname();
 
-  const toggleMobileMenu = () => {
-    console.log('Mobile menu toggle clicked, current state:', isMobileMenuOpen);
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+  const toggleMobileMenu = (e?: React.MouseEvent | React.TouchEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    // Use functional update to avoid stale state
+    setIsMobileMenuOpen(prev => {
+      const newState = !prev;
+      return newState;
+    });
   };
 
   const toggleDropdown = (dropdown: string) => {
@@ -53,15 +60,61 @@ const Navbar: React.FC = () => {
 
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
-    console.log('Mobile menu state changed:', isMobileMenuOpen);
     if (isMobileMenuOpen) {
+      // Store current scroll position
+      const scrollY = window.scrollY;
+      
+      // Add class and set inline styles
       document.body.classList.add('mobile-menu-open');
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
+      document.body.style.height = '100%';
+      
+      // Also prevent scrolling on html element
+      document.documentElement.style.overflow = 'hidden';
+      document.documentElement.classList.add('mobile-menu-open');
+      document.documentElement.style.touchAction = 'none';
+      
+      // Store scroll position for restoration
+      (document.body as any)._scrollY = scrollY;
     } else {
+      // Remove class and restore styles
       document.body.classList.remove('mobile-menu-open');
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.height = '';
+      document.body.style.touchAction = '';
+      document.documentElement.classList.remove('mobile-menu-open');
+      document.documentElement.style.overflow = '';
+      document.documentElement.style.touchAction = '';
+      
+      // Restore scroll position
+      const scrollY = (document.body as any)._scrollY || 0;
+      window.scrollTo(0, scrollY);
+      delete (document.body as any)._scrollY;
     }
 
     return () => {
+      // Cleanup on unmount
       document.body.classList.remove('mobile-menu-open');
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.height = '';
+      document.body.style.touchAction = '';
+      document.documentElement.classList.remove('mobile-menu-open');
+      document.documentElement.style.overflow = '';
+      document.documentElement.style.touchAction = '';
+      const scrollY = (document.body as any)._scrollY || 0;
+      if (scrollY) {
+        window.scrollTo(0, scrollY);
+        delete (document.body as any)._scrollY;
+      }
     };
   }, [isMobileMenuOpen]);
 
@@ -80,7 +133,13 @@ const Navbar: React.FC = () => {
     const handleMobileClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
       
-      if (!target.closest('.navbar') && !target.closest('.mobile-toggle')) {
+      // Don't close if clicking on the toggle button (it handles its own toggle)
+      if (target.closest('.mobile-toggle')) {
+        return;
+      }
+      
+      // Close if clicking outside the navbar and mobile menu
+      if (!target.closest('.navbar') && !target.closest('.mobile-menu')) {
         setIsMobileMenuOpen(false);
       }
     };

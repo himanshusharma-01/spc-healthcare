@@ -24,6 +24,59 @@ export default function Homepage() {
   ];
 
   useEffect(() => {
+    // Permanently remove scrollbars from homepage container
+    const removeHomepageScrollbars = () => {
+      const homepageContainer = document.querySelector('.l3-container');
+      if (homepageContainer) {
+        const container = homepageContainer as HTMLElement;
+        container.style.overflow = 'hidden';
+        container.style.overflowX = 'hidden';
+        container.style.overflowY = 'hidden';
+        container.style.setProperty('scrollbar-width', 'none', 'important');
+        container.style.setProperty('-ms-overflow-style', 'none', 'important');
+        
+        // Also remove from all child elements
+        const allElements = container.querySelectorAll('*');
+        allElements.forEach((el) => {
+          const element = el as HTMLElement;
+          element.style.overflow = 'hidden';
+          element.style.overflowX = 'hidden';
+          element.style.overflowY = 'hidden';
+          element.style.setProperty('scrollbar-width', 'none', 'important');
+          element.style.setProperty('-ms-overflow-style', 'none', 'important');
+        });
+      }
+    };
+
+    // Run immediately and multiple times
+    removeHomepageScrollbars();
+    setTimeout(removeHomepageScrollbars, 0);
+    setTimeout(removeHomepageScrollbars, 50);
+    setTimeout(removeHomepageScrollbars, 100);
+    setTimeout(removeHomepageScrollbars, 200);
+    setTimeout(removeHomepageScrollbars, 500);
+
+    // Use MutationObserver to catch any elements added later
+    const observer = new MutationObserver(() => {
+      removeHomepageScrollbars();
+    });
+
+    if (document.body) {
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['class', 'style'],
+      });
+    }
+
+    // Handle page refresh
+    window.addEventListener('pageshow', () => {
+      removeHomepageScrollbars();
+      setTimeout(removeHomepageScrollbars, 50);
+      setTimeout(removeHomepageScrollbars, 200);
+    });
+
     const loadFeatured = async () => {
       try {
         const all = await getProducts();
@@ -44,7 +97,7 @@ export default function Homepage() {
     loadFeatured();
 
     // Intersection Observer for animations
-    const observer = new IntersectionObserver(
+    const intersectionObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
@@ -57,10 +110,12 @@ export default function Homepage() {
 
     // Observe all sections
     const sections = document.querySelectorAll('.l3-section');
-    sections.forEach(section => observer.observe(section));
+    sections.forEach(section => intersectionObserver.observe(section));
 
     return () => {
       observer.disconnect();
+      intersectionObserver.disconnect();
+      window.removeEventListener('pageshow', removeHomepageScrollbars);
     };
   }, []);
 

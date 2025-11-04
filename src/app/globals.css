@@ -244,3 +244,26 @@ body,
   max-width: 100%;
 }
 
+/* Prevent internal scrollbars on modals, menus, and overlays */
+.mobile-menu,
+.product-modal,
+.product-modal-overlay,
+[class*="modal"],
+[class*="overlay"] {
+  overflow: hidden !important;
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE/Edge */
+}
+
+.mobile-menu::-webkit-scrollbar,
+.product-modal::-webkit-scrollbar,
+.product-modal-overlay::-webkit-scrollbar,
+[class*="modal"]::-webkit-scrollbar,
+[class*="overlay"]::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
