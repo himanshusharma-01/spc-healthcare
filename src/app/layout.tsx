@@ -42,60 +42,6 @@ export default function RootLayout({
         />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                // Immediately hide scrollbars on internal components before React loads
-                function hideInternalScrollbars() {
-                  // Hide scrollbars on homepage container
-                  const homepageContainer = document.querySelector('.l3-container');
-                  if (homepageContainer) {
-                    homepageContainer.style.overflow = 'hidden';
-                    homepageContainer.style.overflowX = 'hidden';
-                    homepageContainer.style.overflowY = 'hidden';
-                    homepageContainer.style.scrollbarWidth = 'none';
-                    homepageContainer.style.msOverflowStyle = 'none';
-                  }
-                  
-                  const mobileMenu = document.querySelector('.mobile-menu');
-                  if (mobileMenu) {
-                    mobileMenu.style.overflow = 'hidden';
-                    mobileMenu.style.overflowY = 'hidden';
-                    mobileMenu.style.overflowX = 'hidden';
-                  }
-                  document.querySelectorAll('.product-modal').forEach(function(modal) {
-                    modal.style.overflow = 'hidden';
-                    modal.style.overflowY = 'hidden';
-                    modal.style.overflowX = 'hidden';
-                  });
-                }
-                // Run immediately
-                if (document.readyState === 'loading') {
-                  document.addEventListener('DOMContentLoaded', hideInternalScrollbars);
-                } else {
-                  hideInternalScrollbars();
-                }
-                // Also run multiple times to catch dynamically added elements
-                setTimeout(hideInternalScrollbars, 0);
-                setTimeout(hideInternalScrollbars, 50);
-                setTimeout(hideInternalScrollbars, 100);
-                setTimeout(hideInternalScrollbars, 200);
-                setTimeout(hideInternalScrollbars, 500);
-                setTimeout(hideInternalScrollbars, 1000);
-                // Handle page refresh
-                window.addEventListener('pageshow', function(e) {
-                  hideInternalScrollbars();
-                  setTimeout(hideInternalScrollbars, 0);
-                  setTimeout(hideInternalScrollbars, 50);
-                  setTimeout(hideInternalScrollbars, 100);
-                  setTimeout(hideInternalScrollbars, 200);
-                  setTimeout(hideInternalScrollbars, 500);
-                });
-              })();
-            `,
-          }}
-        />
         <PreventInternalScroll />
         <Navbar />
         {children}

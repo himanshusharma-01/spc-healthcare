@@ -4,31 +4,53 @@ import { useEffect } from 'react';
 
 export default function PreventInternalScroll() {
   useEffect(() => {
+    // Only run on client side to avoid hydration errors
+    if (typeof window === 'undefined') return;
+
     // Function to hide scrollbars on internal components
     const hideInternalScrollbars = () => {
-      // Target mobile menu - only set overflow, don't touch transform
+      // Target mobile menu - CSS already handles this, but ensure it's enforced
       const mobileMenu = document.querySelector('.mobile-menu');
       if (mobileMenu) {
         const menuElement = mobileMenu as HTMLElement;
-        // Only set overflow properties, preserve transform
-        menuElement.style.overflow = 'hidden';
-        menuElement.style.overflowY = 'hidden';
-        menuElement.style.overflowX = 'hidden';
-        // Don't modify transform - it's controlled by React state
+        // Only set overflow properties after React has hydrated, preserve transform
+        // Use requestAnimationFrame to ensure React has rendered
+        requestAnimationFrame(() => {
+          menuElement.style.setProperty('overflow', 'hidden', 'important');
+          menuElement.style.setProperty('overflow-y', 'hidden', 'important');
+          menuElement.style.setProperty('overflow-x', 'hidden', 'important');
+        });
+      }
+
+      // Target homepage container - remove scrollbars
+      const homepageContainer = document.querySelector('.l3-container');
+      if (homepageContainer) {
+        const container = homepageContainer as HTMLElement;
+        requestAnimationFrame(() => {
+          container.style.setProperty('overflow', 'hidden', 'important');
+          container.style.setProperty('overflow-x', 'hidden', 'important');
+          container.style.setProperty('overflow-y', 'hidden', 'important');
+          container.style.setProperty('scrollbar-width', 'none', 'important');
+          container.style.setProperty('-ms-overflow-style', 'none', 'important');
+        });
       }
 
       // Target product modals
       const productModals = document.querySelectorAll('.product-modal');
       productModals.forEach((modal) => {
-        (modal as HTMLElement).style.overflow = 'hidden';
-        (modal as HTMLElement).style.overflowY = 'hidden';
-        (modal as HTMLElement).style.overflowX = 'hidden';
+        requestAnimationFrame(() => {
+          (modal as HTMLElement).style.setProperty('overflow', 'hidden', 'important');
+          (modal as HTMLElement).style.setProperty('overflow-y', 'hidden', 'important');
+          (modal as HTMLElement).style.setProperty('overflow-x', 'hidden', 'important');
+        });
       });
 
       // Target any modal overlays
       const modalOverlays = document.querySelectorAll('.product-modal-overlay');
       modalOverlays.forEach((overlay) => {
-        (overlay as HTMLElement).style.overflow = 'hidden';
+        requestAnimationFrame(() => {
+          (overlay as HTMLElement).style.setProperty('overflow', 'hidden', 'important');
+        });
       });
     };
 

@@ -24,57 +24,75 @@ export default function Homepage() {
   ];
 
   useEffect(() => {
+    // Only run on client side to avoid hydration errors
+    if (typeof window === 'undefined') return;
+
     // Permanently remove scrollbars from homepage container
     const removeHomepageScrollbars = () => {
       const homepageContainer = document.querySelector('.l3-container');
       if (homepageContainer) {
         const container = homepageContainer as HTMLElement;
-        container.style.overflow = 'hidden';
-        container.style.overflowX = 'hidden';
-        container.style.overflowY = 'hidden';
-        container.style.setProperty('scrollbar-width', 'none', 'important');
-        container.style.setProperty('-ms-overflow-style', 'none', 'important');
-        
-        // Also remove from all child elements
-        const allElements = container.querySelectorAll('*');
-        allElements.forEach((el) => {
-          const element = el as HTMLElement;
-          element.style.overflow = 'hidden';
-          element.style.overflowX = 'hidden';
-          element.style.overflowY = 'hidden';
-          element.style.setProperty('scrollbar-width', 'none', 'important');
-          element.style.setProperty('-ms-overflow-style', 'none', 'important');
+        // Use requestAnimationFrame to ensure React has hydrated
+        requestAnimationFrame(() => {
+          container.style.setProperty('overflow', 'hidden', 'important');
+          container.style.setProperty('overflow-x', 'hidden', 'important');
+          container.style.setProperty('overflow-y', 'hidden', 'important');
+          container.style.setProperty('scrollbar-width', 'none', 'important');
+          container.style.setProperty('-ms-overflow-style', 'none', 'important');
+          
+          // Also remove from all child elements
+          const allElements = container.querySelectorAll('*');
+          allElements.forEach((el) => {
+            const element = el as HTMLElement;
+            element.style.setProperty('overflow', 'hidden', 'important');
+            element.style.setProperty('overflow-x', 'hidden', 'important');
+            element.style.setProperty('overflow-y', 'hidden', 'important');
+            element.style.setProperty('scrollbar-width', 'none', 'important');
+            element.style.setProperty('-ms-overflow-style', 'none', 'important');
+          });
         });
       }
     };
 
-    // Run immediately and multiple times
-    removeHomepageScrollbars();
-    setTimeout(removeHomepageScrollbars, 0);
-    setTimeout(removeHomepageScrollbars, 50);
-    setTimeout(removeHomepageScrollbars, 100);
-    setTimeout(removeHomepageScrollbars, 200);
-    setTimeout(removeHomepageScrollbars, 500);
+    // Wait for React to hydrate before applying styles
+    const runAfterHydration = () => {
+      setTimeout(removeHomepageScrollbars, 0);
+      setTimeout(removeHomepageScrollbars, 50);
+      setTimeout(removeHomepageScrollbars, 100);
+      setTimeout(removeHomepageScrollbars, 200);
+      setTimeout(removeHomepageScrollbars, 500);
+    };
 
-    // Use MutationObserver to catch any elements added later
+    // Run after hydration
+    if (document.readyState === 'complete') {
+      runAfterHydration();
+    } else {
+      window.addEventListener('load', runAfterHydration);
+    }
+
+    // Use MutationObserver to catch any elements added later (but only after hydration)
     const observer = new MutationObserver(() => {
-      removeHomepageScrollbars();
+      // Delay to avoid hydration conflicts
+      setTimeout(removeHomepageScrollbars, 100);
     });
 
-    if (document.body) {
-      observer.observe(document.body, {
-        childList: true,
-        subtree: true,
-        attributes: true,
-        attributeFilter: ['class', 'style'],
-      });
-    }
+    // Start observing after a delay to avoid hydration issues
+    setTimeout(() => {
+      if (document.body) {
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true,
+          attributes: true,
+          attributeFilter: ['class', 'style'],
+        });
+      }
+    }, 1000);
 
     // Handle page refresh
     window.addEventListener('pageshow', () => {
-      removeHomepageScrollbars();
-      setTimeout(removeHomepageScrollbars, 50);
+      setTimeout(removeHomepageScrollbars, 100);
       setTimeout(removeHomepageScrollbars, 200);
+      setTimeout(removeHomepageScrollbars, 500);
     });
 
     const loadFeatured = async () => {
