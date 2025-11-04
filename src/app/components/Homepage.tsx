@@ -176,6 +176,40 @@ export default function Homepage() {
   </div>
 </section> */}
 
+ {/* Product Divisions */}
+ <section id="products" className="l3-divisions l3-section">
+        <div className="l3-container-inner">
+          <h2 className="l3-section-title">Our Product Divisions</h2>
+          <p className="l3-section-subtitle">Comprehensive healthcare solutions across multiple therapeutic areas</p>
+          <div className="l3-divisions-grid">
+            {productDivisions.map(division => (
+              <div key={division.id} className="l3-division-card">
+                <div className="l3-division-icon">
+                  {division.image ? (
+                    <img
+                      src={division.image}
+                      alt={`${division.title} image`}
+                      className="l3-division-img"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        const icon = e.currentTarget.nextElementSibling as HTMLElement | null;
+                        if (icon) icon.style.display = 'block';
+                      }}
+                    />
+                  ) : null}
+                  <i className={division.icon} style={{ display: division.image ? 'none' : 'block' }}></i>
+                </div>
+                <h3>{division.title}</h3>
+                <p>{division.desc}</p>
+                <div className="l3-division-count">{division.count}</div>
+                <Link prefetch href={division.href} className="l3-division-btn">Explore Division</Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
 <section className="about-section">
   <div className="about-container">
     <div className="about-grid">
@@ -277,38 +311,7 @@ export default function Homepage() {
   </div>
 </section>
 
-      {/* Product Divisions */}
-      <section id="products" className="l3-divisions l3-section">
-        <div className="l3-container-inner">
-          <h2 className="l3-section-title">Our Product Divisions</h2>
-          <p className="l3-section-subtitle">Comprehensive healthcare solutions across multiple therapeutic areas</p>
-          <div className="l3-divisions-grid">
-            {productDivisions.map(division => (
-              <div key={division.id} className="l3-division-card">
-                <div className="l3-division-icon">
-                  {division.image ? (
-                    <img
-                      src={division.image}
-                      alt={`${division.title} image`}
-                      className="l3-division-img"
-                      onError={(e) => {
-                        e.currentTarget.style.display = 'none';
-                        const icon = e.currentTarget.nextElementSibling as HTMLElement | null;
-                        if (icon) icon.style.display = 'block';
-                      }}
-                    />
-                  ) : null}
-                  <i className={division.icon} style={{ display: division.image ? 'none' : 'block' }}></i>
-                </div>
-                <h3>{division.title}</h3>
-                <p>{division.desc}</p>
-                <div className="l3-division-count">{division.count}</div>
-                <Link prefetch href={division.href} className="l3-division-btn">Explore Division</Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+     
 
       {/* Featured Products */}
       <section className="l3-featured l3-section">
@@ -401,39 +404,8 @@ export default function Homepage() {
       </section> */}
 
       {/* Certifications & Standards */}
-      <section className="l3-certifications l3-section">
-        <div className="l3-container-inner">
-          <h3 className="l3-certifications-title">Quality Certifications & Standards</h3>
-          <p className="l3-section-subtitle">Committed to the highest industry standards</p>
-          <div className="l3-certifications-grid">
-            {certifications.map((cert, index) => (
-              <div key={index} className="l3-certification-item">
-                <i className={cert.icon}></i>
-                <span className="l3-certification-name">{cert.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Company Highlights */}
-      <section id="highlights" className="l3-highlights l3-section">
-        <div className="l3-container-inner">
-          <h2 className="l3-section-title">What Sets Us Apart</h2>
-          <p className="l3-section-subtitle">Core strengths that drive our success</p>
-          <div className="l3-highlights-grid">
-            {highlights.map(highlight => (
-              <article key={highlight.id} className="l3-highlight-card">
-                <div className="l3-highlight-icon">
-                  <i className={highlight.icon}></i>
-                </div>
-                <h3>{highlight.title}</h3>
-                <p>{highlight.description}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+    
+     
 
       {/* CTA Section */}
       <section id="contact" className="l3-cta l3-section">

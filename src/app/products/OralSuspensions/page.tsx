@@ -64,6 +64,7 @@ export default function OralSuspensionsPage() {
   return (
     <div className="l3-container oral-suspensions-page" id="oral-suspensions-page">
       <section className="oral-suspensions-hero" id="oral-suspensions-hero">
+        <div className="oral-suspensions-hero-background"></div>
         <div className="l3-container-inner">
           <div className="oral-suspensions-hero-content" id="oral-suspensions-hero-content">
             <div className="oral-suspensions-hero-text" id="oral-suspensions-hero-text">
@@ -74,11 +75,6 @@ export default function OralSuspensionsPage() {
               <p className="oral-suspensions-hero-subtitle">
                 Stable liquid suspensions for precise dosing and easy administration across all age groups.
               </p>
-            </div>
-            <div className="oral-suspensions-hero-visual">
-              <div className="oral-suspensions-visual-element">
-                <div className="oral-suspensions-bottle">🧴</div>
-              </div>
             </div>
           </div>
         </div>

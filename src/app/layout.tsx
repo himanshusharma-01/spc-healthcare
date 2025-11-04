@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/footer";
 import WhatsAppFloating from "./floatingWhatapp/whatsapp";
+import PreventInternalScroll from "./components/PreventInternalScroll";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,6 +42,37 @@ export default function RootLayout({
         />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                // Immediately hide scrollbars on internal components before React loads
+                function hideInternalScrollbars() {
+                  const mobileMenu = document.querySelector('.mobile-menu');
+                  if (mobileMenu) {
+                    mobileMenu.style.overflow = 'hidden';
+                    mobileMenu.style.overflowY = 'hidden';
+                    mobileMenu.style.overflowX = 'hidden';
+                  }
+                  document.querySelectorAll('.product-modal').forEach(function(modal) {
+                    modal.style.overflow = 'hidden';
+                    modal.style.overflowY = 'hidden';
+                    modal.style.overflowX = 'hidden';
+                  });
+                }
+                // Run immediately
+                if (document.readyState === 'loading') {
+                  document.addEventListener('DOMContentLoaded', hideInternalScrollbars);
+                } else {
+                  hideInternalScrollbars();
+                }
+                // Also run after a short delay to catch dynamically added elements
+                setTimeout(hideInternalScrollbars, 50);
+              })();
+            `,
+          }}
+        />
+        <PreventInternalScroll />
         <Navbar />
         {children}
         <WhatsAppFloating phoneNumber="917710301301" position="bottom-right" showPopup={true} popupText="Chat with us on WhatsApp" />

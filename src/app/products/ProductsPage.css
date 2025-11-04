@@ -380,7 +380,9 @@
     max-width: 800px;
     width: 100%;
     max-height: 90vh;
-    overflow-y: auto;
+    overflow: hidden !important; /* Remove internal scrollbar - force on reload */
+    overflow-y: hidden !important;
+    overflow-x: hidden !important;
     position: relative;
     box-shadow: var(--l3-shadow-large);
   }
