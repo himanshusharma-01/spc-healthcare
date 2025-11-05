@@ -30,21 +30,77 @@
 .oral-drops-hero-background {
   position: absolute;
   top: 0;
-  left: 0;
   right: 0;
-  width: 100%;
+  width: 50%;
   height: 100%;
   min-height: 70vh;
   background-image: url('/oral drops.png');
-  background-size: 40%;
-  background-position: center 30%;
+  background-size: contain;
+  background-position: right center;
   background-repeat: no-repeat;
   z-index: 1;
 }
 
-/* Hide hero visuals and text to show only banner */
-.oral-drops-hero-visual { display: none; }
-.oral-drops-hero-content { display: none; }
+/* Desktop: Show split layout (left content, right banner) */
+@media (min-width: 769px) {
+  .oral-drops-hero {
+    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 50%, transparent 100%);
+  }
+
+  .oral-drops-hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+  }
+
+  .oral-drops-hero-text {
+    max-width: 100%;
+  }
+
+  .oral-drops-hero-title {
+    color: white;
+  }
+
+  .oral-drops-hero-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .oral-drops-hero-visual {
+    display: none;
+  }
+
+  .oral-drops-hero-background {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background-size: contain;
+    background-position: right center;
+  }
+}
+
+/* Mobile: Hide content, show full banner */
+@media (max-width: 768px) {
+  .oral-drops-hero-content {
+    display: none;
+  }
+
+  .oral-drops-hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center center;
+  }
+}
 
 .oral-drops-hero-title {
   font-size: 3.5rem;

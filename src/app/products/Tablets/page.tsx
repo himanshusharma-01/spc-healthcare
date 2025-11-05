@@ -33,6 +33,7 @@ export default function TabletsPage() {
     <div className="l3-container tablets-page">
       {/* Hero Section */}
       <section className="tablets-hero">
+        <div className="tablets-hero-background"></div>
         <div className="l3-container-inner">
           <div className="tablets-hero-content">
             <div className="tablets-hero-text">
