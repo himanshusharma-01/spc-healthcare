@@ -32,6 +32,7 @@ export default function CapsulesPage() {
   return (
     <div className="l3-container capsules-page">
       <section className="capsules-hero">
+        <div className="capsules-hero-background"></div>
         <div className="l3-container-inner">
           <div className="capsules-hero-content">
             <div className="capsules-hero-text">

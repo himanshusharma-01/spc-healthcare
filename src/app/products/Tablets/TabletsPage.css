@@ -15,8 +15,8 @@
 
 /* Tablets Hero Section */
 .tablets-hero {
-  min-height: 60vh;
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
+  min-height: 70vh;
+  background: none;
   position: relative;
   display: flex;
   align-items: center;
@@ -25,38 +25,17 @@
   margin: 0;
   width: 100%;
   max-width: 100vw;
+  background-image: url('/tablet.png');
+  background-size: 40%;
+  background-position: center 30%;
+  background-repeat: no-repeat;
 }
 
-.tablets-hero-content {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 4rem;
-  align-items: center;
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-  box-sizing: border-box;
-}
+/* Hide all hero content (text and visuals) to show only the banner */
+.tablets-hero-content { display: none; }
+.tablets-hero-visual { display: none; }
 
-.tablets-hero-title {
-  font-size: 3.5rem;
-  font-weight: 700;
-  line-height: 1.1;
-  margin-bottom: 1.5rem;
-  color: white;
-}
-
-.tablets-hero-subtitle {
-  font-size: 1.25rem;
-  margin-bottom: 2.5rem;
-  opacity: 0.9;
-  line-height: 1.6;
-  color: white;
-}
-
+/* Keep stats styles intact for future use if re-enabled */
 .tablets-hero-stats {
   display: flex;
   gap: 2rem;
@@ -78,12 +57,6 @@
   font-size: 0.875rem;
   opacity: 0.8;
   color: white;
-}
-
-.tablets-hero-visual {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .tablets-visual-element {
@@ -599,6 +572,11 @@
   .product-actions {
     flex-direction: column;
   }
+  .tablets-hero {
+    min-height: 55vh;
+    background-size: cover;
+    background-position: center center;
+  }
 }
 
 @media (max-width: 480px) {
@@ -629,5 +607,10 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 0.25rem;
+  }
+  .tablets-hero {
+    min-height: 50vh;
+    background-size: cover;
+    background-position: center center;
   }
 }

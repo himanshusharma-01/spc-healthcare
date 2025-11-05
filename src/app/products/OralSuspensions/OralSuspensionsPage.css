@@ -513,3 +513,17 @@
     gap: 0.25rem;
   }
 }
+
+@media (max-width: 768px) {
+  .oral-suspensions-page .oral-suspensions-hero-background {
+    background-size: cover;
+    background-position: center center;
+  }
+}
+
+@media (max-width: 480px) {
+  .oral-suspensions-page .oral-suspensions-hero-background {
+    background-size: cover;
+    background-position: center center;
+  }
+}

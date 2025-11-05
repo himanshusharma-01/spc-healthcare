@@ -65,6 +65,7 @@ export default function SyrupsPage() {
     <div className="l3-container syrups-page">
       {/* Hero Section */}
       <section className="syrups-hero">
+        <div className="syrups-hero-background"></div>
         <div className="l3-container-inner">
           <div className="syrups-hero-content">
             <div className="syrups-hero-text">

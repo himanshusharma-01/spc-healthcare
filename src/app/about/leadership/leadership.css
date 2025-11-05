@@ -802,3 +802,18 @@
   .board-card:hover .board-avatar {
     animation: float 2s ease-in-out infinite;
   }
+
+/* Ensure homepage hero styles do not affect leadership hero */
+.leadership-page .l3-hero-background {
+  background: none !important;
+  background-image: none !important;
+}
+
+.leadership-page .leadership-hero {
+  background: var(--l3-gradient-hero, linear-gradient(135deg, #0A1931 0%, #1A365D 100%)) !important;
+}
+
+.leadership-page .l3-section {
+  padding: 0 !important;
+  margin: 0 !important;
+}

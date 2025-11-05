@@ -114,9 +114,82 @@ export default function Homepage() {
     };
     loadFeatured();
 
+    // Counter animation for stats
+    const animateCounter = (element: HTMLElement, target: number) => {
+      const duration = 2000; // 2 seconds
+      const increment = target / (duration / 16); // 60fps
+      let current = 0;
+
+      const updateCounter = () => {
+        current += increment;
+        if (current < target) {
+          element.textContent = Math.floor(current) + '+';
+          requestAnimationFrame(updateCounter);
+        } else {
+          element.textContent = target + '+';
+        }
+      };
+
+      updateCounter();
+    };
+
+    // Intersection Observer for stats animation
+    const statsObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const el = entry.target as HTMLElement;
+          if (entry.isIntersecting && !el.classList.contains('animated')) {
+            const target = parseInt(el.getAttribute('data-target') || '0');
+            if (target) {
+              el.classList.add('animated');
+              animateCounter(el, target);
+              statsObserver.unobserve(el);
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+        rootMargin: '0px 0px -20% 0px',
+      }
+    );
+
+    // Observe each stat number directly (more reliable on mobile)
+    const statNumbers = document.querySelectorAll('.about-stats .stat-number');
+    statNumbers.forEach((node) => statsObserver.observe(node));
+
+    // Fallback for older mobile browsers: trigger on scroll/resize
+    const tryStartCounters = () => {
+      statNumbers.forEach((node) => {
+        const el = node as HTMLElement;
+        if (el.classList.contains('animated')) return;
+        const rect = el.getBoundingClientRect();
+        const inView = rect.top < window.innerHeight * 0.8 && rect.bottom > 0;
+        if (inView) {
+          const target = parseInt(el.getAttribute('data-target') || '0');
+          if (target) {
+            el.classList.add('animated');
+            animateCounter(el, target);
+            statsObserver.unobserve(el);
+          }
+        }
+      });
+    };
+
+    window.addEventListener('scroll', tryStartCounters, { passive: true });
+    window.addEventListener('resize', tryStartCounters);
+    setTimeout(tryStartCounters, 300);
+
+    // Observe the about section - no longer necessary; keep for safety
+    // const aboutSection = document.querySelector('.about-section');
+    // if (aboutSection) statsObserver.observe(aboutSection);
+
     return () => {
       observer.disconnect();
+      statsObserver.disconnect();
       window.removeEventListener('pageshow', removeHomepageScrollbars);
+      window.removeEventListener('scroll', tryStartCounters);
+      window.removeEventListener('resize', tryStartCounters);
     };
   }, []);
 
@@ -331,23 +404,16 @@ export default function Homepage() {
       <div className="about-stats">
         <div className="stats-container">
           <div className="stat-item">
-            <div className="stat-number" data-target="25">8+</div>
+            <div className="stat-number" data-target="8">0</div>
             <div className="stat-label">Years of Innovation</div>
             <div className="stat-bar">
               <div className="stat-progress" style={{width: '100%'}}></div>
             </div>
           </div>
           
+        
           <div className="stat-item">
-            <div className="stat-number" data-target="150">105+</div>
-            <div className="stat-label">Healthcare Products</div>
-            <div className="stat-bar">
-              <div className="stat-progress" style={{width: '100%'}}></div>
-            </div>
-          </div>
-          
-          <div className="stat-item">
-            <div className="stat-number" data-target="80">15+</div>
+            <div className="stat-number" data-target="15">0</div>
             <div className="stat-label">Countries Served</div>
             <div className="stat-bar">
               <div className="stat-progress" style={{width: '100%'}}></div>
@@ -355,12 +421,21 @@ export default function Homepage() {
           </div>
           
           <div className="stat-item">
-            <div className="stat-number" data-target="500">20+</div>
+
+            <div className="stat-number" data-target="20">0</div>
             <div className="stat-label">Research Papers</div>
             <div className="stat-bar">
               <div className="stat-progress" style={{width: '100%'}}></div>
             </div>
           </div>
+          <div className="stat-item">
+            <div className="stat-number" data-target="105">0</div>
+            <div className="stat-label">Healthcare Products</div>
+            <div className="stat-bar">
+              <div className="stat-progress" style={{width: '100%'}}></div>
+            </div>
+          </div>
+          
         </div>
       </div>
     </div>

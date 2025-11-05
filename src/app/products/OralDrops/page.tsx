@@ -32,6 +32,7 @@ export default function OralDropsPage() {
   return (
     <div className="l3-container oral-drops-page">
       <section className="oral-drops-hero">
+        <div className="oral-drops-hero-background"></div>
         <div className="l3-container-inner">
           <div className="oral-drops-hero-content">
             <div className="oral-drops-hero-text">
