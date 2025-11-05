@@ -114,25 +114,8 @@ export default function Homepage() {
     };
     loadFeatured();
 
-    // Intersection Observer for animations
-    const intersectionObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('l3-animate-in');
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    // Observe all sections
-    const sections = document.querySelectorAll('.l3-section');
-    sections.forEach(section => intersectionObserver.observe(section));
-
     return () => {
       observer.disconnect();
-      intersectionObserver.disconnect();
       window.removeEventListener('pageshow', removeHomepageScrollbars);
     };
   }, []);
@@ -426,6 +409,11 @@ export default function Homepage() {
           </div>
         </div>
       </section>
+
+      {/* Parallax Banner Section */}
+      <div className="l3-parallax-banner-wrapper">
+        <div className="l3-parallax-banner"></div>
+      </div>
 
       {/* R&D Section */}
       <section id="research" className="l3-research l3-section">
