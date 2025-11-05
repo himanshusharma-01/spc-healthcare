@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import './Navbar.css';
@@ -9,6 +9,7 @@ const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const scrollPositionRef = useRef<number>(0);
   const pathname = usePathname();
 
   const toggleMobileMenu = (e?: React.MouseEvent | React.TouchEvent) => {
@@ -63,6 +64,7 @@ const Navbar: React.FC = () => {
     if (isMobileMenuOpen) {
       // Store current scroll position
       const scrollY = window.scrollY;
+      scrollPositionRef.current = scrollY;
       
       // Add class and set inline styles
       document.body.classList.add('mobile-menu-open');
@@ -76,9 +78,6 @@ const Navbar: React.FC = () => {
       document.documentElement.style.overflow = 'hidden';
       document.documentElement.classList.add('mobile-menu-open');
       document.documentElement.style.touchAction = 'none';
-      
-      // Store scroll position for restoration
-      (document.body as any)._scrollY = scrollY;
     } else {
       // Remove class and restore styles
       document.body.classList.remove('mobile-menu-open');
@@ -93,9 +92,8 @@ const Navbar: React.FC = () => {
       document.documentElement.style.touchAction = '';
       
       // Restore scroll position
-      const scrollY = (document.body as any)._scrollY || 0;
+      const scrollY = scrollPositionRef.current || 0;
       window.scrollTo(0, scrollY);
-      delete (document.body as any)._scrollY;
     }
 
     return () => {
@@ -110,10 +108,9 @@ const Navbar: React.FC = () => {
       document.documentElement.classList.remove('mobile-menu-open');
       document.documentElement.style.overflow = '';
       document.documentElement.style.touchAction = '';
-      const scrollY = (document.body as any)._scrollY || 0;
+      const scrollY = scrollPositionRef.current || 0;
       if (scrollY) {
         window.scrollTo(0, scrollY);
-        delete (document.body as any)._scrollY;
       }
     };
   }, [isMobileMenuOpen]);
