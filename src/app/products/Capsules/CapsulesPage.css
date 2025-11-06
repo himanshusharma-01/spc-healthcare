@@ -39,24 +39,13 @@
   background-position: right center;
   background-repeat: no-repeat;
   z-index: 1;
-  background-color:#028c65;
+  background-color: #1A365D;
 }
 
 /* Desktop: Show split layout (left content, right banner) */
 @media (min-width: 769px) {
   .capsules-hero {
-    background: none;
-  }
-
-  .capsules-hero::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
-    z-index: 0;
+    background: linear-gradient(135deg, #0A1931 0%, #1A365D 45%, #1A365D 60%, #1A365D 100%);
   }
 
   .capsules-hero-content {
@@ -115,7 +104,7 @@
 }
 
 .capsules-hero-title {
-  font-size: 3.5rem;
+  font-size: 2.5rem;
   font-weight: 700;
   line-height: 1.1;
   margin-bottom: 1.5rem;

@@ -91,13 +91,7 @@ export default function SyrupsPage() {
                 </div>
               </div>
             </div>
-            <div className="syrups-hero-visual">
-              <div className="syrups-visual-element">
-                <div className="syrups-bottle">🍯</div>
-                <div className="syrups-drops">💧</div>
-                <div className="syrups-spoon">🥄</div>
-              </div>
-            </div>
+           
           </div>
         </div>
       </section>

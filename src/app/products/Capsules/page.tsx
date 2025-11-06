@@ -46,7 +46,7 @@ export default function CapsulesPage() {
             </div>
             <div className="capsules-hero-visual">
               <div className="capsules-visual-element">
-                <div className="capsules-pill">💊</div>
+                <div className="capsules-pill"></div>
               </div>
             </div>
           </div>
