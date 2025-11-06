@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import './ProductDetails.css';
 
@@ -32,6 +33,12 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   else if (categorySlug.includes('drop')) backHref = '/products/OralDrops';
   else if (categorySlug.includes('susp')) backHref = '/products/OralSuspensions';
 
+  const isExternalUrl = (url: string) => {
+    return url.startsWith('http://') || url.startsWith('https://');
+  };
+
+  const currentImageUrl = product.imageUrls?.[selectedImage] || '/api/placeholder/400x500';
+
   return (
     <div className="product-details-page">
       {/* Main Content */}
@@ -41,13 +48,14 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
             {/* Left Section - Product Images */}
             <div className="product-images-section">
               <div className="main-image-container">
-                <img
-                  src={product.imageUrls?.[selectedImage] || '/api/placeholder/400x500'}
+                <Image
+                  src={currentImageUrl}
                   alt={product.name}
                   className="main-product-image"
-                  onError={(e) => {
-                    e.currentTarget.src = '/api/placeholder/400x500?text=Product+Image';
-                  }}
+                  width={600}
+                  height={600}
+                  style={{ objectFit: 'contain' }}
+                  unoptimized={isExternalUrl(currentImageUrl)}
                 />
               </div>
               
@@ -55,15 +63,16 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               {product.imageUrls && product.imageUrls.length > 1 && (
                 <div className="thumbnail-images">
                   {product.imageUrls.map((url, index) => (
-                    <img
+                    <Image
                       key={index}
                       src={url}
                       alt={`${product.name} view ${index + 1}`}
                       className={`thumbnail ${selectedImage === index ? 'active' : ''}`}
+                      width={80}
+                      height={100}
+                      style={{ objectFit: 'cover', cursor: 'pointer' }}
                       onClick={() => setSelectedImage(index)}
-                      onError={(e) => {
-                        e.currentTarget.src = '/api/placeholder/80x100?text=Thumb';
-                      }}
+                      unoptimized={isExternalUrl(url)}
                     />
                   ))}
                 </div>
