@@ -3,8 +3,36 @@ import { useEffect, useRef, useMemo } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import * as THREE from "three";
-// @ts-ignore
+// @ts-expect-error - three-globe doesn't have TypeScript definitions
 import Globe from "three-globe";
+
+interface GlobeConfig {
+  pointSize?: number;
+  globeColor?: string;
+  showAtmosphere?: boolean;
+  atmosphereColor?: string;
+  atmosphereAltitude?: number;
+  emissive?: string;
+  emissiveIntensity?: number;
+  shininess?: number;
+  polygonColor?: string;
+  ambientLight?: string;
+  directionalLeftLight?: string;
+  directionalTopLight?: string;
+  pointLight?: string;
+  arcTime?: number;
+  arcLength?: number;
+  rings?: number;
+  maxRings?: number;
+  initialPosition?: { lat: number; lng: number };
+  autoRotate?: boolean;
+  autoRotateSpeed?: number;
+}
+
+interface ArcData {
+  color?: string;
+  [key: string]: unknown;
+}
 
 export function World({
   globeConfig = {
@@ -31,10 +59,10 @@ export function World({
   },
   data = [],
 }: {
-  globeConfig?: any;
-  data?: any[];
+  globeConfig?: GlobeConfig;
+  data?: ArcData[];
 }) {
-  const globeRef = useRef<any>(null);
+  const globeRef = useRef<InstanceType<typeof Globe> | null>(null);
   const { scene } = useThree();
 
   // Create globe instance using Globe class
@@ -61,7 +89,7 @@ export function World({
     globeMaterial.roughness = 0.2;
     
     // Add a glowing overlay effect
-    globeMaterial.onBeforeCompile = (shader: any) => {
+    globeMaterial.onBeforeCompile = (shader: THREE.Shader) => {
       shader.uniforms.glowColor = { value: new THREE.Color("#00A3B4") };
       shader.uniforms.glowIntensity = { value: 1.5 };
     };
@@ -78,7 +106,7 @@ export function World({
     // Set arcs data
     if (data.length > 0) {
       globe.arcsData(data);
-      globe.arcColor((d: any) => d.color || "#06b6d4");
+      globe.arcColor((d: ArcData) => d.color || "#06b6d4");
       globe.arcDashLength(globeConfig.arcLength);
       globe.arcDashGap(1 - globeConfig.arcLength);
       globe.arcDashAnimateTime(globeConfig.arcTime);
@@ -100,7 +128,7 @@ export function World({
     };
   }, [globe, globeConfig, data, scene]);
 
-  useFrame((state, delta) => {
+  useFrame(() => {
     if (globeRef.current && globeConfig.autoRotate) {
       globeRef.current.rotation.y += globeConfig.autoRotateSpeed * 0.01;
     }
