@@ -33,10 +33,6 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   else if (categorySlug.includes('drop')) backHref = '/products/OralDrops';
   else if (categorySlug.includes('susp')) backHref = '/products/OralSuspensions';
 
-  const isExternalUrl = (url: string) => {
-    return url.startsWith('http://') || url.startsWith('https://');
-  };
-
   const currentImageUrl = product.imageUrls?.[selectedImage] || '/api/placeholder/400x500';
 
   return (
@@ -55,7 +51,6 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                   width={600}
                   height={600}
                   style={{ objectFit: 'contain' }}
-                  unoptimized={isExternalUrl(currentImageUrl)}
                 />
               </div>
               
@@ -72,7 +67,6 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                       height={100}
                       style={{ objectFit: 'cover', cursor: 'pointer' }}
                       onClick={() => setSelectedImage(index)}
-                      unoptimized={isExternalUrl(url)}
                     />
                   ))}
                 </div>
