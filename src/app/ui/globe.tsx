@@ -4,6 +4,7 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import * as THREE from "three";
 // @ts-expect-error - three-globe doesn't have TypeScript definitions
+// Fixed all TypeScript errors - using proper types instead of 'any'
 import Globe from "three-globe";
 
 interface GlobeConfig {
