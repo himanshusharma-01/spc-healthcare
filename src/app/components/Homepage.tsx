@@ -8,6 +8,7 @@ import './Homepage.css';
 
 export default function Homepage() {
   const [featuredProducts, setFeaturedProducts] = useState<SPCProduct[]>([]);
+  const [isBannerFixed, setIsBannerFixed] = useState(false);
 
   const productDivisions = [
     { id: 1, title: 'Syrups', desc: 'Liquid medications for easy administration', icon: 'fas fa-prescription-bottle', image: '/syrup.jpeg', count: '50+ Syrups', href: '/products/Syrups' },
@@ -180,6 +181,24 @@ export default function Homepage() {
     window.addEventListener('resize', tryStartCounters);
     setTimeout(tryStartCounters, 300);
 
+    // Handle banner scroll - make it fixed after scrolling past it
+    const handleBannerScroll = () => {
+      const bannerWrapper = document.querySelector('.l3-homepage-banner-wrapper');
+      if (bannerWrapper) {
+        const rect = bannerWrapper.getBoundingClientRect();
+        // If banner has been scrolled past (top of banner is above viewport top)
+        if (rect.top <= 0) {
+          setIsBannerFixed(true);
+        } else {
+          setIsBannerFixed(false);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleBannerScroll, { passive: true });
+    // Check on mount
+    setTimeout(handleBannerScroll, 100);
+
     // Observe the about section - no longer necessary; keep for safety
     // const aboutSection = document.querySelector('.about-section');
     // if (aboutSection) statsObserver.observe(aboutSection);
@@ -190,6 +209,7 @@ export default function Homepage() {
       window.removeEventListener('pageshow', removeHomepageScrollbars);
       window.removeEventListener('scroll', tryStartCounters);
       window.removeEventListener('resize', tryStartCounters);
+      window.removeEventListener('scroll', handleBannerScroll);
     };
   }, []);
 
@@ -485,9 +505,9 @@ export default function Homepage() {
         </div>
       </section>
 
-      {/* Parallax Banner Section */}
-      <div className="l3-parallax-banner-wrapper">
-        <div className="l3-parallax-banner"></div>
+      {/* Fixed Banner Section with homepage.png */}
+      <div className="l3-homepage-banner-wrapper">
+        <div className={`l3-homepage-banner ${isBannerFixed ? 'l3-banner-fixed' : ''}`}></div>
       </div>
 
       {/* R&D Section */}

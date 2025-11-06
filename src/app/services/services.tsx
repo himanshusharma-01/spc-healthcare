@@ -1,5 +1,6 @@
 // services.tsx
 import React from 'react';
+import Image from 'next/image';
 import './services.css';
 
 const Services = () => {
@@ -7,10 +8,13 @@ const Services = () => {
     <div className="homepage">
       <section className="hero-section">
         <div className="hero-background">
-          <img 
+          <Image 
             src="/BANNER.png" 
             alt="SPC Healthcare - Our Services"
             className="hero-banner"
+            width={1920}
+            height={1080}
+            priority
           />
           <div className="hero-overlay"></div>
         </div>
