@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getProducts } from '@/lib/getProducts';
 import { filterProductsByCategory, type Product as SPCProduct } from '@/lib/productCategoryUtils';
-import { GlobeSection } from './GlobeSection';
 import './Homepage.css';
 
 export default function Homepage() {
@@ -540,9 +539,6 @@ export default function Homepage() {
           </div>
         </div>
       </section>
-
-      {/* Trusted Worldwide Section with Rotating Globe */}
-      <GlobeSection />
 
       {/* Company Achievements
       <section className="l3-achievements l3-section">
