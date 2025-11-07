@@ -1265,7 +1265,7 @@ h1, h2, h3, h4, h5, h6 {
 .l3-globe-stats-horizontal {
   display: flex;
   flex-direction: row;
-  gap: 2.5rem;
+  gap: 3.5rem;
   align-items: flex-start;
 }
 
@@ -1334,7 +1334,7 @@ h1, h2, h3, h4, h5, h6 {
 
 
 .l3-globe-text {
-  padding-right: 2rem;
+  padding-right: 1rem;
 }
 
 .l3-globe-title {

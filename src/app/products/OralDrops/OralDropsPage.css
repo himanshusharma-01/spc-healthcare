@@ -46,16 +46,16 @@
 @media (min-width: 769px) {
   .oral-drops-hero {
     background: linear-gradient(135deg, #0A1931 0%, #1A365D 45%, #1A365D 60%, #1A365D 100%);
-  }
+}
 
-  .oral-drops-hero-content {
-    display: grid;
+.oral-drops-hero-content {
+  display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-    position: relative;
-    z-index: 2;
-    width: 100%;
+  gap: 4rem;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  width: 100%;
   }
 
   .oral-drops-hero-text {
