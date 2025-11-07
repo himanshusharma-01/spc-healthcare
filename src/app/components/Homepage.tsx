@@ -2,9 +2,16 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { getProducts } from '@/lib/getProducts';
 import { filterProductsByCategory, type Product as SPCProduct } from '@/lib/productCategoryUtils';
 import './Homepage.css';
+
+// Dynamically import Globe component with SSR disabled
+const DetailedGlobe = dynamic(
+  () => import('@/app/components/DetailedGlobe/Globe'),
+  { ssr: false }
+);
 
 export default function Homepage() {
   const [featuredProducts, setFeaturedProducts] = useState<SPCProduct[]>([]);
@@ -505,6 +512,39 @@ export default function Homepage() {
         </div>
       </section>
 
+
+      <section className="l3-globe-section l3-section">
+        <div className="l3-container-inner">
+          <div className="l3-globe-content">
+            <div className="l3-globe-text-content">
+              <h2 className="l3-globe-heading">Serving these Countries</h2>
+              <p className="l3-globe-description">
+                With a presence in over 11+ countries,
+                <br /> we are committed to delivering quality healthcare solutions worldwide.
+              </p>
+              <div className="l3-globe-stats-horizontal">
+                <div className="l3-globe-stat-item">
+                  <div className="l3-globe-stat-number">11+</div>
+                  <div className="l3-globe-stat-label">Countries</div>
+                </div>
+                <div className="l3-globe-stat-item">
+                  <div className="l3-globe-stat-number">105+</div>
+                  <div className="l3-globe-stat-label">Products</div>
+                </div>
+                <div className="l3-globe-stat-item">
+                  <div className="l3-globe-stat-number">8+</div>
+                  <div className="l3-globe-stat-label">Years</div>
+                </div>
+              </div>
+            </div>
+            <div className="l3-globe-wrapper">
+              <DetailedGlobe />
+            </div>
+          </div>
+        </div>
+      </section>
+
+
       {/* Fixed Banner Section with homepage.png */}
       <div className="l3-homepage-banner-wrapper">
         <div className={`l3-homepage-banner ${isBannerFixed ? 'l3-banner-fixed' : ''}`}></div>
@@ -585,6 +625,8 @@ export default function Homepage() {
           </div>
         </div>
       </section>
+
+     
 
       {/* Footer */}
       {/* <footer className="l3-footer">

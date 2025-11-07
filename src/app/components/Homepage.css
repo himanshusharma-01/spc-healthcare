@@ -1203,16 +1203,135 @@ h1, h2, h3, h4, h5, h6 {
   background: linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f1f5f9 100%);
   background-color: #ffffff;
   position: relative;
-  z-index: 2;
-  padding: 6rem 0;
+  z-index: 1;
+  padding: 0;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100vw;
+  height: 70vh;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.l3-globe-section .l3-container-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 1;
+  height: 100%;
 }
 
 .l3-globe-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  display: flex;
   align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  gap: 3rem;
 }
+
+.l3-globe-text-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 30px;
+  padding-right: 2rem;
+}
+
+.l3-globe-heading {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--l3-navy-dark);
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.l3-globe-description {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: var(--l3-text-light);
+  margin-bottom: 2.5rem;
+}
+
+.l3-globe-stats-horizontal {
+  display: flex;
+  flex-direction: row;
+  gap: 2.5rem;
+  align-items: flex-start;
+}
+
+.l3-globe-stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.l3-globe-wrapper {
+  position: absolute;
+  right: 0rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  width: 480px;
+  max-width: 480px;
+  height: 680px;
+  max-height: 480px;
+  aspect-ratio: 1 / 5;
+  overflow: hidden;
+  contain: layout style paint;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  border-radius: 50px;
+}
+
+.l3-globe-wrapper::before {
+  display: none !important;
+}
+
+.l3-globe-section .l3-globe-wrapper > div {
+  position: relative !important;
+  z-index: 1 !important;
+  overflow: hidden !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.l3-globe-section canvas {
+  position: relative !important;
+  z-index: 1 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 480px !important;
+  max-height: 480px !important;
+  display: block !important;
+  touch-action: pan-x pan-y !important;
+}
+
+.l3-globe-stat-number {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--l3-teal);
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+.l3-globe-stat-label {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--l3-navy-medium);
+  line-height: 1.4;
+}
+
 
 .l3-globe-text {
   padding-right: 2rem;
@@ -1286,14 +1405,7 @@ h1, h2, h3, h4, h5, h6 {
   filter: drop-shadow(0 0 30px rgba(0, 163, 180, 0.4));
 }
 
-.l3-globe-wrapper {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  border-radius: 20px;
-  overflow: hidden;
-  background: radial-gradient(circle at center, rgba(0, 163, 180, 0.05) 0%, rgba(10, 25, 49, 0.1) 100%);
-}
+/* Old globe wrapper styles - overridden by main .l3-globe-wrapper */
 
 .l3-globe-wrapper canvas {
   width: 100% !important;
@@ -1303,30 +1415,7 @@ h1, h2, h3, h4, h5, h6 {
   filter: brightness(1.1) contrast(1.05);
 }
 
-.l3-globe-wrapper::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 120%;
-  height: 120%;
-  background: radial-gradient(circle, rgba(0, 163, 180, 0.2) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 1;
-  animation: globeGlow 3s ease-in-out infinite alternate;
-}
-
-@keyframes globeGlow {
-  0% {
-    opacity: 0.5;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  100% {
-    opacity: 0.8;
-    transform: translate(-50%, -50%) scale(1.1);
-  }
-}
+/* Removed ::before pseudo-element and globeGlow animation */
 
 /* CTA Section */
 .l3-cta {
@@ -1417,23 +1506,62 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 2rem;
   }
 
-  .l3-globe-content {
-    grid-template-columns: 1fr;
-    gap: 3rem;
+  .l3-globe-section {
+    height: auto;
+    min-height: auto;
+    padding: 3rem 0;
   }
 
-  .l3-globe-text {
-    padding-right: 0;
+  .l3-globe-content {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .l3-globe-text-content {
+    padding-left: 20px;
+    padding-right: 20px;
+    order: 2;
+  }
+
+  .l3-globe-heading {
+    font-size: 2rem;
     text-align: center;
+  }
+
+  .l3-globe-description {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .l3-globe-stats-horizontal {
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .l3-globe-wrapper {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    width: 100%;
+    max-width: 300px;
+    height: 300px;
+    max-height: 300px;
+    margin: 0 auto;
+    order: 1;
+  }
+
+  .l3-globe-stat-number {
+    font-size: 2.5rem;
+  }
+
+  .l3-globe-stat-label {
+    font-size: 1rem;
   }
 
   .l3-globe-title {
     font-size: 2rem;
-  }
-
-  .l3-globe-stats {
-    grid-template-columns: 1fr;
-    gap: 1rem;
   }
 
   .l3-globe-visual {
