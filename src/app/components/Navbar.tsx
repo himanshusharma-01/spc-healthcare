@@ -59,58 +59,92 @@ const Navbar: React.FC = () => {
     setActiveDropdown(null);
   }, [pathname]);
 
-  // Prevent body scroll when mobile menu is open
+  // Prevent body scroll when mobile menu is open, but allow mobile menu to scroll
   useEffect(() => {
     if (isMobileMenuOpen) {
       // Store current scroll position
       const scrollY = window.scrollY;
       scrollPositionRef.current = scrollY;
       
-      // Add class and set inline styles
+      // Get viewport width to prevent layout shift
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      
+      // Lock body scroll
       document.body.classList.add('mobile-menu-open');
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
       document.body.style.top = `-${scrollY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
       document.body.style.width = '100%';
-      document.body.style.height = '100%';
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
       
-      // Also prevent scrolling on html element
-      document.documentElement.style.overflow = 'hidden';
+      // Lock html scroll
       document.documentElement.classList.add('mobile-menu-open');
-      document.documentElement.style.touchAction = 'none';
+      document.documentElement.style.overflow = 'hidden';
+      
+      // Ensure mobile menu can scroll - use !important to override any conflicting styles
+      // Use setTimeout to ensure this runs after PreventInternalScroll
+      setTimeout(() => {
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenu) {
+          // Use setProperty with important flag to override PreventInternalScroll
+          mobileMenu.style.setProperty('overflow-y', 'auto', 'important');
+          mobileMenu.style.setProperty('overflow-x', 'hidden', 'important');
+          mobileMenu.style.setProperty('touch-action', 'pan-y', 'important');
+          // @ts-ignore - WebkitOverflowScrolling is a valid CSS property
+          mobileMenu.style.webkitOverflowScrolling = 'touch';
+          // Ensure height is set for scrolling to work
+          mobileMenu.style.setProperty('height', '100vh', 'important');
+          mobileMenu.style.setProperty('max-height', '100vh', 'important');
+          // Force reflow to ensure styles are applied
+          mobileMenu.offsetHeight;
+        }
+      }, 0);
     } else {
-      // Remove class and restore styles
+      // Restore body scroll
+      const scrollY = parseInt(document.body.style.top || '0') * -1 || scrollPositionRef.current || 0;
+      
       document.body.classList.remove('mobile-menu-open');
       document.body.style.overflow = '';
       document.body.style.position = '';
       document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
       document.body.style.width = '';
-      document.body.style.height = '';
-      document.body.style.touchAction = '';
+      document.body.style.paddingRight = '';
+      
       document.documentElement.classList.remove('mobile-menu-open');
       document.documentElement.style.overflow = '';
-      document.documentElement.style.touchAction = '';
       
       // Restore scroll position
-      const scrollY = scrollPositionRef.current || 0;
-      window.scrollTo(0, scrollY);
+      window.scrollTo({
+        top: scrollY,
+        behavior: 'instant'
+      });
     }
 
     return () => {
       // Cleanup on unmount
-      document.body.classList.remove('mobile-menu-open');
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      document.body.style.height = '';
-      document.body.style.touchAction = '';
-      document.documentElement.classList.remove('mobile-menu-open');
-      document.documentElement.style.overflow = '';
-      document.documentElement.style.touchAction = '';
-      const scrollY = scrollPositionRef.current || 0;
-      if (scrollY) {
-        window.scrollTo(0, scrollY);
+      if (isMobileMenuOpen) {
+        const scrollY = parseInt(document.body.style.top || '0') * -1 || scrollPositionRef.current || 0;
+        
+        document.body.classList.remove('mobile-menu-open');
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+        document.body.style.width = '';
+        document.body.style.paddingRight = '';
+        
+        document.documentElement.classList.remove('mobile-menu-open');
+        document.documentElement.style.overflow = '';
+        
+        window.scrollTo({
+          top: scrollY,
+          behavior: 'instant'
+        });
       }
     };
   }, [isMobileMenuOpen]);

@@ -16,23 +16,6 @@
   -ms-overflow-style: none !important; /* IE/Edge */
 }
 
-.l3-container::-webkit-scrollbar {
-  display: none !important;
-  width: 0 !important;
-  height: 0 !important;
-  background: transparent !important;
-}
-
-.l3-container * {
-  scrollbar-width: none !important; /* Firefox */
-  -ms-overflow-style: none !important; /* IE/Edge */
-}
-
-.l3-container *::-webkit-scrollbar {
-  display: none !important;
-  width: 0 !important;
-  height: 0 !important;
-}
 
 /* Premium Typography */
 .l3-section-title,

@@ -9,18 +9,8 @@ export default function PreventInternalScroll() {
 
     // Function to hide scrollbars on internal components
     const hideInternalScrollbars = () => {
-      // Target mobile menu - CSS already handles this, but ensure it's enforced
-      const mobileMenu = document.querySelector('.mobile-menu');
-      if (mobileMenu) {
-        const menuElement = mobileMenu as HTMLElement;
-        // Only set overflow properties after React has hydrated, preserve transform
-        // Use requestAnimationFrame to ensure React has rendered
-        requestAnimationFrame(() => {
-          menuElement.style.setProperty('overflow', 'hidden', 'important');
-          menuElement.style.setProperty('overflow-y', 'hidden', 'important');
-          menuElement.style.setProperty('overflow-x', 'hidden', 'important');
-        });
-      }
+      // DO NOT target mobile menu - it needs to be scrollable when active
+      // The mobile menu should be handled by Navbar.tsx
 
       // Target homepage container - remove scrollbars
       const homepageContainer = document.querySelector('.l3-container');
@@ -58,14 +48,18 @@ export default function PreventInternalScroll() {
     hideInternalScrollbars();
 
     // Use MutationObserver to watch for new elements being added
-    // But exclude mobile-menu from style attribute changes to avoid interfering
+    // Exclude mobile-menu completely to avoid interfering with its scrolling
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
-        // Skip if it's the mobile menu with style changes
-        if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+        // Skip if it's the mobile menu - don't interfere at all
+        if (mutation.type === 'attributes' || mutation.type === 'childList') {
           const target = mutation.target as HTMLElement;
-          if (target.classList.contains('mobile-menu')) {
-            return; // Don't interfere with mobile menu transforms
+          if (target && (
+            target.classList.contains('mobile-menu') || 
+            target.closest('.mobile-menu') ||
+            target.id === 'mobile-menu'
+          )) {
+            return; // Don't interfere with mobile menu at all
           }
         }
         hideInternalScrollbars();

@@ -51,6 +51,8 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                   width={600}
                   height={600}
                   style={{ objectFit: 'contain' }}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
+                  priority
                 />
               </div>
               
@@ -67,6 +69,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                       height={100}
                       style={{ objectFit: 'cover', cursor: 'pointer' }}
                       onClick={() => setSelectedImage(index)}
+                      sizes="(max-width: 480px) 65px, (max-width: 768px) 80px, 80px"
                     />
                   ))}
                 </div>

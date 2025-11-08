@@ -135,56 +135,7 @@ export default function CareersPage() {
   return (
     <div className="l3-container careers-page">
       {/* Hero Section */}
-      <section className="careers-hero l3-section">
-        <div className="l3-hero-background">
-          <div className="l3-hero-overlay"></div>
-          <div className="careers-hero-pattern"></div>
-        </div>
-        <div className="l3-container-inner">
-          <div className="careers-hero-content">
-            <div className="careers-hero-text">
-              <h1 className="careers-hero-title">
-                <span className="l3-title-line">Build Your Career</span>
-                <span className="l3-title-line">in Healthcare Innovation</span>
-              </h1>
-              <p className="careers-hero-subtitle">
-                Join SPC Healthcare and be part of a team that&apos;s transforming patient lives 
-                worldwide through cutting-edge medical research and innovative healthcare solutions.
-              </p>
-              <div className="careers-hero-stats">
-                <div className="career-stat">
-                  <div className="career-stat-number">24</div>
-                  <div className="career-stat-label">Open Positions</div>
-                </div>
-                <div className="career-stat">
-                  <div className="career-stat-number">80+</div>
-                  <div className="career-stat-label">Countries</div>
-                </div>
-                <div className="career-stat">
-                  <div className="career-stat-number">1000+</div>
-                  <div className="career-stat-label">Team Members</div>
-                </div>
-              </div>
-              <div className="careers-hero-buttons">
-                <button 
-                  className="l3-btn l3-btn-primary"
-                  onClick={() => document.getElementById('job-openings')?.scrollIntoView({ behavior: 'smooth' })}
-                >
-                  Contact For More Information
-                </button>
-                
-              </div>
-            </div>
-            <div className="careers-hero-visual">
-              <div className="careers-visual-element">
-                <div className="careers-molecule"></div>
-                <div className="careers-people-icon">👥</div>
-                <div className="careers-growth-chart">📊</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+     
 
       {/* Why Join SPC Section */}
       <section className="why-join-section">

@@ -102,45 +102,7 @@ export default function QualitySafetyPage() {
 
   return (
     <div className="l3-container quality-safety-page">
-      {/* Hero Section */}
-      <section className="quality-hero l3-section">
-        <div className="l3-hero-background">
-          <div className="l3-hero-overlay"></div>
-          <div className="quality-hero-pattern"></div>
-        </div>
-        <div className="l3-container-inner">
-          <div className="quality-hero-content">
-            <div className="quality-hero-text">
-              <h1 className="quality-hero-title">
-                <span className="l3-title-line">Quality & Safety</span>
-                <span className="l3-title-line">Excellence</span>
-              </h1>
-              <p className="quality-hero-subtitle">
-                Uncompromising commitment to quality manufacturing and patient safety. 
-                Every product we deliver meets the highest global standards for efficacy and reliability.
-              </p>
-              <div className="quality-hero-stats">
-                {complianceStats.map((stat, index) => (
-                  <div key={index} className="quality-stat">
-                    <div className="quality-stat-icon">{stat.icon}</div>
-                    <div className="quality-stat-info">
-                      <div className="quality-stat-number">{stat.number}</div>
-                      <div className="quality-stat-label">{stat.label}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="quality-hero-visual">
-              <div className="quality-visual-element">
-                <div className="quality-shield">🛡️</div>
-                <div className="quality-certificate">📜</div>
-                <div className="quality-badge">✅</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* Tab Navigation */}
       <section className="quality-tabs-section">
