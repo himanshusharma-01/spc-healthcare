@@ -25,11 +25,11 @@ export default function Homepage() {
   ];
 
   // Company achievements instead of fake testimonials
-  const achievements = [
-    { id: 1, title: '25+ Years', description: 'Trusted expertise in pharmaceutical manufacturing and innovation', icon: 'fas fa-calendar-check' },
-    { id: 2, title: '500+ Products', description: 'Comprehensive portfolio across multiple therapeutic categories', icon: 'fas fa-pills' },
-    { id: 3, title: '80+ Countries', description: 'Global reach serving healthcare communities worldwide', icon: 'fas fa-globe' },
-  ];
+  // const achievements = [
+  //   { id: 1, title: '25+ Years', description: 'Trusted expertise in pharmaceutical manufacturing and innovation', icon: 'fas fa-calendar-check' },
+  //   { id: 2, title: '500+ Products', description: 'Comprehensive portfolio across multiple therapeutic categories', icon: 'fas fa-pills' },
+  //   { id: 3, title: '80+ Countries', description: 'Global reach serving healthcare communities worldwide', icon: 'fas fa-globe' },
+  // ];
 
   useEffect(() => {
     // Only run on client side to avoid hydration errors
@@ -221,19 +221,19 @@ export default function Homepage() {
   }, []);
 
   // Company highlights - can be updated with real news later
-  const highlights = [
-    { id: 1, title: 'Quality Manufacturing', description: 'GMP-certified facilities ensuring the highest standards in pharmaceutical production', icon: 'fas fa-certificate' },
-    { id: 2, title: 'Research & Development', description: 'Continuous innovation in developing life-changing medications for patients globally', icon: 'fas fa-flask' },
-    { id: 3, title: 'Patient-Centric Approach', description: 'Dedicated to improving healthcare outcomes through reliable and effective treatments', icon: 'fas fa-heartbeat' },
-  ];
+  // const highlights = [
+  //   { id: 1, title: 'Quality Manufacturing', description: 'GMP-certified facilities ensuring the highest standards in pharmaceutical production', icon: 'fas fa-certificate' },
+  //   { id: 2, title: 'Research & Development', description: 'Continuous innovation in developing life-changing medications for patients globally', icon: 'fas fa-flask' },
+  //   { id: 3, title: 'Patient-Centric Approach', description: 'Dedicated to improving healthcare outcomes through reliable and effective treatments', icon: 'fas fa-heartbeat' },
+  // ];
 
   // Certifications and standards instead of fake partners
-  const certifications = [
-    { name: 'GMP Certified', icon: 'fas fa-shield-alt' },
-    { name: 'WHO Compliant', icon: 'fas fa-globe-americas' },
-    { name: 'Quality Assured', icon: 'fas fa-award' },
-    { name: 'ISO Standards', icon: 'fas fa-certificate' },
-  ];
+  // const certifications = [
+  //   { name: 'GMP Certified', icon: 'fas fa-shield-alt' },
+  //   { name: 'WHO Compliant', icon: 'fas fa-globe-americas' },
+  //   { name: 'Quality Assured', icon: 'fas fa-award' },
+  //   { name: 'ISO Standards', icon: 'fas fa-certificate' },
+  // ];
 
   return (
     <div className="l3-container">
@@ -377,7 +377,7 @@ export default function Homepage() {
         
         <h2 className="about-title">
           Trusted Healthcare Innovation 
-          <span className="highlight"> Since 1999</span>
+          <span className="highlight"> Since 2017</span>
         </h2>
         
         <div className="about-description">
@@ -517,9 +517,9 @@ export default function Homepage() {
         <div className="l3-container-inner">
           <div className="l3-globe-content">
             <div className="l3-globe-text-content">
-              <h2 className="l3-globe-heading">Serving these Countries</h2>
+              <h2 className="l3-globe-heading">Serving these  States</h2>
               <p className="l3-globe-description">
-                With a presence in over 11+ countries,
+                With a presence in over 11+ States,
                 <br /> we are committed to delivering quality healthcare solutions worldwide.
               </p>
               <div className="l3-globe-stats-horizontal">

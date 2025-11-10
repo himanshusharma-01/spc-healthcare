@@ -144,9 +144,6 @@ export default function CareersPage() {
 
   return (
     <div className="l3-container careers-page">
-      {/* Hero Section */}
-     
-
       {/* Why Join SPC Section */}
       <section className="why-join-section">
         <div className="l3-container-inner">

@@ -92,13 +92,13 @@ const Navbar: React.FC = () => {
           mobileMenu.style.setProperty('overflow-y', 'auto', 'important');
           mobileMenu.style.setProperty('overflow-x', 'hidden', 'important');
           mobileMenu.style.setProperty('touch-action', 'pan-y', 'important');
-          // @ts-ignore - WebkitOverflowScrolling is a valid CSS property
+          // @ts-expect-error - WebkitOverflowScrolling is a valid CSS property
           mobileMenu.style.webkitOverflowScrolling = 'touch';
           // Ensure height is set for scrolling to work
           mobileMenu.style.setProperty('height', '100vh', 'important');
           mobileMenu.style.setProperty('max-height', '100vh', 'important');
           // Force reflow to ensure styles are applied
-          mobileMenu.offsetHeight;
+          void mobileMenu.offsetHeight;
         }
       }, 0);
     } else {

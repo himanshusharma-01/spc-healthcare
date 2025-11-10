@@ -71,12 +71,12 @@ export default function QualitySafetyPage() {
     { name: 'ISO 17025', scope: 'Laboratory Testing Competence', icon: '🔬' }
   ];
 
-  const complianceStats = [
-    { number: '100%', label: 'Regulatory Inspection Success', icon: '✅' },
-    { number: '25+', label: 'Years Perfect Safety Record', icon: '🛡️' },
-    { number: '500M+', label: 'Doses Safely Delivered', icon: '💊' },
-    { number: '0', label: 'Major Quality Incidents', icon: '⭐' }
-  ];
+  // const complianceStats = [
+  //   { number: '100%', label: 'Regulatory Inspection Success', icon: '✅' },
+  //   { number: '25+', label: 'Years Perfect Safety Record', icon: '🛡️' },
+  //   { number: '500M+', label: 'Doses Safely Delivered', icon: '💊' },
+  //   { number: '0', label: 'Major Quality Incidents', icon: '⭐' }
+  // ];
 
   const qualityPrinciples = [
     {
