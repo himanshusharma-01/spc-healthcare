@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import '../components/Homepage.css';
 import './quality.css';
+import Link from 'next/link';
 
 export default function QualitySafetyPage() {
   const [activeTab, setActiveTab] = useState('quality');
@@ -392,8 +393,7 @@ export default function QualitySafetyPage() {
               meets the highest standards of efficacy and reliability for patients worldwide.
             </p>
             <div className="quality-cta-buttons">
-              <button className="l3-btn l3-btn-primary l3-btn-large">Download Quality Policy</button>
-              <button className="l3-btn l3-btn-secondary l3-btn-large">Contact Quality Team</button>
+              <Link href="/contact"> <button className="l3-btn l3-btn-secondary l3-btn-large">Contact Quality Team</button></Link>
             </div>
           </div>
         </div>

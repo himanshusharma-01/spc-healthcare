@@ -3,10 +3,20 @@
 import { useState } from 'react';
 import '../components/Homepage.css';
 import './career.css';
+import Link from 'next/link';
 
 export default function CareersPage() {
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+
+  // Format date consistently to avoid hydration mismatch
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const year = date.getFullYear();
+    return `${month}/${day}/${year}`;
+  };
 
   const jobCategories = [
     { id: 'all', name: 'All Positions', count: 24, icon: '💼' },
@@ -265,7 +275,7 @@ export default function CareersPage() {
                   </ul>
                 </div>
                 <div className="job-footer">
-                  <div className="job-posted">Posted: {new Date(job.posted).toLocaleDateString()}</div>
+                  <div className="job-posted">Posted: {formatDate(job.posted)}</div>
                   <button className="l3-btn l3-btn-primary">Apply Now</button>
                 </div>
               </div>
@@ -328,7 +338,7 @@ export default function CareersPage() {
               the perfect role today, connect with us for future opportunities.
             </p>
             <div className="careers-cta-buttons">
-              <button className="l3-btn l3-btn-secondary l3-btn-large">Contact To Join Talent Network</button>
+             <Link href="/contact"> <button className="l3-btn l3-btn-secondary l3-btn-large">Contact To Join Talent Network</button></Link>
             </div>
           </div>
         </div>

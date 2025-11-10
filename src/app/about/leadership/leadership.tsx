@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import '../../components/Homepage.css';
 import './leadership.css';
+import Link from 'next/link';
 
 export default function LeadershipPage() {
   const executiveTeam = [
@@ -334,8 +335,8 @@ export default function LeadershipPage() {
               to join our leadership team and make a global impact.
             </p>
             <div className="leadership-cta-buttons">
-              <button className="l3-btn l3-btn-primary l3-btn-large">View Open Positions</button>
-              <button className="l3-btn l3-btn-secondary l3-btn-large">Contact Talent Team</button>
+             <Link href="/careers"> <button className="l3-btn l3-btn-primary l3-btn-large">View Open Positions</button></Link>
+            <Link href="/contact">  <button className="l3-btn l3-btn-secondary l3-btn-large">Contact Talent Team</button></Link>
             </div>
           </div>
         </div>

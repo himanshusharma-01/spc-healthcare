@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import './ourCompany.css';
 
 export default function OurCompany() {
@@ -263,8 +264,9 @@ export default function OurCompany() {
           <h2>Join Us in Shaping the Future of Healthcare</h2>
           <p>Be part of our mission to improve global health through innovative pharmaceutical solutions</p>
           <div className="cta-buttons">
-          
-            <button className="btn-secondary">Contact Us</button>
+            <Link href="/contact">
+              <button className="btn-secondary">Contact Us</button>
+            </Link>
           </div>
         </div>
       </section>
