@@ -461,7 +461,7 @@ export default function Homepage() {
             <div className="stat-label">Research Papers</div>
             <div className="stat-bar">
               <div className="stat-progress" style={{width: '100%'}}></div>
-            </div>
+            </div> {/* TODO: Add research papers */}
           </div>
           <div className="stat-item">
             <div className="stat-number" data-target="105">0</div>
