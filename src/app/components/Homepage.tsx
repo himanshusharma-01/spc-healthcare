@@ -338,8 +338,14 @@ export default function Homepage() {
           <h2 className="l3-section-title">Our Product Divisions</h2>
           <p className="l3-section-subtitle">Comprehensive healthcare solutions across multiple therapeutic areas</p>
           <div className="l3-divisions-grid">
-            {productDivisions.map(division => (
-              <div key={division.id} className="l3-division-card">
+            {productDivisions.map((division) => (
+              <Link
+                prefetch
+                key={division.id}
+                href={division.href}
+                className="l3-division-card"
+                aria-label={`Explore the ${division.title} division`}
+              >
                 <div className="l3-division-icon">
                   {division.image ? (
                     <img
@@ -358,8 +364,10 @@ export default function Homepage() {
                 <h3>{division.title}</h3>
                 <p>{division.desc}</p>
                 <div className="l3-division-count">{division.count}</div>
-                <Link prefetch href={division.href} className="l3-division-btn">Explore Division</Link>
-              </div>
+                <span className="l3-division-btn" role="presentation">
+                  Explore Division
+                </span>
+              </Link>
             ))}
           </div>
         </div>
@@ -525,7 +533,7 @@ export default function Homepage() {
               <div className="l3-globe-stats-horizontal">
                 <div className="l3-globe-stat-item">
                   <div className="l3-globe-stat-number">11+</div>
-                  <div className="l3-globe-stat-label">Countries</div>
+                  <div className="l3-globe-stat-label">States</div>
                 </div>
                 <div className="l3-globe-stat-item">
                   <div className="l3-globe-stat-number">105+</div>
@@ -563,12 +571,12 @@ export default function Homepage() {
               <div className="l3-research-item">
                 <div className="l3-research-icon"><i className="fas fa-flask"></i></div>
                 <h3>Clinical Research</h3>
-                <p>Ongoing trials across 15 therapeutic areas with 5,000+ participants worldwide</p>
+                <p>Ongoing trials across 15 therapeutic areas with 500+ participants worldwide</p>
               </div>
               <div className="l3-research-item">
                 <div className="l3-research-icon"><i className="fas fa-file-medical"></i></div>
-                <h3>Patents & Publications</h3>
-                <p>150+ patents and 200+ research publications in reputed medical journals</p>
+                <h3> Publications</h3>
+                <p> 200+ research publications in reputed medical journals</p>
               </div>
               <div className="l3-research-item">
                 <div className="l3-research-icon"><i className="fas fa-handshake"></i></div>

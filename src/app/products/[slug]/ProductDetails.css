@@ -261,7 +261,7 @@
   padding-left: 2rem;
   padding-right: 1rem;
   max-height: 70vh;
-  text-align: left;
+  text-align: center;
 }
 
 .product-details-page .cta-section::before {
@@ -288,7 +288,7 @@
   margin-bottom: 1rem;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  text-align: left !important;
+  text-align: center !important;
 }
 
 .product-details-page .cta-instructions {
@@ -297,7 +297,7 @@
   max-width: 100%;
   overflow-wrap: break-word;
   word-wrap: break-word;
-  text-align: left;
+  text-align: center;
 }
 
 .product-details-page .cta-instructions p {
@@ -307,6 +307,7 @@
   word-wrap: break-word;
   overflow-wrap: break-word;
   text-align: left;
+padding-left: 10rem;
 }
 
 .product-details-page .cta-button {
@@ -657,7 +658,7 @@
   }
   
   .product-details-page .cta-section > * {
-    position: relative;
+    position: absolute;
     z-index: 1;
     max-width: 700px;
     margin-left: 0;
