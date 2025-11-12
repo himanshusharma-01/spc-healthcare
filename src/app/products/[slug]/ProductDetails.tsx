@@ -118,19 +118,19 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                   />
                 </div>
               )}
-
-              {/* Call to Action Section */}
-              <div className="cta-section">
-                <h3 className="cta-question">Are you interested in this product?</h3>
-                <div className="cta-instructions">
-                  <p>Visit your nearest medical store.</p>
-                  <p>Reach out to us in case, if you are unable to get one.</p>
-                </div>
-                <Link prefetch href="/contact" className="cta-button" aria-label="Go to Contact page">
-                  Reach Us
-                </Link>
-              </div>
             </div>
+          </div>
+          
+          {/* Call to Action Section - Outside the grid for proper centering */}
+          <div className="cta-section">
+            <h3 className="cta-question">Are you interested in this product?</h3>
+            <div className="cta-instructions">
+              <p>Visit your nearest medical store.</p>
+              <p>Reach out to us in case, if you are unable to get one.</p>
+            </div>
+            <Link prefetch href="/contact" className="cta-button" aria-label="Go to Contact page">
+              Reach Us
+            </Link>
           </div>
         </div>
       </main>
