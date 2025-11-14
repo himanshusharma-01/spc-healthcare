@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import './ProductsPage.css';
 
 interface Product {
@@ -263,7 +264,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onViewDetails }) => 
       <div className="product-card-header">
         <div className="product-image">
           {product.imageUrl ? (
-            <img src={product.imageUrl} alt={product.name} />
+            <Image src={product.imageUrl} alt={product.name} width={300} height={200} style={{ objectFit: 'contain' }} />
           ) : (
             <div className="product-image-placeholder">
               <i className="fas fa-pills"></i>
@@ -333,7 +334,7 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) => {
           <div className="modal-header">
             <div className="modal-image">
               {product.imageUrl ? (
-                <img src={product.imageUrl} alt={product.name} />
+                <Image src={product.imageUrl} alt={product.name} width={400} height={300} style={{ objectFit: 'contain' }} />
               ) : (
                 <div className="modal-image-placeholder">
                   <i className="fas fa-pills"></i>

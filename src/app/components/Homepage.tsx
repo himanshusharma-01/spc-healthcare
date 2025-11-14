@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { getProducts } from '@/lib/getProducts';
 import { filterProductsByCategory, type Product as SPCProduct } from '@/lib/productCategoryUtils';
@@ -348,15 +349,13 @@ export default function Homepage() {
               >
                 <div className="l3-division-icon">
                   {division.image ? (
-                    <img
+                    <Image
                       src={division.image}
                       alt={`${division.title} image`}
                       className="l3-division-img"
-                      onError={(e) => {
-                        e.currentTarget.style.display = 'none';
-                        const icon = e.currentTarget.nextElementSibling as HTMLElement | null;
-                        if (icon) icon.style.display = 'block';
-                      }}
+                      width={200}
+                      height={200}
+                      style={{ objectFit: 'contain' }}
                     />
                   ) : null}
                   <i className={division.icon} style={{ display: division.image ? 'none' : 'block' }}></i>
@@ -491,15 +490,13 @@ export default function Homepage() {
                   <div className="l3-product-badge">Featured</div>
                   <div className="l3-product-image">
                     {product.imageUrls && product.imageUrls.length > 0 ? (
-                      <img 
+                      <Image 
                         src={product.imageUrls[0]} 
                         alt={product.name}
                         className="l3-product-img"
-                        onError={(e) => {
-                          e.currentTarget.style.display = 'none';
-                          const next = e.currentTarget.nextElementSibling as HTMLElement;
-                          if (next) next.style.display = 'block';
-                        }}
+                        width={300}
+                        height={300}
+                        style={{ objectFit: 'contain' }}
                       />
                     ) : null}
                     <div className="l3-product-visual" style={{ display: product.imageUrls && product.imageUrls.length > 0 ? 'none' : 'block' }}></div>

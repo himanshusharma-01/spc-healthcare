@@ -2,6 +2,7 @@
 "use client"; // This makes it an interactive component
 
 import { useState } from 'react';
+import Image from 'next/image';
 
 export default function ProductDisplay({ product }) {
   // Set the default main image to the first one in the array
@@ -16,17 +17,20 @@ export default function ProductDisplay({ product }) {
         <div>
           <div className="flex justify-center border rounded-lg p-6 shadow-md bg-gray-50">
             {/* Main Image */}
-            <img
+            <Image
               src={mainImage}
               alt={product.name}
               className="w-full max-w-md h-auto object-contain rounded-lg"
+              width={400}
+              height={400}
+              style={{ objectFit: 'contain' }}
             />
           </div>
           {/* Thumbnails */}
           {product.imageUrls && product.imageUrls.length > 1 && (
             <div className="flex justify-center gap-3 mt-6">
               {product.imageUrls.map((url, index) => (
-                <img
+                <Image
                   key={index}
                   src={url}
                   alt={`${product.name} thumbnail ${index + 1}`}
@@ -35,6 +39,9 @@ export default function ProductDisplay({ product }) {
                   className={`w-20 h-20 object-cover rounded-lg border-2 cursor-pointer transition-all ${
                     mainImage === url ? 'border-red-500 shadow-md' : 'border-gray-300'
                   } hover:border-red-300 hover:shadow-md`}
+                  width={80}
+                  height={80}
+                  style={{ objectFit: 'cover', cursor: 'pointer' }}
                 />
               ))}
             </div>

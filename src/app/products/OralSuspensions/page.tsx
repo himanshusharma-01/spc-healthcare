@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import './OralSuspensionsPage.css';
 import { getProducts } from '@/lib/getProducts';
 
@@ -17,15 +18,15 @@ interface Product {
   category?: string;
 }
 
+// Keywords to identify oral suspension products
+const suspensionKeywords = ['suspension', 'oral suspension', 'powder', 'granules', 'reconstitute'];
+
 export default function OralSuspensionsPage() {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-
-  // Keywords to identify oral suspension products
-  const suspensionKeywords = ['suspension', 'oral suspension', 'powder', 'granules', 'reconstitute'];
   
   // Filter products that contain suspension-related keywords
-  const filterSuspensionProducts = (products: Product[]) => {
+  const filterSuspensionProducts = useCallback((products: Product[]) => {
     return products.filter(product => {
       const category = product.category?.toLowerCase() || '';
       const name = product.name.toLowerCase();
@@ -37,7 +38,7 @@ export default function OralSuspensionsPage() {
         description.includes(keyword)
       );
     });
-  };
+  }, []);
 
   // Load products
   useEffect(() => {
@@ -57,7 +58,7 @@ export default function OralSuspensionsPage() {
     };
 
     loadProducts();
-  }, []);
+  }, [filterSuspensionProducts]);
 
 
 
@@ -101,17 +102,13 @@ export default function OralSuspensionsPage() {
                   <div className="product-card">
                     <div className="product-image-container square">
                       {product.imageUrls && product.imageUrls.length > 0 ? (
-                        <img 
+                        <Image 
                           src={product.imageUrls[0]}
                           alt={product.name}
                           className="product-image"
-                          onError={(e) => {
-                            e.currentTarget.style.display = 'none';
-                            const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
-                            if (nextElement) {
-                              nextElement.style.display = 'flex';
-                            }
-                          }}
+                          width={300}
+                          height={300}
+                          style={{ objectFit: 'contain' }}
                         />
                       ) : null}
                       <div className="product-image-fallback" style={{ display: product.imageUrls && product.imageUrls.length > 0 ? 'none' : 'flex' }}>

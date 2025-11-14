@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import './CapsulesPage.css';
 import { loadCategoryProducts, Product } from '@/lib/productCategoryUtils';
 
@@ -74,17 +75,13 @@ export default function CapsulesPage() {
                   <div className="product-card">
                     <div className="product-image-container square">
                       {product.imageUrls && product.imageUrls.length > 0 ? (
-                        <img 
+                        <Image 
                           src={product.imageUrls[0]}
                           alt={product.name}
                           className="product-image"
-                          onError={(e) => {
-                            e.currentTarget.style.display = 'none';
-                            const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
-                            if (nextElement) {
-                              nextElement.style.display = 'flex';
-                            }
-                          }}
+                          width={300}
+                          height={300}
+                          style={{ objectFit: 'contain' }}
                         />
                       ) : null}
                       <div className="product-image-fallback" style={{ display: product.imageUrls && product.imageUrls.length > 0 ? 'none' : 'flex' }}>

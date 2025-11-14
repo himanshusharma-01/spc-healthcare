@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import './SyrupsPage.css';
 import { getProducts } from '@/lib/getProducts';
 
@@ -17,15 +18,15 @@ interface Product {
   category?: string;
 }
 
+// Keywords to identify syrup products
+const syrupKeywords = ['syrup', 'liquid', 'oral solution', 'elixir', 'tonic'];
+
 export default function SyrupsPage() {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-
-  // Keywords to identify syrup products
-  const syrupKeywords = ['syrup', 'liquid', 'oral solution', 'elixir', 'tonic'];
   
   // Filter products that contain syrup-related keywords
-  const filterSyrupProducts = (products: Product[]) => {
+  const filterSyrupProducts = useCallback((products: Product[]) => {
     return products.filter(product => {
       const category = product.category?.toLowerCase() || '';
       const name = product.name.toLowerCase();
@@ -37,7 +38,7 @@ export default function SyrupsPage() {
         description.includes(keyword)
       );
     });
-  };
+  }, []);
 
   // Load products
   useEffect(() => {
@@ -58,7 +59,7 @@ export default function SyrupsPage() {
     };
 
     loadProducts();
-  }, []);
+  }, [filterSyrupProducts]);
 
 
   return (
@@ -123,17 +124,13 @@ export default function SyrupsPage() {
                   <div className="product-card">
                     <div className="product-image-container square">
                       {product.imageUrls && product.imageUrls.length > 0 ? (
-                        <img 
+                        <Image 
                           src={product.imageUrls[0]} 
                           alt={product.name}
                           className="product-image"
-                          onError={(e) => {
-                            e.currentTarget.style.display = 'none';
-                            const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
-                            if (nextElement) {
-                              nextElement.style.display = 'flex';
-                            }
-                          }}
+                          width={300}
+                          height={300}
+                          style={{ objectFit: 'contain' }}
                         />
                       ) : null}
                       <div className="product-image-fallback" style={{ display: product.imageUrls && product.imageUrls.length > 0 ? 'none' : 'flex' }}>
