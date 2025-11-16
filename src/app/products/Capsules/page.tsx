@@ -81,7 +81,7 @@ export default function CapsulesPage() {
                           className="product-image"
                           width={300}
                           height={300}
-                          style={{ objectFit: 'contain' }}
+                          style={{ objectFit: 'cover' }}
                         />
                       ) : null}
                       <div className="product-image-fallback" style={{ display: product.imageUrls && product.imageUrls.length > 0 ? 'none' : 'flex' }}>

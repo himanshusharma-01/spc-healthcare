@@ -496,7 +496,7 @@ export default function Homepage() {
                         className="l3-product-img"
                         width={300}
                         height={300}
-                        style={{ objectFit: 'contain' }}
+                        style={{ objectFit: 'cover' }}
                       />
                     ) : null}
                     <div className="l3-product-visual" style={{ display: product.imageUrls && product.imageUrls.length > 0 ? 'none' : 'block' }}></div>
