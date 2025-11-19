@@ -1,7 +1,9 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
+import { useProductSearch } from '@/app/contexts/ProductSearchContext';
 
 interface Product {
   id: string;
@@ -22,7 +24,7 @@ interface SyrupsClientProps {
 export default function SyrupsClient({ initialProducts }: SyrupsClientProps) {
   const [activeFilter, setActiveFilter] = useState('all');
   const [products] = useState<Product[]>(initialProducts);
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>(initialProducts);
+  const { searchQuery } = useProductSearch();
 
   const productFilters = [
     { id: 'all', name: 'All Syrups', count: products.length },
@@ -49,12 +51,13 @@ export default function SyrupsClient({ initialProducts }: SyrupsClientProps) {
     ).length }
   ];
 
-  // Filter products based on active filter
-  useEffect(() => {
-    if (activeFilter === 'all') {
-      setFilteredProducts(products);
-    } else {
-      const filtered = products.filter(product => {
+  // Filter products based on active filter and search query
+  const filteredProducts = useMemo(() => {
+    let filtered = products;
+
+    // Apply category filter
+    if (activeFilter !== 'all') {
+      filtered = filtered.filter(product => {
         const name = product.name.toLowerCase();
         const description = product.shortDescription.toLowerCase();
         const usagePoints = product.usagePoints?.join(' ').toLowerCase() || '';
@@ -72,9 +75,18 @@ export default function SyrupsClient({ initialProducts }: SyrupsClientProps) {
             return true;
         }
       });
-      setFilteredProducts(filtered);
     }
-  }, [activeFilter, products]);
+
+    // Apply search query filter
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(product =>
+        product.name.toLowerCase().includes(query)
+      );
+    }
+
+    return filtered;
+  }, [activeFilter, products, searchQuery]);
 
 
   return (
@@ -143,23 +155,24 @@ export default function SyrupsClient({ initialProducts }: SyrupsClientProps) {
           {/* Products Grid - No Loading State Needed! */}
           {filteredProducts.length > 0 ? (
             <div className="products-grid">
-              {filteredProducts.map(product => (
-                <div key={product.id} className="product-card">
-                  <div className="product-image-container square">
-                    {product.imageUrls && product.imageUrls.length > 0 ? (
-                      <Image 
-                        src={product.imageUrls[0]} 
-                        alt={product.name}
-                        className="product-image"
-                        width={300}
-                        height={300}
-                        style={{ objectFit: 'cover' }}
-                      />
-                    ) : null}
-                    <div className="product-image-fallback" style={{ display: product.imageUrls && product.imageUrls.length > 0 ? 'none' : 'flex' }}>
-                      <span className="product-icon">💊</span>
+              {filteredProducts.map((product, index) => (
+                <Link prefetch key={`${product.id}-${index}`} href={`/products/${product.slug}`} className="product-card-link">
+                  <div className="product-card">
+                    <div className="product-image-container square">
+                      {product.imageUrls && product.imageUrls.length > 0 ? (
+                        <Image 
+                          src={product.imageUrls[0]} 
+                          alt={product.name}
+                          className="product-image"
+                          width={300}
+                          height={300}
+                          style={{ objectFit: 'cover' }}
+                        />
+                      ) : null}
+                      <div className="product-image-fallback" style={{ display: product.imageUrls && product.imageUrls.length > 0 ? 'none' : 'flex' }}>
+                        <span className="product-icon">💊</span>
+                      </div>
                     </div>
-                  </div>
                     <div className="product-content">
                       <h3 className="product-name">{product.name}</h3>
                       <p className="product-short">{product.shortDescription}</p>
@@ -167,7 +180,8 @@ export default function SyrupsClient({ initialProducts }: SyrupsClientProps) {
                         <span className="l3-product-btn">View product details</span>
                       </div>
                     </div>
-                </div>
+                  </div>
+                </Link>
               ))}
             </div>
           ) : (

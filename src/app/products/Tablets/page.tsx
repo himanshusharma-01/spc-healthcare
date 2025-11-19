@@ -1,14 +1,27 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useProductSearch } from '@/app/contexts/ProductSearchContext';
 import './TabletsPage.css';
 import { loadCategoryProducts, Product } from '@/lib/productCategoryUtils';
 
 export default function TabletsPage() {
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const { searchQuery } = useProductSearch();
+
+  // Filter products based on search query
+  const filteredProducts = useMemo(() => {
+    if (!searchQuery.trim()) {
+      return allProducts;
+    }
+    const query = searchQuery.toLowerCase();
+    return allProducts.filter(product =>
+      product.name.toLowerCase().includes(query)
+    );
+  }, [allProducts, searchQuery]);
 
   // Load products
   useEffect(() => {
@@ -16,10 +29,10 @@ export default function TabletsPage() {
       try {
         setLoading(true);
         const tabletProducts = await loadCategoryProducts('tablets');
-        setFilteredProducts(tabletProducts);
+        setAllProducts(tabletProducts);
       } catch (error) {
         console.error('Error loading products:', error);
-        setFilteredProducts([]);
+        setAllProducts([]);
       } finally {
         setLoading(false);
       }

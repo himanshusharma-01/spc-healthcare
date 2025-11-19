@@ -2,7 +2,10 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { useProductSearch } from '../contexts/ProductSearchContext';
+import { getProducts } from '@/lib/getProducts';
+import type { Product } from '@/lib/productCategoryUtils';
 import './Navbar.css';
 
 const Navbar: React.FC = () => {
@@ -10,7 +13,12 @@ const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const scrollPositionRef = useRef<number>(0);
+  const navigationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const pathname = usePathname();
+  const router = useRouter();
+  const { searchQuery, setSearchQuery } = useProductSearch();
+  const [localSearchQuery, setLocalSearchQuery] = useState('');
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
 
   const toggleMobileMenu = (e?: React.MouseEvent | React.TouchEvent) => {
     if (e) {
@@ -210,6 +218,108 @@ const Navbar: React.FC = () => {
     window.location.href = '/contact';
   };
 
+  // Load all products for search matching
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        const products = await getProducts();
+        setAllProducts(products);
+      } catch (error) {
+        console.error('Error loading products for search:', error);
+      }
+    };
+    loadProducts();
+  }, []);
+
+  // Sync local search with context when pathname changes
+  useEffect(() => {
+    setLocalSearchQuery(searchQuery);
+  }, [searchQuery]);
+
+  // Find exact product match by name
+  const findExactProductMatch = (query: string) => {
+    if (!query.trim() || allProducts.length === 0) return null;
+    
+    const normalizedQuery = query.toLowerCase().trim();
+    
+    // First try exact match
+    let match = allProducts.find(product => 
+      product.name.toLowerCase().trim() === normalizedQuery
+    );
+    
+    // If no exact match, try case-insensitive partial match (at least 3 characters)
+    if (!match && normalizedQuery.length >= 3) {
+      const matches = allProducts.filter(product => 
+        product.name.toLowerCase().includes(normalizedQuery)
+      );
+      // If only one match, use it
+      if (matches.length === 1) {
+        match = matches[0];
+      }
+    }
+    
+    return match;
+  };
+
+  // Handle search input change
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setLocalSearchQuery(value);
+    setSearchQuery(value);
+    
+    // Clear any pending navigation
+    if (navigationTimeoutRef.current) {
+      clearTimeout(navigationTimeoutRef.current);
+      navigationTimeoutRef.current = null;
+    }
+    
+    // Auto-navigate to product detail page if exact match found (after user stops typing)
+    if (value.trim().length >= 3) {
+      navigationTimeoutRef.current = setTimeout(() => {
+        const matchedProduct = findExactProductMatch(value);
+        if (matchedProduct) {
+          // Navigate directly to the product detail page
+          router.push(`/products/${matchedProduct.slug}`);
+        }
+      }, 1000); // Wait 1 second after user stops typing
+    }
+    
+    // On product pages, search also filters in place via context
+  };
+
+  // Handle search on Enter key or when user wants to navigate
+  const handleSearchSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && localSearchQuery.trim()) {
+      const isOnProductPage = pathname.startsWith('/products');
+      
+      // Try to find exact product match
+      const matchedProduct = findExactProductMatch(localSearchQuery);
+      
+      if (matchedProduct) {
+        // Navigate directly to the product detail page
+        router.push(`/products/${matchedProduct.slug}`);
+      } else {
+        // No exact match, navigate to search results page
+        if (!isOnProductPage) {
+          router.push('/products/search');
+        }
+        // If on a product page, search already filters in place - no navigation needed
+      }
+    }
+  };
+
+  // Clear search when clicking clear button
+  const handleClearSearch = () => {
+    setLocalSearchQuery('');
+    setSearchQuery('');
+    
+    // Clear any pending navigation
+    if (navigationTimeoutRef.current) {
+      clearTimeout(navigationTimeoutRef.current);
+      navigationTimeoutRef.current = null;
+    }
+  };
+
   // Navigation data
   const navItems = [
     { href: '/', label: 'Home', icon: 'fas fa-home' },
@@ -302,6 +412,31 @@ const Navbar: React.FC = () => {
                       {item.label}
                     </Link>
                   )}
+                  {/* Search bar next to Products menu */}
+                  {item.label === 'Products' && (
+                    <div className="navbar-search-container">
+                      <div className="navbar-search-wrapper">
+                        <i className="fas fa-search navbar-search-icon"></i>
+                        <input
+                          type="text"
+                          placeholder="Search products..."
+                          value={localSearchQuery}
+                          onChange={handleSearchChange}
+                          onKeyDown={handleSearchSubmit}
+                          className="navbar-search-input"
+                        />
+                        {localSearchQuery && (
+                          <button
+                            onClick={handleClearSearch}
+                            className="navbar-search-clear"
+                            aria-label="Clear search"
+                          >
+                            <i className="fas fa-times"></i>
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  )}
                 </li>
               ))}
             </ul>
@@ -376,6 +511,32 @@ const Navbar: React.FC = () => {
                           {dropdownItem.label}
                         </Link>
                       ))}
+                    </div>
+                  )}
+                  
+                  {/* Mobile Search bar for Products */}
+                  {item.label === 'Products' && (
+                    <div className="mobile-search-container">
+                      <div className="mobile-search-wrapper">
+                        <i className="fas fa-search mobile-search-icon"></i>
+                        <input
+                          type="text"
+                          placeholder="Search products..."
+                          value={localSearchQuery}
+                          onChange={handleSearchChange}
+                          onKeyDown={handleSearchSubmit}
+                          className="mobile-search-input"
+                        />
+                        {localSearchQuery && (
+                          <button
+                            onClick={handleClearSearch}
+                            className="mobile-search-clear"
+                            aria-label="Clear search"
+                          >
+                            <i className="fas fa-times"></i>
+                          </button>
+                        )}
+                      </div>
                     </div>
                   )}
                 </li>

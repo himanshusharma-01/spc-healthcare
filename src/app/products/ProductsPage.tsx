@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
+import { useProductSearch } from '@/app/contexts/ProductSearchContext';
 import './ProductsPage.css';
 
 interface Product {
@@ -24,13 +25,13 @@ interface ProductFilters {
 
 const ProductsPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [filters, setFilters] = useState<ProductFilters>({
     therapeuticArea: '',
     searchQuery: ''
   });
   const [loading, setLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const { searchQuery: contextSearchQuery, setSearchQuery: setContextSearchQuery } = useProductSearch();
 
   // Mock data - replace with actual API call
   useEffect(() => {
@@ -98,12 +99,21 @@ const ProductsPage: React.FC = () => {
     ];
 
     setProducts(mockProducts);
-    setFilteredProducts(mockProducts);
     setLoading(false);
   }, []);
 
-  // Filter products based on criteria
+  // Sync context search query with local filters
   useEffect(() => {
+    if (contextSearchQuery !== filters.searchQuery) {
+      setFilters(prev => ({
+        ...prev,
+        searchQuery: contextSearchQuery
+      }));
+    }
+  }, [contextSearchQuery, filters.searchQuery]);
+
+  // Filter products based on criteria (using context search query)
+  const filteredProducts = useMemo(() => {
     let filtered = products;
 
     if (filters.therapeuticArea) {
@@ -112,8 +122,10 @@ const ProductsPage: React.FC = () => {
       );
     }
 
-    if (filters.searchQuery) {
-      const query = filters.searchQuery.toLowerCase();
+    // Use context search query if available, otherwise use local filter
+    const searchQuery = contextSearchQuery || filters.searchQuery;
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
       filtered = filtered.filter(product =>
         product.name.toLowerCase().includes(query) ||
         product.genericName.toLowerCase().includes(query) ||
@@ -123,8 +135,8 @@ const ProductsPage: React.FC = () => {
       );
     }
 
-    setFilteredProducts(filtered);
-  }, [filters, products]);
+    return filtered;
+  }, [filters.therapeuticArea, filters.searchQuery, contextSearchQuery, products]);
 
   const therapeuticAreas = [
     'All',
@@ -143,6 +155,11 @@ const ProductsPage: React.FC = () => {
       ...prev,
       [key]: value
     }));
+    
+    // If changing search query, also update context
+    if (key === 'searchQuery') {
+      setContextSearchQuery(value);
+    }
   };
 
   const handleViewDetails = (product: Product) => {
@@ -188,7 +205,7 @@ const ProductsPage: React.FC = () => {
               <input
                 type="text"
                 placeholder="Search products by name, generic name, or indication..."
-                value={filters.searchQuery}
+                value={contextSearchQuery || filters.searchQuery}
                 onChange={(e) => handleFilterChange('searchQuery', e.target.value)}
                 className="search-input"
               />

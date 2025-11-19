@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/footer";
 import WhatsAppFloating from "./floatingWhatapp/whatsapp";
 import PreventInternalScroll from "./components/PreventInternalScroll";
+import { ProductSearchProvider } from "./contexts/ProductSearchContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,11 +43,13 @@ export default function RootLayout({
         />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} ${manrope.variable} antialiased`}>
-        <PreventInternalScroll />
-        <Navbar />
-        {children}
-        <WhatsAppFloating phoneNumber="917710301301" position="bottom-right" showPopup={true} popupText="Chat with us on WhatsApp" />
-        <Footer />
+        <ProductSearchProvider>
+          <PreventInternalScroll />
+          <Navbar />
+          {children}
+          <WhatsAppFloating phoneNumber="917710301301" position="bottom-right" showPopup={true} popupText="Chat with us on WhatsApp" />
+          <Footer />
+        </ProductSearchProvider>
       </body>
     </html>
   );

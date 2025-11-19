@@ -76,6 +76,7 @@
   justify-content: space-between;
   height: 80px;
   min-height: 80px;
+  position: relative;
 }
 
 /* Logo Styles */
@@ -154,6 +155,8 @@
 .desktop-nav {
   display: flex;
   align-items: center;
+  flex: 1;
+  justify-content: center;
 }
 
 .nav-links {
@@ -167,6 +170,9 @@
 
 .nav-item {
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .nav-link {
@@ -279,11 +285,154 @@
   transform: translateX(5px);
 }
 
+/* Search Bar Styles */
+.navbar-search-container {
+  margin-left: 0.5rem;
+}
+
+.navbar-search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+  min-width: 200px;
+  max-width: 300px;
+}
+
+.navbar-search-wrapper:focus-within {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(0, 163, 180, 0.5);
+  box-shadow: 0 0 0 3px rgba(0, 163, 180, 0.1);
+}
+
+.navbar-search-icon {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+}
+
+.navbar-search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 500;
+  width: 100%;
+  min-width: 0;
+}
+
+.navbar-search-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.navbar-search-clear {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  margin-left: 0.5rem;
+  flex-shrink: 0;
+}
+
+.navbar-search-clear:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.navbar-search-clear i {
+  font-size: 0.8rem;
+}
+
+/* Mobile Search Styles */
+.mobile-search-container {
+  padding: 1rem 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.mobile-search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.mobile-search-wrapper:focus-within {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(0, 163, 180, 0.5);
+  box-shadow: 0 0 0 3px rgba(0, 163, 180, 0.1);
+}
+
+.mobile-search-icon {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+}
+
+.mobile-search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  width: 100%;
+}
+
+.mobile-search-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.mobile-search-clear {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  margin-left: 0.5rem;
+  flex-shrink: 0;
+}
+
+.mobile-search-clear:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mobile-search-clear i {
+  font-size: 0.9rem;
+}
+
 /* Action Buttons */
 .nav-actions {
   display: flex;
   align-items: center;
   gap: 1.5rem;
+  margin-left: auto;
+  flex-shrink: 0;
 }
 
 .action-btn {
@@ -736,6 +885,11 @@ html.mobile-menu-open .mobile-menu.active {
   .nav-link {
     padding: 1rem 1rem;
     font-size: 0.9rem;
+  }
+  
+  .navbar-search-wrapper {
+    min-width: 150px;
+    max-width: 200px;
   }
   
   .action-btn span {

@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useProductSearch } from '@/app/contexts/ProductSearchContext';
 import './OralSuspensionsPage.css';
 import { getProducts } from '@/lib/getProducts';
 
@@ -22,8 +23,9 @@ interface Product {
 const suspensionKeywords = ['suspension', 'oral suspension', 'powder', 'granules', 'reconstitute'];
 
 export default function OralSuspensionsPage() {
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const { searchQuery } = useProductSearch();
   
   // Filter products that contain suspension-related keywords
   const filterSuspensionProducts = useCallback((products: Product[]) => {
@@ -45,13 +47,13 @@ export default function OralSuspensionsPage() {
     const loadProducts = async () => {
       try {
         setLoading(true);
-        const allProducts = await getProducts();
-        const suspensionProducts = filterSuspensionProducts(allProducts);
+        const products = await getProducts();
+        const suspensionProducts = filterSuspensionProducts(products);
         
-        setFilteredProducts(suspensionProducts);
+        setAllProducts(suspensionProducts);
       } catch (error) {
         console.error('Error loading products:', error);
-        setFilteredProducts([]);
+        setAllProducts([]);
       } finally {
         setLoading(false);
       }
@@ -59,6 +61,17 @@ export default function OralSuspensionsPage() {
 
     loadProducts();
   }, [filterSuspensionProducts]);
+
+  // Filter products based on search query
+  const filteredProducts = useMemo(() => {
+    if (!searchQuery.trim()) {
+      return allProducts;
+    }
+    const query = searchQuery.toLowerCase();
+    return allProducts.filter(product =>
+      product.name.toLowerCase().includes(query)
+    );
+  }, [allProducts, searchQuery]);
 
 
 
