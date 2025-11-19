@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useProductSearch } from '../contexts/ProductSearchContext';
@@ -19,6 +19,13 @@ const Navbar: React.FC = () => {
   const { searchQuery, setSearchQuery } = useProductSearch();
   const [localSearchQuery, setLocalSearchQuery] = useState('');
   const [allProducts, setAllProducts] = useState<Product[]>([]);
+  const [isDesktopSearchOpen, setIsDesktopSearchOpen] = useState(false);
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+  const [activeSuggestionSource, setActiveSuggestionSource] = useState<'desktop' | 'mobile' | null>(null);
+  const desktopSearchInputRef = useRef<HTMLInputElement | null>(null);
+  const mobileSearchInputRef = useRef<HTMLInputElement | null>(null);
+  const desktopSearchContainerRef = useRef<HTMLDivElement | null>(null);
+  const mobileSearchContainerRef = useRef<HTMLDivElement | null>(null);
 
   const toggleMobileMenu = (e?: React.MouseEvent | React.TouchEvent) => {
     if (e) {
@@ -65,6 +72,7 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     setIsMobileMenuOpen(false);
     setActiveDropdown(null);
+    setIsMobileSearchOpen(false);
   }, [pathname]);
 
   // Prevent body scroll when mobile menu is open, but allow mobile menu to scroll
@@ -157,6 +165,35 @@ const Navbar: React.FC = () => {
     };
   }, [isMobileMenuOpen]);
 
+  useEffect(() => {
+    if (!isMobileMenuOpen) {
+      setIsMobileSearchOpen(false);
+    }
+  }, [isMobileMenuOpen]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+      const desktopContains = desktopSearchContainerRef.current?.contains(target);
+      const mobileContains = mobileSearchContainerRef.current?.contains(target);
+      
+      if (!desktopContains && activeSuggestionSource === 'desktop') {
+        setActiveSuggestionSource(null);
+      }
+      if (!mobileContains && activeSuggestionSource === 'mobile') {
+        setActiveSuggestionSource(null);
+      }
+    };
+
+    if (activeSuggestionSource) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [activeSuggestionSource]);
+
   // Close dropdowns when clicking outside or pressing Escape
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -236,7 +273,76 @@ const Navbar: React.FC = () => {
     setLocalSearchQuery(searchQuery);
   }, [searchQuery]);
 
+  // Automatically show search field when a query already exists
+  useEffect(() => {
+    if (searchQuery.trim()) {
+      setIsDesktopSearchOpen(true);
+      setIsMobileSearchOpen(true);
+      setActiveSuggestionSource(prev => {
+        if (prev) return prev;
+        if (typeof window !== 'undefined' && window.innerWidth <= 768) {
+          return 'mobile';
+        }
+        return 'desktop';
+      });
+    } else {
+      setActiveSuggestionSource(null);
+    }
+  }, [searchQuery]);
+
+  // Focus search inputs when they become visible
+  useEffect(() => {
+    if (isDesktopSearchOpen && desktopSearchInputRef.current) {
+      desktopSearchInputRef.current.focus();
+    }
+  }, [isDesktopSearchOpen]);
+
+  useEffect(() => {
+    if (isMobileSearchOpen && mobileSearchInputRef.current) {
+      mobileSearchInputRef.current.focus();
+    }
+  }, [isMobileSearchOpen]);
+
   // Find exact product match by name
+  const getProductCategoryLabel = (product: Product) => {
+    const category = product.category?.toLowerCase() || '';
+    const name = product.name.toLowerCase();
+
+    if (category.includes('syrup') || name.includes('syrup')) return 'Syrup';
+    if (category.includes('tablet') || name.includes('tablet')) return 'Tablet';
+    if (category.includes('capsule') || name.includes('capsule')) return 'Capsule';
+    if (category.includes('drop') || name.includes('drop')) return 'Oral Drops';
+    if (category.includes('suspension') || name.includes('suspension')) return 'Oral Suspension';
+
+    return 'Product';
+  };
+
+  const searchSuggestions = useMemo(() => {
+    if (!localSearchQuery.trim() || allProducts.length === 0) return [];
+    const normalized = localSearchQuery.toLowerCase().trim();
+    const startsWithMatches: Product[] = [];
+    const containsMatches: Product[] = [];
+
+    allProducts.forEach(product => {
+      const name = product.name.toLowerCase();
+      if (name.startsWith(normalized)) {
+        startsWithMatches.push(product);
+      } else if (name.includes(normalized)) {
+        containsMatches.push(product);
+      }
+    });
+
+    return [...startsWithMatches, ...containsMatches].slice(0, 8);
+  }, [localSearchQuery, allProducts]);
+
+  const isSuggestionsVisible = useMemo(() => {
+    return (
+      !!localSearchQuery.trim() &&
+      searchSuggestions.length > 0 &&
+      (activeSuggestionSource === 'desktop' || activeSuggestionSource === 'mobile')
+    );
+  }, [localSearchQuery, searchSuggestions, activeSuggestionSource]);
+
   const findExactProductMatch = (query: string) => {
     if (!query.trim() || allProducts.length === 0) return null;
     
@@ -261,31 +367,67 @@ const Navbar: React.FC = () => {
     return match;
   };
 
-  // Handle search input change
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setLocalSearchQuery(value);
-    setSearchQuery(value);
-    
-    // Clear any pending navigation
+  const toggleDesktopSearch = () => {
+    setIsDesktopSearchOpen(prev => {
+      const next = !prev;
+      if (!next && desktopSearchInputRef.current) {
+        desktopSearchInputRef.current.blur();
+      }
+      setActiveSuggestionSource(next ? 'desktop' : null);
+      return next;
+    });
+  };
+
+  const toggleMobileSearch = () => {
+    setIsMobileSearchOpen(prev => {
+      const next = !prev;
+      if (!next && mobileSearchInputRef.current) {
+        mobileSearchInputRef.current.blur();
+      }
+      setActiveSuggestionSource(next ? 'mobile' : null);
+      return next;
+    });
+  };
+
+  const handleSuggestionSelect = (product: Product) => {
+    setLocalSearchQuery(product.name);
+    setSearchQuery(product.name);
+    setActiveSuggestionSource(null);
     if (navigationTimeoutRef.current) {
       clearTimeout(navigationTimeoutRef.current);
       navigationTimeoutRef.current = null;
     }
-    
-    // Auto-navigate to product detail page if exact match found (after user stops typing)
-    if (value.trim().length >= 3) {
-      navigationTimeoutRef.current = setTimeout(() => {
-        const matchedProduct = findExactProductMatch(value);
-        if (matchedProduct) {
-          // Navigate directly to the product detail page
-          router.push(`/products/${matchedProduct.slug}`);
-        }
-      }, 1000); // Wait 1 second after user stops typing
-    }
-    
-    // On product pages, search also filters in place via context
+    router.push(`/products/${product.slug}`);
   };
+
+  // Handle search input change
+  const handleSearchChange =
+    (source: 'desktop' | 'mobile') =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      setLocalSearchQuery(value);
+      setSearchQuery(value);
+      setActiveSuggestionSource(source);
+      
+      // Clear any pending navigation
+      if (navigationTimeoutRef.current) {
+        clearTimeout(navigationTimeoutRef.current);
+        navigationTimeoutRef.current = null;
+      }
+      
+      // Auto-navigate to product detail page if exact match found (after user stops typing)
+      if (value.trim().length >= 3) {
+        navigationTimeoutRef.current = setTimeout(() => {
+          const matchedProduct = findExactProductMatch(value);
+          if (matchedProduct) {
+            // Navigate directly to the product detail page
+            router.push(`/products/${matchedProduct.slug}`);
+          }
+        }, 1000); // Wait 1 second after user stops typing
+      }
+      
+      // On product pages, search also filters in place via context
+    };
 
   // Handle search on Enter key or when user wants to navigate
   const handleSearchSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -298,6 +440,7 @@ const Navbar: React.FC = () => {
       if (matchedProduct) {
         // Navigate directly to the product detail page
         router.push(`/products/${matchedProduct.slug}`);
+        setActiveSuggestionSource(null);
       } else {
         // No exact match, navigate to search results page
         if (!isOnProductPage) {
@@ -312,6 +455,7 @@ const Navbar: React.FC = () => {
   const handleClearSearch = () => {
     setLocalSearchQuery('');
     setSearchQuery('');
+    setActiveSuggestionSource(null);
     
     // Clear any pending navigation
     if (navigationTimeoutRef.current) {
@@ -414,27 +558,58 @@ const Navbar: React.FC = () => {
                   )}
                   {/* Search bar next to Products menu */}
                   {item.label === 'Products' && (
-                    <div className="navbar-search-container">
-                      <div className="navbar-search-wrapper">
+                    <div
+                      className={`navbar-search-container ${isDesktopSearchOpen ? 'active' : ''}`}
+                      ref={desktopSearchContainerRef}
+                    >
+                      <button
+                        type="button"
+                        className="navbar-search-toggle"
+                        onClick={toggleDesktopSearch}
+                        aria-label={isDesktopSearchOpen ? 'Hide product search' : 'Show product search'}
+                        aria-expanded={isDesktopSearchOpen}
+                      >
                         <i className="fas fa-search navbar-search-icon"></i>
-                        <input
-                          type="text"
-                          placeholder="Search products..."
-                          value={localSearchQuery}
-                          onChange={handleSearchChange}
-                          onKeyDown={handleSearchSubmit}
-                          className="navbar-search-input"
-                        />
-                        {localSearchQuery && (
-                          <button
-                            onClick={handleClearSearch}
-                            className="navbar-search-clear"
-                            aria-label="Clear search"
-                          >
-                            <i className="fas fa-times"></i>
-                          </button>
-                        )}
-                      </div>
+                      </button>
+                      {isDesktopSearchOpen && (
+                        <div className="navbar-search-wrapper">
+                          <input
+                            ref={desktopSearchInputRef}
+                            type="text"
+                            placeholder="Search products..."
+                            value={localSearchQuery}
+                            onChange={handleSearchChange('desktop')}
+                            onKeyDown={handleSearchSubmit}
+                            onFocus={() => setActiveSuggestionSource('desktop')}
+                            className="navbar-search-input"
+                          />
+                          {localSearchQuery && (
+                            <button
+                              onClick={handleClearSearch}
+                              className="navbar-search-clear"
+                              aria-label="Clear search"
+                            >
+                              <i className="fas fa-times"></i>
+                            </button>
+                          )}
+                          {isSuggestionsVisible && activeSuggestionSource === 'desktop' && (
+                            <ul className="search-suggestions">
+                              {searchSuggestions.map(product => (
+                                <li key={`desktop-suggestion-${product.id}`}>
+                                  <button
+                                    type="button"
+                                    onMouseDown={event => event.preventDefault()}
+                                    onClick={() => handleSuggestionSelect(product)}
+                                  >
+                                    <div className="suggestion-name">{product.name}</div>
+                                    <div className="suggestion-meta">{getProductCategoryLabel(product)}</div>
+                                  </button>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
+                      )}
                     </div>
                   )}
                 </li>
@@ -516,27 +691,58 @@ const Navbar: React.FC = () => {
                   
                   {/* Mobile Search bar for Products */}
                   {item.label === 'Products' && (
-                    <div className="mobile-search-container">
-                      <div className="mobile-search-wrapper">
+                    <div
+                      className={`mobile-search-container ${isMobileSearchOpen ? 'active' : ''}`}
+                      ref={mobileSearchContainerRef}
+                    >
+                      <button
+                        type="button"
+                        className="mobile-search-toggle"
+                        onClick={toggleMobileSearch}
+                        aria-label={isMobileSearchOpen ? 'Hide product search' : 'Show product search'}
+                        aria-expanded={isMobileSearchOpen}
+                      >
                         <i className="fas fa-search mobile-search-icon"></i>
-                        <input
-                          type="text"
-                          placeholder="Search products..."
-                          value={localSearchQuery}
-                          onChange={handleSearchChange}
-                          onKeyDown={handleSearchSubmit}
-                          className="mobile-search-input"
-                        />
-                        {localSearchQuery && (
-                          <button
-                            onClick={handleClearSearch}
-                            className="mobile-search-clear"
-                            aria-label="Clear search"
-                          >
-                            <i className="fas fa-times"></i>
-                          </button>
-                        )}
-                      </div>
+                      </button>
+                      {isMobileSearchOpen && (
+                        <div className="mobile-search-wrapper">
+                          <input
+                            ref={mobileSearchInputRef}
+                            type="text"
+                            placeholder="Search products..."
+                            value={localSearchQuery}
+                            onChange={handleSearchChange('mobile')}
+                            onKeyDown={handleSearchSubmit}
+                            onFocus={() => setActiveSuggestionSource('mobile')}
+                            className="mobile-search-input"
+                          />
+                          {localSearchQuery && (
+                            <button
+                              onClick={handleClearSearch}
+                              className="mobile-search-clear"
+                              aria-label="Clear search"
+                            >
+                              <i className="fas fa-times"></i>
+                            </button>
+                          )}
+                          {isSuggestionsVisible && activeSuggestionSource === 'mobile' && (
+                            <ul className="search-suggestions mobile">
+                              {searchSuggestions.map(product => (
+                                <li key={`mobile-suggestion-${product.id}`}>
+                                  <button
+                                    type="button"
+                                    onMouseDown={event => event.preventDefault()}
+                                    onClick={() => handleSuggestionSelect(product)}
+                                  >
+                                    <div className="suggestion-name">{product.name}</div>
+                                    <div className="suggestion-meta">{getProductCategoryLabel(product)}</div>
+                                  </button>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
+                      )}
                     </div>
                   )}
                 </li>
