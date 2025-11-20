@@ -19,10 +19,11 @@ export default function Homepage() {
   const [isBannerFixed, setIsBannerFixed] = useState(false);
 
   const productDivisions = [
-    { id: 1, title: 'Syrups', desc: 'Liquid medications for easy administration', icon: 'fas fa-prescription-bottle', image: '/syrup.jpeg', count: '50+ Syrups', href: '/products/Syrups' },
-    { id: 2, title: 'Capsules', desc: 'Encapsulated medicines for controlled release', icon: 'fas fa-capsules', image: '/capsules.jpeg', count: '80+ Capsules', href: '/products/Capsules' },
-    { id: 3, title: 'Tablets', desc: 'Solid dosage forms for precise medication', icon: 'fas fa-tablets', image: '/tablet.jpeg', count: '120+ Tablets', href: '/products/Tablets' },
-    { id: 4, title: 'Oral Drops', desc: 'Concentrated liquid drops for accurate dosing', icon: 'fas fa-tint', image: '/drops.jpg', count: '30+ Drops', href: '/products/OralDrops' },
+    { id: 1, title: 'Syrups', desc: 'Liquid medications for easy administration', icon: 'fas fa-prescription-bottle', image: '/SYRUP%20CARD.png', count: '50+ Syrups', href: '/products/Syrups' },
+    { id: 2, title: 'Capsules', desc: 'Encapsulated medicines for controlled release', icon: 'fas fa-capsules', image: '/CAPSULE%20CARD.png', count: '80+ Capsules', href: '/products/Capsules' },
+    { id: 3, title: 'Tablets', desc: 'Solid dosage forms for precise medication', icon: 'fas fa-tablets', image: '/TABLET%20CARD.png', count: '120+ Tablets', href: '/products/Tablets' },
+    { id: 4, title: 'Oral Drops', desc: 'Concentrated liquid drops for accurate dosing', icon: 'fas fa-tint', image: '/DROPS%20CARD.png', count: '30+ Drops', href: '/products/OralDrops' },
+    { id: 5, title: 'Oral Suspension', desc: 'Stable suspensions for pediatric and adult care', icon: 'fas fa-vial', image: '/SUSPENSION%20CARD.png', count: '25+ Suspensions', href: '/products/OralSuspension' },
   ];
 
   // Company achievements instead of fake testimonials
@@ -353,19 +354,21 @@ export default function Homepage() {
                       src={division.image}
                       alt={`${division.title} image`}
                       className="l3-division-img"
-                      width={200}
-                      height={200}
-                      style={{ objectFit: 'contain' }}
+                      width={600}
+                      height={400}
+                      sizes="(max-width: 900px) 50vw, 33vw"
                     />
                   ) : null}
                   <i className={division.icon} style={{ display: division.image ? 'none' : 'block' }}></i>
                 </div>
-                <h3>{division.title}</h3>
-                <p>{division.desc}</p>
-                <div className="l3-division-count">{division.count}</div>
-                <span className="l3-division-btn" role="presentation">
-                  Explore Division
-                </span>
+                <div className="l3-division-content">
+                  <h3>{division.title}</h3>
+                  <p>{division.desc}</p>
+                  <div className="l3-division-count">{division.count}</div>
+                  <span className="l3-division-btn" role="presentation">
+                    Explore Division
+                  </span>
+                </div>
               </Link>
             ))}
           </div>
