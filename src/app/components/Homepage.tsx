@@ -19,11 +19,36 @@ export default function Homepage() {
   const [isBannerFixed, setIsBannerFixed] = useState(false);
 
   const productDivisions = [
-    { id: 1, title: 'Syrups', desc: 'Liquid medications for easy administration', icon: 'fas fa-prescription-bottle', image: '/SYRUP%20CARD.png', count: '50+ Syrups', href: '/products/Syrups' },
-    { id: 2, title: 'Capsules', desc: 'Encapsulated medicines for controlled release', icon: 'fas fa-capsules', image: '/CAPSULE%20CARD.png', count: '80+ Capsules', href: '/products/Capsules' },
-    { id: 3, title: 'Tablets', desc: 'Solid dosage forms for precise medication', icon: 'fas fa-tablets', image: '/TABLET%20CARD.png', count: '120+ Tablets', href: '/products/Tablets' },
-    { id: 4, title: 'Oral Drops', desc: 'Concentrated liquid drops for accurate dosing', icon: 'fas fa-tint', image: '/DROPS%20CARD.png', count: '30+ Drops', href: '/products/OralDrops' },
-    { id: 5, title: 'Oral Suspension', desc: 'Stable suspensions for pediatric and adult care', icon: 'fas fa-vial', image: '/SUSPENSION%20CARD.png', count: '25+ Suspensions', href: '/products/OralSuspension' },
+    {
+      id: 1,
+      title: 'Syrups',
+      image: '/SYRUP%20CARD.png',
+      href: '/products/Syrups',
+    },
+    {
+      id: 2,
+      title: 'Capsules',
+      image: '/CAPSULE%20CARD.png',
+      href: '/products/Capsules',
+    },
+    {
+      id: 3,
+      title: 'Tablets',
+      image: '/TABLET%20CARD.png',
+      href: '/products/Tablets',
+    },
+    {
+      id: 4,
+      title: 'Oral Drops',
+      image: '/DROPS%20CARD.png',
+      href: '/products/OralDrops',
+    },
+    {
+      id: 5,
+      title: 'Oral Suspension',
+      image: '/SUSPENSION%20CARD.png',
+      href: '/products/OralSuspension',
+    },
   ];
 
   // Company achievements instead of fake testimonials

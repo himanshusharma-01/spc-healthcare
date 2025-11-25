@@ -15,125 +15,26 @@
 
 /* Oral Drops Hero Section */
 .oral-drops-hero {
-  min-height: 70vh;
-  background: none;
-  position: relative;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  padding: 4rem 0;
-  margin: 0;
   width: 100%;
   max-width: 100vw;
-}
-
-.oral-drops-hero-background {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 50%;
-  height: 100%;
-  min-height: 70vh;
-  background-image: url('/oral drops.png');
-  background-size: contain;
-  background-position: right center;
+  min-height: clamp(600px, 90vh, 840px);
+  margin: 0;
+  padding: 60px 0 80px;
+  background-image: url('https://github.com/himanshusharma-01/images/blob/main/Untitled%20design%20(19).png?raw=true');
   background-repeat: no-repeat;
-  background-color: #1A365D;
-  z-index: 1;
+  background-size: cover;
+  background-position: center;
 }
 
-/* Desktop: Show split layout (left content, right banner) */
-@media (min-width: 769px) {
-  .oral-drops-hero {
-    background: linear-gradient(135deg, #0A1931 0%, #1A365D 45%, #1A365D 60%, #1A365D 100%);
-}
-
-.oral-drops-hero-content {
-  display: grid;
-    grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  }
-
-  .oral-drops-hero-text {
-    max-width: 100%;
-  }
-
-  .oral-drops-hero-title {
-    color: white;
-  }
-
-  .oral-drops-hero-subtitle {
-    color: rgba(255, 255, 255, 0.9);
-  }
-
-  .oral-drops-hero-visual {
-    display: none;
-  }
-
-  .oral-drops-hero-background {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 50%;
-    height: 100%;
-    background-size: contain;
-    background-position: right center;
-  }
-}
-
-/* Mobile: Hide content, show full banner */
 @media (max-width: 768px) {
-  .oral-drops-hero-content {
-    display: none;
-  }
-
-  .oral-drops-hero-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
+  .oral-drops-hero {
+    min-height: 100vh;
+    height: 100vh;
+    background-image: url('https://github.com/himanshusharma-01/images/blob/main/Untitled%20design%20(12).png?raw=true');
     background-size: cover;
-    background-position: center center;
+    background-position: center;
+    padding: 0;
   }
-}
-
-.oral-drops-hero-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  line-height: 1.1;
-  margin-bottom: 1.5rem;
-  color: white;
-}
-
-.oral-drops-hero-subtitle {
-  font-size: 1.25rem;
-  margin-bottom: 2.5rem;
-  opacity: 0.9;
-  line-height: 1.6;
-  color: white;
-}
-
-.oral-drops-visual-element {
-  position: relative;
-  width: 280px;
-  height: 280px;
-}
-
-.oral-drops-dropper {
-  font-size: 5rem;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  opacity: 0.9;
-  animation: float 3s ease-in-out infinite;
 }
 
 /* Products Section */

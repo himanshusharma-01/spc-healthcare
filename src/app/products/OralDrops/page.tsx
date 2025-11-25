@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useProductSearch } from '@/app/contexts/ProductSearchContext';
 import './OralDropsPage.css';
-import { loadCategoryProducts, Product } from '@/lib/productCategoryUtils';
+import { loadCategoryProducts, productMatchesQuery, type Product } from '@/lib/productCategoryUtils';
 
 export default function OralDropsPage() {
   const [allProducts, setAllProducts] = useState<Product[]>([]);
@@ -17,9 +17,8 @@ export default function OralDropsPage() {
     if (!searchQuery.trim()) {
       return allProducts;
     }
-    const query = searchQuery.toLowerCase();
     return allProducts.filter(product =>
-      product.name.toLowerCase().includes(query)
+      productMatchesQuery(product, searchQuery)
     );
   }, [allProducts, searchQuery]);
 
@@ -45,27 +44,7 @@ export default function OralDropsPage() {
 
   return (
     <div className="l3-container oral-drops-page">
-      <section className="oral-drops-hero">
-        <div className="oral-drops-hero-background"></div>
-        <div className="l3-container-inner">
-          <div className="oral-drops-hero-content">
-            <div className="oral-drops-hero-text">
-              <h1 className="oral-drops-hero-title">
-                <span className="l3-title-line">Oral Drops</span>
-                <span className="l3-title-line">Precise Liquid Dosing</span>
-              </h1>
-              <p className="oral-drops-hero-subtitle">
-                Concentrated liquid formulations for precise dosing and rapid absorption.
-              </p>
-            </div>
-            <div className="oral-drops-hero-visual">
-              <div className="oral-drops-visual-element">
-                <div className="oral-drops-dropper">💧</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <section className="oral-drops-hero" aria-label="Oral drops banner"></section>
 
       <section className="products-section">
         <div className="l3-container-inner">

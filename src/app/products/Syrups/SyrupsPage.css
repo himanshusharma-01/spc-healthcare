@@ -15,90 +15,25 @@
 
 /* Syrups Hero Section */
 .syrups-hero {
-  min-height: 70vh;
-  position: relative;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  padding: 4rem 0;
-  margin: 0;
   width: 100%;
   max-width: 100vw;
-}
-
-.syrups-hero-background {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 50%;
-  height: 100%;
-  min-height: 70vh;
-  background-image: url('/syrups.png');
-  background-size: contain;
-  background-position: right center;
+  min-height: clamp(600px, 90vh, 840px);
+  margin: 0;
+  padding: 60px 0 80px;
+  background-image: url('https://github.com/himanshusharma-01/images/blob/main/Untitled%20design%20(18).png?raw=true');
   background-repeat: no-repeat;
-  background-color: #1A365D;
-  z-index: 1;
+  background-size: cover;
+  background-position: center;
 }
 
-/* Desktop: Show split layout (left content, right banner) */
-@media (min-width: 769px) {
-  .syrups-hero {
-    background: linear-gradient(135deg, #0A1931 0%, #1A365D 45%, #1A365D 60%, #1A365D 100%);
-}
-
-.syrups-hero-content {
-  display: grid;
-    grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  }
-
-  .syrups-hero-text {
-    max-width: 100%;
-  }
-
-  .syrups-hero-title {
-    color: white;
-  }
-
-  .syrups-hero-subtitle {
-    color: rgba(255, 255, 255, 0.9);
-  }
-
-  .syrups-hero-visual {
-    display: none;
-  }
-
-  .syrups-hero-background {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 50%;
-    height: 100%;
-    background-size: contain;
-    background-position: right center;
-  }
-}
-
-/* Mobile: Hide content, show full banner */
 @media (max-width: 768px) {
-  .syrups-hero-content {
-    display: none;
-  }
-
-  .syrups-hero-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
+  .syrups-hero {
+    min-height: 100vh;
+    height: 100vh;
+    background-image: url('https://github.com/himanshusharma-01/images/blob/main/Untitled%20design%20(17).png?raw=true');
     background-size: cover;
-    background-position: center center;
+    background-position: center;
+    padding: 0;
   }
 }
 

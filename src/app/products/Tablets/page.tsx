@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useProductSearch } from '@/app/contexts/ProductSearchContext';
 import './TabletsPage.css';
-import { loadCategoryProducts, Product } from '@/lib/productCategoryUtils';
+import { loadCategoryProducts, productMatchesQuery, type Product } from '@/lib/productCategoryUtils';
 
 export default function TabletsPage() {
   const [allProducts, setAllProducts] = useState<Product[]>([]);
@@ -17,9 +17,8 @@ export default function TabletsPage() {
     if (!searchQuery.trim()) {
       return allProducts;
     }
-    const query = searchQuery.toLowerCase();
     return allProducts.filter(product =>
-      product.name.toLowerCase().includes(query)
+      productMatchesQuery(product, searchQuery)
     );
   }, [allProducts, searchQuery]);
 
@@ -46,43 +45,7 @@ export default function TabletsPage() {
   return (
     <div className="l3-container tablets-page">
       {/* Hero Section */}
-      <section className="tablets-hero">
-        <div className="tablets-hero-background"></div>
-        <div className="l3-container-inner">
-          <div className="tablets-hero-content">
-            <div className="tablets-hero-text">
-              <h1 className="tablets-hero-title">
-                <span className="l3-title-line">Tablets</span>
-                <span className="l3-title-line">Solid Dosage Forms</span>
-              </h1>
-              <p className="tablets-hero-subtitle">
-                High-quality tablet formulations designed for precise dosing and effective treatment across multiple therapeutic areas.
-              </p>
-              <div className="tablets-hero-stats">
-                <div className="tablets-stat">
-                  <div className="tablets-stat-number">25+</div>
-                  <div className="tablets-stat-label">Tablet Products</div>
-                </div>
-                <div className="tablets-stat">
-                  <div className="tablets-stat-number">6</div>
-                  <div className="tablets-stat-label">Categories</div>
-                </div>
-                <div className="tablets-stat">
-                  <div className="tablets-stat-number">100%</div>
-                  <div className="tablets-stat-label">Quality Assured</div>
-                </div>
-              </div>
-            </div>
-            <div className="tablets-hero-visual">
-              <div className="tablets-visual-element">
-                <div className="tablets-pill">💊</div>
-                <div className="tablets-bottle">🧴</div>
-                <div className="tablets-capsule">💉</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <section className="tablets-hero" aria-label="Tablets category banner"></section>
 
     
       {/* Products Section */}

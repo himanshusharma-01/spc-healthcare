@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useProductSearch } from '../contexts/ProductSearchContext';
 import { getProducts } from '@/lib/getProducts';
-import type { Product } from '@/lib/productCategoryUtils';
+import { productMatchesQuery, type Product } from '@/lib/productCategoryUtils';
 import './Navbar.css';
 
 const Navbar: React.FC = () => {
@@ -250,7 +250,7 @@ const Navbar: React.FC = () => {
     // If no exact match, try case-insensitive partial match (at least 3 characters)
     if (!match && normalizedQuery.length >= 3) {
       const matches = allProducts.filter(product => 
-        product.name.toLowerCase().includes(normalizedQuery)
+        productMatchesQuery(product, normalizedQuery)
       );
       // If only one match, use it
       if (matches.length === 1) {

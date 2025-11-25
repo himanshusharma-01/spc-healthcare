@@ -11,6 +11,8 @@ export interface Product {
   imageUrls: string[];
   usagePoints: string[];
   category?: string;
+  keyBenefits?: string[];
+  productDetails?: string;
 }
 
 export interface CategoryKeywords {
@@ -27,6 +29,31 @@ export const categoryKeywords: CategoryKeywords = {
 };
 
 // Filter products based on category keywords
+const sanitizeText = (value?: string) => {
+  if (!value) return '';
+  return value.replace(/<[^>]+>/g, ' ').toLowerCase();
+};
+
+const getSearchableSegments = (product: Product): string[] => [
+  product.name,
+  product.shortDescription,
+  product.longDescription,
+  product.drugType,
+  product.category,
+  product.productDetails,
+  (product.usagePoints || []).join(' '),
+  (product.keyBenefits || []).join(' ')
+];
+
+export const productMatchesQuery = (product: Product, query: string): boolean => {
+  const normalizedQuery = query.trim().toLowerCase();
+  if (!normalizedQuery) return true;
+
+  return getSearchableSegments(product).some(segment => 
+    segment ? sanitizeText(segment).includes(normalizedQuery) : false
+  );
+};
+
 export const filterProductsByCategory = (products: Product[], category: string): Product[] => {
   const keywords = categoryKeywords[category] || [];
   
@@ -69,16 +96,8 @@ export const generateFilterCounts = (
 ) => {
   return filters.map(filter => ({
     ...filter,
-    count: products.filter(product => {
-      const name = product.name.toLowerCase();
-      const description = product.shortDescription.toLowerCase();
-      const usagePoints = product.usagePoints?.join(' ').toLowerCase() || '';
-      
-      return filter.keywords.some(keyword => 
-        name.includes(keyword) || 
-        description.includes(keyword) || 
-        usagePoints.includes(keyword)
-      );
-    }).length
+    count: products.filter(product =>
+      filter.keywords.some(keyword => productMatchesQuery(product, keyword))
+    ).length
   }));
 };

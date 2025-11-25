@@ -4,26 +4,15 @@ import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useProductSearch } from '@/app/contexts/ProductSearchContext';
-
-interface Product {
-  id: string;
-  name: string;
-  slug: string;
-  shortDescription: string;
-  longDescription: string;
-  drugType: string;
-  imageUrls: string[];
-  usagePoints: string[];
-  category?: string;
-}
+import { productMatchesQuery, type Product as SPCProduct } from '@/lib/productCategoryUtils';
 
 interface SyrupsClientProps {
-  initialProducts: Product[];
+  initialProducts: SPCProduct[];
 }
 
 export default function SyrupsClient({ initialProducts }: SyrupsClientProps) {
   const [activeFilter, setActiveFilter] = useState('all');
-  const [products] = useState<Product[]>(initialProducts);
+  const [products] = useState<SPCProduct[]>(initialProducts);
   const { searchQuery } = useProductSearch();
 
   const productFilters = [
@@ -79,9 +68,8 @@ export default function SyrupsClient({ initialProducts }: SyrupsClientProps) {
 
     // Apply search query filter
     if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase();
       filtered = filtered.filter(product =>
-        product.name.toLowerCase().includes(query)
+        productMatchesQuery(product, searchQuery)
       );
     }
 

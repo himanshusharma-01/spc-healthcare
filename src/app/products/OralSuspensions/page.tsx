@@ -6,29 +6,18 @@ import Image from 'next/image';
 import { useProductSearch } from '@/app/contexts/ProductSearchContext';
 import './OralSuspensionsPage.css';
 import { getProducts } from '@/lib/getProducts';
-
-interface Product {
-  id: string;
-  name: string;
-  slug: string;
-  shortDescription: string;
-  longDescription: string;
-  drugType: string;
-  imageUrls: string[];
-  usagePoints: string[];
-  category?: string;
-}
+import { productMatchesQuery, type Product as SPCProduct } from '@/lib/productCategoryUtils';
 
 // Keywords to identify oral suspension products
 const suspensionKeywords = ['suspension', 'oral suspension', 'powder', 'granules', 'reconstitute'];
 
 export default function OralSuspensionsPage() {
-  const [allProducts, setAllProducts] = useState<Product[]>([]);
+  const [allProducts, setAllProducts] = useState<SPCProduct[]>([]);
   const [loading, setLoading] = useState(true);
   const { searchQuery } = useProductSearch();
   
   // Filter products that contain suspension-related keywords
-  const filterSuspensionProducts = useCallback((products: Product[]) => {
+  const filterSuspensionProducts = useCallback((products: SPCProduct[]) => {
     return products.filter(product => {
       const category = product.category?.toLowerCase() || '';
       const name = product.name.toLowerCase();
@@ -67,9 +56,8 @@ export default function OralSuspensionsPage() {
     if (!searchQuery.trim()) {
       return allProducts;
     }
-    const query = searchQuery.toLowerCase();
     return allProducts.filter(product =>
-      product.name.toLowerCase().includes(query)
+      productMatchesQuery(product, searchQuery)
     );
   }, [allProducts, searchQuery]);
 
@@ -77,22 +65,11 @@ export default function OralSuspensionsPage() {
 
   return (
     <div className="l3-container oral-suspensions-page" id="oral-suspensions-page">
-      <section className="oral-suspensions-hero" id="oral-suspensions-hero">
-        <div className="oral-suspensions-hero-background"></div>
-        <div className="l3-container-inner">
-          <div className="oral-suspensions-hero-content" id="oral-suspensions-hero-content">
-            <div className="oral-suspensions-hero-text" id="oral-suspensions-hero-text">
-              <h1 className="oral-suspensions-hero-title">
-                <span className="l3-title-line">Oral Suspensions</span>
-                <span className="l3-title-line">Liquid Precision</span>
-              </h1>
-              <p className="oral-suspensions-hero-subtitle">
-                Stable liquid suspensions for precise dosing and easy administration across all age groups.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <section
+        className="oral-suspensions-hero"
+        id="oral-suspensions-hero"
+        aria-label="Oral suspensions banner"
+      ></section>
 
       <section className="products-section" id="oral-suspensions-products">
         <div className="l3-container-inner">

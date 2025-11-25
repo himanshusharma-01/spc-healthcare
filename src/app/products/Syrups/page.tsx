@@ -6,29 +6,18 @@ import Image from 'next/image';
 import { useProductSearch } from '@/app/contexts/ProductSearchContext';
 import './SyrupsPage.css';
 import { getProducts } from '@/lib/getProducts';
-
-interface Product {
-  id: string;
-  name: string;
-  slug: string;
-  shortDescription: string;
-  longDescription: string;
-  drugType: string;
-  imageUrls: string[];
-  usagePoints: string[];
-  category?: string;
-}
+import { productMatchesQuery, type Product as SPCProduct } from '@/lib/productCategoryUtils';
 
 // Keywords to identify syrup products
 const syrupKeywords = ['syrup', 'liquid', 'oral solution', 'elixir', 'tonic'];
 
 export default function SyrupsPage() {
-  const [allProducts, setAllProducts] = useState<Product[]>([]);
+  const [allProducts, setAllProducts] = useState<SPCProduct[]>([]);
   const [loading, setLoading] = useState(true);
   const { searchQuery } = useProductSearch();
   
   // Filter products that contain syrup-related keywords
-  const filterSyrupProducts = useCallback((products: Product[]) => {
+  const filterSyrupProducts = useCallback((products: SPCProduct[]) => {
     return products.filter(product => {
       const category = product.category?.toLowerCase() || '';
       const name = product.name.toLowerCase();
@@ -68,9 +57,8 @@ export default function SyrupsPage() {
     if (!searchQuery.trim()) {
       return allProducts;
     }
-    const query = searchQuery.toLowerCase();
     return allProducts.filter(product =>
-      product.name.toLowerCase().includes(query)
+      productMatchesQuery(product, searchQuery)
     );
   }, [allProducts, searchQuery]);
 
@@ -78,37 +66,7 @@ export default function SyrupsPage() {
   return (
     <div className="l3-container syrups-page">
       {/* Hero Section */}
-      <section className="syrups-hero">
-        <div className="syrups-hero-background"></div>
-        <div className="l3-container-inner">
-          <div className="syrups-hero-content">
-            <div className="syrups-hero-text">
-              <h1 className="syrups-hero-title">
-                <span className="l3-title-line">Syrups</span>
-                <span className="l3-title-line">Liquid Health Solutions</span>
-              </h1>
-              <p className="syrups-hero-subtitle">
-                High-quality liquid formulations designed for easy administration and effective treatment across various therapeutic areas.
-              </p>
-              <div className="syrups-hero-stats">
-                <div className="syrups-stat">
-                  <div className="syrups-stat-number">12+</div>
-                  <div className="syrups-stat-label">Syrup Products</div>
-                </div>
-                <div className="syrups-stat">
-                  <div className="syrups-stat-number">4</div>
-                  <div className="syrups-stat-label">Categories</div>
-                </div>
-                <div className="syrups-stat">
-                  <div className="syrups-stat-number">100%</div>
-                  <div className="syrups-stat-label">Quality Assured</div>
-                </div>
-              </div>
-            </div>
-           
-          </div>
-        </div>
-      </section>
+      <section className="syrups-hero" aria-label="Syrups banner"></section>
 
       {/* Product Categories */}
     

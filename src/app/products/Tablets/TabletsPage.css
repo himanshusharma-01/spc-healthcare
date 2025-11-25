@@ -15,161 +15,27 @@
 
 /* Tablets Hero Section */
 .tablets-hero {
-  min-height: 70vh;
-  background: none;
-  position: relative;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  padding: 4rem 0;
-  margin: 0;
   width: 100%;
   max-width: 100vw;
-}
-
-.tablets-hero-background {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 50%;
-  height: 100%;
-  min-height: 70vh;
-  background-image: url('/tablet.png');
-  background-size: contain;
-  background-position: right center;
+  min-height: clamp(520px, 80vh, 720px);
+  margin: 0;
+  padding: 0;
+  background-image: url('https://github.com/himanshusharma-01/images/blob/main/Untitled%20design%20(7).png?raw=true');
   background-repeat: no-repeat;
-  background-color: #1A365D;
-  z-index: 1;
+  background-size: cover;
+  background-position: center;
+  border-radius: 0;
 }
 
-/* Desktop: Show split layout (left content, right banner) */
-@media (min-width: 769px) {
-  .tablets-hero {
-    background: linear-gradient(135deg, #0A1931 0%, #1A365D 45%, #1A365D 60%, #1A365D 100%);
-}
-
-.tablets-hero-content {
-  display: grid;
-    grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  }
-
-  .tablets-hero-text {
-    max-width: 100%;
-    color: white;
-}
-
-.tablets-hero-title {
-  color: white;
-}
-
-.tablets-hero-subtitle {
-    color: rgba(255, 255, 255, 0.9);
-  }
-
-  .tablets-hero-visual {
-    display: none;
-  }
-
-  .tablets-hero-background {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 50%;
-    height: 100%;
-    background-size: contain;
-    background-position: right center;
-  }
-}
-
-/* Mobile: Hide content, show full banner */
 @media (max-width: 768px) {
   .tablets-hero {
-    min-height: 60vh;
+    min-height: 100vh;
+    height: 100vh;
+    background-image: url('https://github.com/himanshusharma-01/images/blob/main/Untitled%20design%20(8).png?raw=true');
+    background-size: cover;
+    background-position: center;
     padding: 0;
   }
-
-  .tablets-hero-content {
-    display: none;
-  }
-
-  .tablets-hero-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    min-height: 60vh;
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-  }
-}
-
-/* Keep stats styles intact for future use if re-enabled */
-.tablets-hero-stats {
-  display: flex;
-  gap: 2rem;
-}
-
-.tablets-stat {
-  text-align: center;
-}
-
-.tablets-stat-number {
-  display: block;
-  font-size: 2rem;
-  font-weight: 700;
-  color: #fbbf24;
-  margin-bottom: 0.5rem;
-}
-
-.tablets-stat-label {
-  font-size: 0.875rem;
-  opacity: 0.8;
-  color: white;
-}
-
-.tablets-visual-element {
-  position: relative;
-  width: 280px;
-  height: 280px;
-}
-
-.tablets-pill {
-  font-size: 5rem;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  opacity: 0.9;
-  animation: float 3s ease-in-out infinite;
-}
-
-.tablets-bottle {
-  font-size: 3rem;
-  position: absolute;
-  top: 25%;
-  left: 25%;
-  color: white;
-  opacity: 0.7;
-  animation: float 3s ease-in-out infinite 1s;
-}
-
-.tablets-capsule {
-  font-size: 2.5rem;
-  position: absolute;
-  bottom: 30%;
-  right: 30%;
-  color: white;
-  opacity: 0.8;
-  animation: float 3s ease-in-out infinite 2s;
 }
 
 /* Product Categories Section */

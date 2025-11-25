@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useProductSearch } from '@/app/contexts/ProductSearchContext';
 import './CapsulesPage.css';
-import { loadCategoryProducts, Product } from '@/lib/productCategoryUtils';
+import { loadCategoryProducts, productMatchesQuery, type Product } from '@/lib/productCategoryUtils';
 
 export default function CapsulesPage() {
   const [allProducts, setAllProducts] = useState<Product[]>([]);
@@ -17,9 +17,8 @@ export default function CapsulesPage() {
     if (!searchQuery.trim()) {
       return allProducts;
     }
-    const query = searchQuery.toLowerCase();
     return allProducts.filter(product =>
-      product.name.toLowerCase().includes(query)
+      productMatchesQuery(product, searchQuery)
     );
   }, [allProducts, searchQuery]);
 
@@ -45,27 +44,7 @@ export default function CapsulesPage() {
 
   return (
     <div className="l3-container capsules-page">
-      <section className="capsules-hero">
-        <div className="capsules-hero-background"></div>
-        <div className="l3-container-inner">
-          <div className="capsules-hero-content">
-            <div className="capsules-hero-text">
-              <h1 className="capsules-hero-title">
-                <span className="l3-title-line">Capsules</span>
-                <span className="l3-title-line">Encapsulated Excellence</span>
-              </h1>
-              <p className="capsules-hero-subtitle">
-                Precision-encapsulated formulations for optimal bioavailability and targeted delivery.
-              </p>
-            </div>
-            <div className="capsules-hero-visual">
-              <div className="capsules-visual-element">
-                <div className="capsules-pill"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <section className="capsules-hero" aria-label="Capsules banner"></section>
 
       <section className="products-section">
         <div className="l3-container-inner">

@@ -5,22 +5,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useProductSearch } from '@/app/contexts/ProductSearchContext';
 import { getProducts } from '@/lib/getProducts';
+import { productMatchesQuery, type Product as SPCProduct } from '@/lib/productCategoryUtils';
 import '../ProductsPage.css';
 
-interface Product {
-  id: string;
-  name: string;
-  slug: string;
-  shortDescription: string;
-  longDescription: string;
-  drugType: string;
-  imageUrls: string[];
-  usagePoints: string[];
-  category?: string;
-}
-
 export default function SearchResultsPage() {
-  const [allProducts, setAllProducts] = useState<Product[]>([]);
+  const [allProducts, setAllProducts] = useState<SPCProduct[]>([]);
   const [loading, setLoading] = useState(true);
   const { searchQuery } = useProductSearch();
 
@@ -47,16 +36,13 @@ export default function SearchResultsPage() {
     if (!searchQuery.trim()) {
       return [];
     }
-    const query = searchQuery.toLowerCase();
     return allProducts.filter(product =>
-      product.name.toLowerCase().includes(query) ||
-      product.shortDescription?.toLowerCase().includes(query) ||
-      product.category?.toLowerCase().includes(query)
+      productMatchesQuery(product, searchQuery)
     );
   }, [allProducts, searchQuery]);
 
   // Get category label for a product
-  const getCategoryLabel = (product: Product): string => {
+  const getCategoryLabel = (product: SPCProduct): string => {
     const category = product.category?.toLowerCase() || '';
     const name = product.name.toLowerCase();
     const description = product.shortDescription?.toLowerCase() || '';
