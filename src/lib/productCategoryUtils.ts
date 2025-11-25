@@ -37,10 +37,10 @@ const sanitizeText = (value?: string) => {
 const getSearchableSegments = (product: Product): string[] => [
   product.name,
   product.shortDescription,
-  product.longDescription,
-  product.drugType,
-  product.category,
-  product.productDetails,
+  product.longDescription ?? '',
+  product.drugType ?? '',
+  product.category ?? '',
+  product.productDetails ?? '',
   (product.usagePoints || []).join(' '),
   (product.keyBenefits || []).join(' ')
 ];

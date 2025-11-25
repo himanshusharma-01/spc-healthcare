@@ -384,12 +384,9 @@ export default function Homepage() {
                       sizes="(max-width: 900px) 50vw, 33vw"
                     />
                   ) : null}
-                  <i className={division.icon} style={{ display: division.image ? 'none' : 'block' }}></i>
                 </div>
                 <div className="l3-division-content">
                   <h3>{division.title}</h3>
-                  <p>{division.desc}</p>
-                  <div className="l3-division-count">{division.count}</div>
                   <span className="l3-division-btn" role="presentation">
                     Explore Division
                   </span>
