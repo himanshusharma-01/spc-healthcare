@@ -5,6 +5,7 @@ interface FormData {
   name: string;
   email: string;
   phone: string;
+  city: string;
   message: string;
 }
 
@@ -12,6 +13,7 @@ interface FormErrors {
   name?: string;
   email?: string;
   phone?: string;
+  city?: string;
   message?: string;
 }
 
@@ -26,6 +28,7 @@ const LeadForm: React.FC<LeadFormProps> = ({ isOpen, onClose, triggerElement }) 
     name: '',
     email: '',
     phone: '',
+    city: '',
     message: ''
   });
 
@@ -87,6 +90,12 @@ const LeadForm: React.FC<LeadFormProps> = ({ isOpen, onClose, triggerElement }) 
       }
     }
 
+    if (!formData.city.trim()) {
+      newErrors.city = 'City is required';
+    } else if (formData.city.trim().length < 2) {
+      newErrors.city = 'City must be at least 2 characters';
+    }
+
     if (!formData.message.trim()) {
       newErrors.message = 'Message is required';
     } else if (formData.message.trim().length < 10) {
@@ -133,6 +142,7 @@ const LeadForm: React.FC<LeadFormProps> = ({ isOpen, onClose, triggerElement }) 
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
+          city: formData.city,
           message: formData.message,
         triggerElement,
         }),
@@ -165,6 +175,7 @@ const LeadForm: React.FC<LeadFormProps> = ({ isOpen, onClose, triggerElement }) 
       name: '',
       email: '',
       phone: '',
+      city: '',
       message: ''
     });
     setErrors({});
@@ -180,12 +191,11 @@ const LeadForm: React.FC<LeadFormProps> = ({ isOpen, onClose, triggerElement }) 
 
   if (!isOpen) return null;
 
+  const certificateBadges = ['WHO-GMP', 'ISO 9001:2015', 'GMP Certified', 'FDA Approved'];
+
   return (
     <div className="lead-form-overlay" onClick={handleBackdropClick}>
-      <div 
-        className="lead-form-container"
-        style={{ width: '70vw', maxWidth: '900px', maxHeight: '80vh' }}
-      >
+      <div className="lead-form-modal">
         <button 
           className="lead-form-close"
           onClick={handleClose}
@@ -202,169 +212,142 @@ const LeadForm: React.FC<LeadFormProps> = ({ isOpen, onClose, triggerElement }) 
           </svg>
         </button>
 
-        <div className="lead-form-content">
-          {isSubmitted ? (
-            <div className="lead-form-success">
-              <div className="success-icon">
-                <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
-                  <circle cx="32" cy="32" r="32" fill="#00A676" fillOpacity="0.1"/>
-                  <path 
-                    d="M44 24L28 40L20 32" 
-                    stroke="#00A676" 
-                    strokeWidth="3" 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round"
-                  />
-                </svg>
+        <div className="lead-form-body">
+          <div className="lead-form-visual">
+            <div className="lead-form-visual-content">
+              <span className="visual-pill">PCD Pharma Franchise</span>
+              <h3>Pan India on Monopoly Basis</h3>
+              <p>Delivering trusted specialty formulations backed by GMP certified facilities.</p>
+              <div className="visual-highlight">
+                <span>More than</span>
+                <strong>100+</strong>
+                <small>Products</small>
               </div>
-              <h3>Thank You!</h3>
-              <p>Your message has been received. Our healthcare specialist will contact you shortly.</p>
-              <button 
-                className="success-close-btn"
-                onClick={handleClose}
-              >
-                Close
-              </button>
+              <div className="visual-footer">
+                <span>A promise for</span>
+                <div>Healthy Life</div>
+              </div>
             </div>
-          ) : (
-            <>
-              <div className="lead-form-header">
-                <div className="form-badge">
-                  <span>Get Expert Consultation</span>
+            <div className="lead-form-certifications">
+              {certificateBadges.map((badge) => (
+                <span key={badge}>{badge}</span>
+              ))}
+            </div>
+          </div>
+
+          <div className="lead-form-right">
+            <div className="lead-form-brand-row">
+              <h2>SPC Healthcare</h2>
+              <p>Share your details and we&apos;ll get in touch with tailored franchise opportunities.</p>
+            </div>
+
+            {isSubmitted ? (
+              <div className="lead-form-success">
+                <div className="success-icon">
+                  <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                    <circle cx="32" cy="32" r="32" fill="#00A676" fillOpacity="0.1"/>
+                    <path 
+                      d="M44 24L28 40L20 32" 
+                      stroke="#00A676" 
+                      strokeWidth="3" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </div>
-                <h2>Connect With Healthcare Experts</h2>
-                <p>Share your requirements and our team will provide personalized solutions</p>
+                <h3>Thank You!</h3>
+                <p>Your message has been received. Our team will contact you shortly.</p>
+                <button 
+                  className="success-close-btn"
+                  onClick={handleClose}
+                >
+                  Close
+                </button>
               </div>
+            ) : (
+              <form className="lead-form-fields" onSubmit={handleSubmit}>
+                <div className="lead-form-grid">
+                  <div className="form-group">
+                    <label htmlFor="name">Name *</label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      className={errors.name ? 'input-error' : ''}
+                      placeholder="Enter your full name"
+                    />
+                    {errors.name && <span className="error-message">{errors.name}</span>}
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="email">Email *</label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className={errors.email ? 'input-error' : ''}
+                      placeholder="your.email@example.com"
+                    />
+                    {errors.email && <span className="error-message">{errors.email}</span>}
+                  </div>
+                </div>
 
-              <form className="lead-form" onSubmit={handleSubmit}>
-                <div className="form-group">
-                  <label htmlFor="name" className="form-label">
-                    Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className={`form-input ${errors.name ? 'input-error' : ''}`}
-                    placeholder="Enter your full name"
-                  />
-                  {errors.name && (
-                    <span className="error-message">
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <circle cx="8" cy="8" r="7" stroke="#E53E3E" strokeWidth="2"/>
-                        <path d="M8 4V9M8 12V12.5" stroke="#E53E3E" strokeWidth="2" strokeLinecap="round"/>
-                      </svg>
-                      {errors.name}
-                    </span>
-                  )}
+                <div className="lead-form-grid">
+                  <div className="form-group">
+                    <label htmlFor="phone">Phone No. *</label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      className={errors.phone ? 'input-error' : ''}
+                      placeholder="+91 98765 43210"
+                    />
+                    {errors.phone && <span className="error-message">{errors.phone}</span>}
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="city">City *</label>
+                    <input
+                      type="text"
+                      id="city"
+                      name="city"
+                      value={formData.city}
+                      onChange={handleChange}
+                      className={errors.city ? 'input-error' : ''}
+                      placeholder="Enter your city"
+                    />
+                    {errors.city && <span className="error-message">{errors.city}</span>}
+                  </div>
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="email" className="form-label">
-                    Email Address *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className={`form-input ${errors.email ? 'input-error' : ''}`}
-                    placeholder="your.email@example.com"
-                  />
-                  {errors.email && (
-                    <span className="error-message">
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <circle cx="8" cy="8" r="7" stroke="#E53E3E" strokeWidth="2"/>
-                        <path d="M8 4V9M8 12V12.5" stroke="#E53E3E" strokeWidth="2" strokeLinecap="round"/>
-                      </svg>
-                      {errors.email}
-                    </span>
-                  )}
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="phone" className="form-label">
-                    Phone Number *
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className={`form-input ${errors.phone ? 'input-error' : ''}`}
-                    placeholder="+91 XXXXXXXXXX"
-                  />
-                  {errors.phone && (
-                    <span className="error-message">
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <circle cx="8" cy="8" r="7" stroke="#E53E3E" strokeWidth="2"/>
-                        <path d="M8 4V9M8 12V12.5" stroke="#E53E3E" strokeWidth="2" strokeLinecap="round"/>
-                      </svg>
-                      {errors.phone}
-                    </span>
-                  )}
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="message" className="form-label">
-                    Your Message *
-                  </label>
+                  <label htmlFor="message">Message *</label>
                   <textarea
                     id="message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    className={`form-textarea ${errors.message ? 'input-error' : ''}`}
-                    placeholder="Tell us about your healthcare requirements, product interests, or any specific needs..."
-                    rows={4}
+                    className={errors.message ? 'input-error' : ''}
+                    placeholder="Tell us about your requirements..."
+                    rows={3}
                   />
-                  {errors.message && (
-                    <span className="error-message">
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <circle cx="8" cy="8" r="7" stroke="#E53E3E" strokeWidth="2"/>
-                        <path d="M8 4V9M8 12V12.5" stroke="#E53E3E" strokeWidth="2" strokeLinecap="round"/>
-                      </svg>
-                      {errors.message}
-                    </span>
-                  )}
+                  {errors.message && <span className="error-message">{errors.message}</span>}
                 </div>
 
                 <button 
                   type="submit" 
-                  className={`submit-button ${isSubmitting ? 'submitting' : ''}`}
+                  className={`lead-form-submit ${isSubmitting ? 'submitting' : ''}`}
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? (
-                    <>
-                      <div className="spinner"></div>
-                      Processing...
-                    </>
-                  ) : (
-                    <>
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <path 
-                          d="M2.5 10H17.5M17.5 10L12.5 5M17.5 10L12.5 15" 
-                          stroke="currentColor" 
-                          strokeWidth="2" 
-                          strokeLinecap="round" 
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                      Submit Requirements
-                    </>
-                  )}
+                  {isSubmitting ? 'Submitting...' : 'Submit'}
                 </button>
               </form>
-
-              <div className="form-footer">
-                <p>We respect your privacy. Your information is secure with us.</p>
-              </div>
-            </>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </div>

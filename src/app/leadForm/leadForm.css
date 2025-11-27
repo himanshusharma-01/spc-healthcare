@@ -575,3 +575,289 @@
     right: 20px;
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* New Fibovil style modal ------------------------------------------- */
+
+.lead-form-overlay {
+  background: rgba(7, 20, 37, 0.92);
+  backdrop-filter: blur(8px);
+}
+
+.lead-form-modal {
+  width: min(1040px, 95vw);
+  background: #dde8e1;
+  border-radius: 18px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+  position: relative;
+  overflow: hidden;
+  padding: 38px;
+}
+
+.lead-form-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: rgba(255, 255, 255, 0.4);
+  border: none;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #0b2540;
+  transition: background 0.2s ease;
+}
+
+.lead-form-close:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.lead-form-body {
+  display: flex;
+  gap: 32px;
+  align-items: stretch;
+}
+
+.lead-form-visual {
+  flex: 0 0 46%;
+  background: linear-gradient(150deg, #0f2442, #154f7c);
+  border-radius: 16px;
+  padding: 32px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 460px;
+}
+
+.lead-form-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/BANNER%20DESKTOP.png') center/cover no-repeat;
+  opacity: 0.18;
+  mix-blend-mode: screen;
+}
+
+.lead-form-visual-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.visual-pill {
+  align-self: flex-start;
+  background: #f2fbfe;
+  color: #0a3761;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.lead-form-visual h3 {
+  font-size: 1.9rem;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.lead-form-visual p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+}
+
+.visual-highlight {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: fit-content;
+}
+
+.visual-highlight strong {
+  font-size: 2.2rem;
+  letter-spacing: 1px;
+}
+
+.visual-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-weight: 600;
+}
+
+.visual-footer div {
+  font-size: 1.3rem;
+  color: #7cf0db;
+}
+
+.lead-form-certifications {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.lead-form-certifications span {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.lead-form-right {
+  flex: 1;
+  background: #f6fbff;
+  border-radius: 16px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: inset 0 0 0 1px rgba(12, 40, 69, 0.05);
+}
+
+.lead-form-brand-row h2 {
+  margin: 0 0 6px;
+  color: #0c2d4a;
+}
+
+.lead-form-brand-row p {
+  margin: 0;
+  color: #536b7a;
+}
+
+.lead-form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.lead-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.lead-form-fields .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.lead-form-fields label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #0c2d4a;
+}
+
+.lead-form-fields input,
+.lead-form-fields textarea {
+  border: 1px solid #cfd9df;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+  background: white;
+}
+
+.lead-form-fields input:focus,
+.lead-form-fields textarea:focus {
+  outline: none;
+  border-color: #1c73c4;
+  box-shadow: 0 0 0 3px rgba(28, 115, 196, 0.15);
+}
+
+.lead-form-fields textarea {
+  resize: none;
+}
+
+.input-error {
+  border-color: #d74242 !important;
+}
+
+.error-message {
+  font-size: 0.8rem;
+  color: #d74242;
+}
+
+.lead-form-submit {
+  border: none;
+  background: #ff7425;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lead-form-submit:hover:not(.submitting) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(255, 116, 37, 0.3);
+}
+
+.lead-form-submit.submitting {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.lead-form-success {
+  text-align: center;
+  padding: 40px 0;
+}
+
+.lead-form-success h3 {
+  margin-top: 12px;
+  margin-bottom: 8px;
+  color: #0b2640;
+}
+
+.lead-form-success p {
+  color: #54677a;
+  margin-bottom: 18px;
+}
+
+.success-close-btn {
+  background: #1c73c4;
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 28px;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .lead-form-body {
+    flex-direction: column;
+  }
+
+  .lead-form-visual,
+  .lead-form-right {
+    width: 100%;
+  }
+
+  .lead-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .lead-form-modal {
+    padding: 28px 22px;
+  }
+}

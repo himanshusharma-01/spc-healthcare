@@ -711,28 +711,30 @@ h1, h2, h3, h4, h5, h6 {
   flex-wrap: wrap;
   justify-content: center;
   gap: 1.5rem;
+  padding-top: 1.5rem;
 }
 
 .l3-division-card {
   background: transparent;
   padding: 0;
-  border-radius: var(--l3-border-radius-lg);
+  border-radius: 0;
   text-align: center;
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  transition: transform 0.35s ease;
   box-shadow: none;
   border: none;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: flex-start;
   text-decoration: none;
   color: inherit;
   cursor: pointer;
   flex: 1 1 calc(33.333% - 1rem);
-  max-width: 420px;
-  min-height: 520px;
+  max-width: 360px;
+  min-height: auto;
+  margin: 1rem 0 0;
 }
 
 @media (max-width: 900px) {
@@ -760,13 +762,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .l3-division-card:hover {
-  transform: scale(1.03);
-  box-shadow: var(--l3-shadow-medium);
+  transform: scale(1.02);
+  box-shadow: none;
 }
 
 .l3-division-icon {
-  font-size: 3.5rem;
-  color: var(--l3-teal);
   width: 100%;
   margin: 0;
   padding: 0;
@@ -790,19 +790,19 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
   border-radius: var(--l3-border-radius-lg);
   transition: transform 0.4s ease;
+  box-shadow: none;
 }
 
 .l3-division-card:hover .l3-division-img {
-  transform: scale(1.07);
+  transform: scale(1.08);
 }
 
 .l3-division-content {
-  padding: 1rem 2rem 1.5rem;
+  padding: 0.5rem 0 0;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-  height: 100%;
   align-items: center;
+  background: transparent;
 }
 
 .l3-division-card h3 {
@@ -827,22 +827,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .l3-division-btn {
-  background: var(--l3-navy-medium);
+  background: rgba(10, 25, 49, 0.85);
   color: white;
   border: none;
-  padding: 0.75rem 1.75rem;
-  border-radius: var(--l3-border-radius);
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, background 0.3s ease;
   flex-shrink: 0;
-  margin-top: 0.75rem;
-  width: auto;
+  margin-top: 0.5rem;
 }
 
 .l3-division-btn:hover {
   background: var(--l3-teal);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 /* Featured Products */
