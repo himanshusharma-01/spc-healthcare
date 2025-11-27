@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation';
 import { getProducts } from '@/lib/getProducts';
 import { filterProductsByCategory, type Product as SPCProduct } from '@/lib/productCategoryUtils';
 import './Homepage.css';
@@ -20,12 +21,13 @@ export default function Homepage() {
   const [isBannerFixed, setIsBannerFixed] = useState(false);
   const [isLeadFormOpen, setIsLeadFormOpen] = useState(false);
   const leadFormScheduled = useRef(false);
+  const router = useRouter();
 
   const productDivisions = [
     {
       id: 1,
       title: 'Syrups',
-      image: '/SYRUP%20CARD.png',
+      image: '/1.jpg',
       href: '/products/Syrups',
       icon: '',
       desc: '',
@@ -34,7 +36,7 @@ export default function Homepage() {
     {
       id: 2,
       title: 'Capsules',
-      image: '/CAPSULE%20CARD.png',
+      image: '/2.jpg',
       href: '/products/Capsules',
       icon: '',
       desc: '',
@@ -43,7 +45,7 @@ export default function Homepage() {
     {
       id: 3,
       title: 'Tablets',
-      image: '/TABLET%20CARD.png',
+      image: '/3.jpg',
       href: '/products/Tablets',
       icon: '',
       desc: '',
@@ -52,7 +54,7 @@ export default function Homepage() {
     {
       id: 4,
       title: 'Oral Drops',
-      image: '/DROPS%20CARD.png',
+      image: '/4.jpg',
       href: '/products/OralDrops',
       icon: '',
       desc: '',
@@ -61,7 +63,7 @@ export default function Homepage() {
     {
       id: 5,
       title: 'Oral Suspension',
-      image: '/SUSPENSION%20CARD.png',
+      image: '/5.jpg',
       href: '/products/OralSuspension',
       icon: '',
       desc: '',
@@ -419,12 +421,11 @@ export default function Homepage() {
           <p className="l3-section-subtitle">Comprehensive healthcare solutions across multiple therapeutic areas</p>
           <div className="l3-divisions-grid">
             {productDivisions.map((division) => (
-              <Link
-                prefetch
+              <div
                 key={division.id}
-                href={division.href}
                 className="l3-division-card"
-                aria-label={`Explore the ${division.title} division`}
+                role="group"
+                aria-label={`${division.title} division`}
               >
                 <div className="l3-division-icon">
                   {division.image ? (
@@ -442,14 +443,16 @@ export default function Homepage() {
                   ) : null}
                 </div>
                 <div className="l3-division-content">
-                  <h3>{division.title}</h3>
-                  {division.desc && <p>{division.desc}</p>}
-                  {division.count && <div className="l3-division-count">{division.count}</div>}
-                  <span className="l3-division-btn" role="presentation">
+                  <button
+                    className="l3-division-btn"
+                    type="button"
+                    aria-label={`Explore ${division.title} division`}
+                    onClick={() => router.push(division.href)}
+                  >
                     Explore Division
-                  </span>
+                  </button>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
         </div>
