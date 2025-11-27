@@ -520,11 +520,13 @@
 @media (max-width: 640px) {
   .lead-form-overlay {
     padding: 16px;
+    align-items: flex-start;
   }
   
   .lead-form-container {
-    max-height: 95vh;
+    max-height: calc(100vh - 32px);
     border-radius: 20px;
+    overflow-y: auto;
   }
   
   .form-header {
@@ -846,6 +848,8 @@
 @media (max-width: 900px) {
   .lead-form-body {
     flex-direction: column;
+    overflow-y: auto;
+    max-height: calc(100vh - 160px);
   }
 
   .lead-form-visual,
@@ -859,5 +863,8 @@
 
   .lead-form-modal {
     padding: 28px 22px;
+    width: 95vw;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
   }
 }

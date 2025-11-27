@@ -915,10 +915,53 @@ html.mobile-menu-open .mobile-menu.active {
   flex-shrink: 0;
 }
 
+.mobile-search-footer {
+  display: none;
+}
+
+.mobile-search-inline-trigger,
+.mobile-search-inline-field button {
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border-radius: 12px;
+  padding: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mobile-search-inline-trigger i,
+.mobile-search-inline-field button i {
+  font-size: 1rem;
+}
+
+.mobile-search-inline-field {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.35rem 0.35rem 0.35rem 0.75rem;
+  gap: 0.35rem;
+}
+
+.mobile-search-inline-field input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+}
+
 .contact-item {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
   padding: 0.8rem 0;
   color: rgba(255, 255, 255, 0.8);
 }
@@ -1090,6 +1133,19 @@ html.mobile-menu-open .mobile-menu.active {
   
   .mobile-contact {
     padding-top: 1.5rem;
+  }
+
+  .mobile-search-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .mobile-search-inline-trigger,
+  .mobile-search-inline-field {
+    width: auto;
   }
   
   .announcement-content {

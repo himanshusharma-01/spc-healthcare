@@ -95,13 +95,13 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
 
               {/* Features List */}
               {product.usagePoints && product.usagePoints.length > 0 && (
-                <div className="product-features">
+                <div className="product-details-features">
                   <h3>Key Features:</h3>
-                  <ul className="features-list">
+                  <ul className="product-features-list">
                     {product.usagePoints.map((point, index) => (
-                      <li key={index} className="feature-item">
-                        <span className="checkmark">✓</span>
-                        <span className="feature-text">{point}</span>
+                      <li key={index} className="product-feature-item">
+                        <span className="product-checkmark">✓</span>
+                        <span className="product-feature-text">{point}</span>
                       </li>
                     ))}
                   </ul>

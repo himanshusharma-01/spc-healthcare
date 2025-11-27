@@ -520,30 +520,29 @@ const Navbar: React.FC = () => {
                     </div>
                   )}
                   
-                  {/* Mobile Search bar for Products */}
-                  {item.label === 'Products' && (
-                    <div className="mobile-search-container">
+                </li>
+              ))}
+            </ul>
+
+            <div className="mobile-search-footer">
                       <button
                         type="button"
-                        className="mobile-search-trigger"
+                className="mobile-search-inline-trigger"
                         aria-label="Search products"
                       >
-                        <i className="fas fa-search mobile-search-icon"></i>
+                <i className="fas fa-search"></i>
                       </button>
-                      <div className="mobile-search-dropdown">
-                        <div className="mobile-search-wrapper">
+              <div className="mobile-search-inline-field">
                           <input
                             type="text"
                             placeholder="Search products..."
                             value={localSearchQuery}
                             onChange={handleSearchChange}
                             onKeyDown={handleSearchSubmit}
-                            className="mobile-search-input"
                           />
                           {localSearchQuery && (
                             <button
                               onClick={handleClearSearch}
-                              className="mobile-search-clear"
                               aria-label="Clear search"
                             >
                               <i className="fas fa-times"></i>
@@ -551,11 +550,6 @@ const Navbar: React.FC = () => {
                           )}
                         </div>
                       </div>
-                    </div>
-                  )}
-                </li>
-              ))}
-            </ul>
 
             <div className="mobile-actions" id="mobile-actions">
               <button 
@@ -566,17 +560,6 @@ const Navbar: React.FC = () => {
                 <i className="fas fa-envelope"></i>
                 Get in touch
               </button>
-            </div>
-
-            <div className="mobile-contact" id="mobile-contact">
-              <div className="contact-item">
-                <i className="fas fa-phone"></i>
-                <span>7710301301</span>
-              </div>
-              <div className="contact-item">
-                <i className="fas fa-envelope"></i>
-                <span>mail@spchealthcare.com</span>
-              </div>
             </div>
           </div>
         </div>
