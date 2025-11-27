@@ -1,12 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { getProducts } from '@/lib/getProducts';
 import { filterProductsByCategory, type Product as SPCProduct } from '@/lib/productCategoryUtils';
 import './Homepage.css';
+import LeadForm from '@/app/leadForm/leadForm';
 
 // Dynamically import Globe component with SSR disabled
 const DetailedGlobe = dynamic(
@@ -17,6 +18,8 @@ const DetailedGlobe = dynamic(
 export default function Homepage() {
   const [featuredProducts, setFeaturedProducts] = useState<SPCProduct[]>([]);
   const [isBannerFixed, setIsBannerFixed] = useState(false);
+  const [isLeadFormOpen, setIsLeadFormOpen] = useState(false);
+  const leadFormScheduled = useRef(false);
 
   const productDivisions = [
     {
@@ -24,30 +27,45 @@ export default function Homepage() {
       title: 'Syrups',
       image: '/SYRUP%20CARD.png',
       href: '/products/Syrups',
+      icon: '',
+      desc: '',
+      count: '',
     },
     {
       id: 2,
       title: 'Capsules',
       image: '/CAPSULE%20CARD.png',
       href: '/products/Capsules',
+      icon: '',
+      desc: '',
+      count: '',
     },
     {
       id: 3,
       title: 'Tablets',
       image: '/TABLET%20CARD.png',
       href: '/products/Tablets',
+      icon: '',
+      desc: '',
+      count: '',
     },
     {
       id: 4,
       title: 'Oral Drops',
       image: '/DROPS%20CARD.png',
       href: '/products/OralDrops',
+      icon: '',
+      desc: '',
+      count: '',
     },
     {
       id: 5,
       title: 'Oral Suspension',
       image: '/SUSPENSION%20CARD.png',
       href: '/products/OralSuspension',
+      icon: '',
+      desc: '',
+      count: '',
     },
   ];
 
@@ -79,6 +97,11 @@ export default function Homepage() {
           const allElements = container.querySelectorAll('*');
           allElements.forEach((el) => {
             const element = el as HTMLElement;
+            // Skip lead form overlay and its children so the modal can scroll internally
+            if (element.closest('.lead-form-overlay')) {
+              return;
+            }
+
             element.style.setProperty('overflow', 'hidden', 'important');
             element.style.setProperty('overflow-x', 'hidden', 'important');
             element.style.setProperty('overflow-y', 'hidden', 'important');
@@ -247,6 +270,36 @@ export default function Homepage() {
     };
   }, []);
 
+  // Show lead form 2 seconds after the user's first scroll
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    let timer: number | null = null;
+
+    const handleFirstScroll = () => {
+      // Ignore if we've already scheduled or if there is no actual scroll yet
+      if (leadFormScheduled.current || window.scrollY <= 0) return;
+
+      leadFormScheduled.current = true;
+
+      // Show the lead form after 2 seconds
+      timer = window.setTimeout(() => {
+        setIsLeadFormOpen(true);
+      }, 2000);
+
+      window.removeEventListener('scroll', handleFirstScroll);
+    };
+
+    window.addEventListener('scroll', handleFirstScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleFirstScroll);
+      if (timer !== null) {
+        window.clearTimeout(timer);
+      }
+    };
+  }, []);
+
   // Company highlights - can be updated with real news later
   // const highlights = [
   //   { id: 1, title: 'Quality Manufacturing', description: 'GMP-certified facilities ensuring the highest standards in pharmaceutical production', icon: 'fas fa-certificate' },
@@ -384,9 +437,14 @@ export default function Homepage() {
                       sizes="(max-width: 900px) 50vw, 33vw"
                     />
                   ) : null}
+                  {division.icon && !division.image ? (
+                    <i className={division.icon}></i>
+                  ) : null}
                 </div>
                 <div className="l3-division-content">
                   <h3>{division.title}</h3>
+                  {division.desc && <p>{division.desc}</p>}
+                  {division.count && <div className="l3-division-count">{division.count}</div>}
                   <span className="l3-division-btn" role="presentation">
                     Explore Division
                   </span>
@@ -657,6 +715,12 @@ export default function Homepage() {
       </section>
 
      
+
+      <LeadForm
+        isOpen={isLeadFormOpen}
+        onClose={() => setIsLeadFormOpen(false)}
+        triggerElement="homepage_first_scroll"
+      />
 
       {/* Footer */}
       {/* <footer className="l3-footer">

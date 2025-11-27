@@ -44,7 +44,9 @@ export default function OralDropsPage() {
 
   return (
     <div className="l3-container oral-drops-page">
-      <section className="oral-drops-hero" aria-label="Oral drops banner"></section>
+      <section className="oral-drops-hero" aria-label="Oral Drops hero banner">
+        <div className="oral-drops-hero-background" role="presentation"></div>
+      </section>
 
       <section className="products-section">
         <div className="l3-container-inner">

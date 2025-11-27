@@ -45,7 +45,9 @@ export default function TabletsPage() {
   return (
     <div className="l3-container tablets-page">
       {/* Hero Section */}
-      <section className="tablets-hero" aria-label="Tablets category banner"></section>
+      <section className="tablets-hero" aria-label="Tablets hero banner">
+        <div className="tablets-hero-background" role="presentation"></div>
+      </section>
 
     
       {/* Products Section */}

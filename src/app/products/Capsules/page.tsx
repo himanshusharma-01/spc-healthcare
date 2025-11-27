@@ -44,7 +44,9 @@ export default function CapsulesPage() {
 
   return (
     <div className="l3-container capsules-page">
-      <section className="capsules-hero" aria-label="Capsules banner"></section>
+      <section className="capsules-hero" aria-label="Capsules hero banner">
+        <div className="capsules-hero-background" role="presentation"></div>
+      </section>
 
       <section className="products-section">
         <div className="l3-container-inner">

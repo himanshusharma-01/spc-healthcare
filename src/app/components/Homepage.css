@@ -713,10 +713,6 @@ h1, h2, h3, h4, h5, h6 {
   gap: 1.5rem;
 }
 
-.l3-divisions-grid .l3-division-card:nth-child(n + 4) {
-  margin-top: 1.5rem;
-}
-
 .l3-division-card {
   background: white;
   padding: 0;

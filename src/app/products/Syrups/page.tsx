@@ -66,7 +66,9 @@ export default function SyrupsPage() {
   return (
     <div className="l3-container syrups-page">
       {/* Hero Section */}
-      <section className="syrups-hero" aria-label="Syrups banner"></section>
+      <section className="syrups-hero" aria-label="Syrups hero banner">
+        <div className="syrups-hero-background" role="presentation" />
+      </section>
 
       {/* Product Categories */}
     

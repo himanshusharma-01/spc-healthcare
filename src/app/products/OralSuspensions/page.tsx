@@ -65,11 +65,9 @@ export default function OralSuspensionsPage() {
 
   return (
     <div className="l3-container oral-suspensions-page" id="oral-suspensions-page">
-      <section
-        className="oral-suspensions-hero"
-        id="oral-suspensions-hero"
-        aria-label="Oral suspensions banner"
-      ></section>
+      <section className="oral-suspensions-hero" id="oral-suspensions-hero" aria-label="Oral Suspensions hero banner">
+        <div className="oral-suspensions-hero-background" role="presentation"></div>
+      </section>
 
       <section className="products-section" id="oral-suspensions-products">
         <div className="l3-container-inner">
