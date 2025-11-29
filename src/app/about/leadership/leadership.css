@@ -87,150 +87,174 @@
   
   /* Leadership Hero Section */
   .leadership-hero {
-    min-height: 30vh;
-    background: var(--l3-gradient-hero);
+    min-height: 70vh;
+    background: none;
     position: relative;
-    display: flex;
-    align-items: center;
+    display: block;
     overflow: hidden;
+    padding: 0;
     margin: 0;
-    padding: 1rem 0;
+    width: 100%;
+    max-width: 100vw;
   }
   
-  .leadership-hero-pattern {
+  .leadership-hero-background {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: 
-      radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    min-height: 70vh;
+    background-image: url('/leadership.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #1A365D;
+    z-index: 1;
   }
   
-  .leadership-hero-content {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 4rem;
-    align-items: center;
-    position: relative;
-    z-index: 2;
+  /* Desktop: Show banner */
+  @media (min-width: 769px) {
+    .leadership-hero {
+      background: #0A1931;
+    }
   }
   
-  .leadership-hero-title {
-    font-size: 3.5rem;
-    font-weight: 700;
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
-    color: white;
-    text-align: center;
+  /* Mobile: Show banner */
+  @media (max-width: 768px) {
+    .leadership-hero-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      min-height: 60vh;
+      background-image: url('/leadership.png');
+      background-size: cover;
+      background-position: center;
+    }
   }
   
-  .leadership-hero-subtitle {
-    font-size: 1.25rem;
-    margin-bottom: 2.5rem;
-    opacity: 0.9;
-    line-height: 1.6;
-    color: white;
-    text-align: center;
-  }
-  
-  .leadership-stats {
-    display: flex;
-    gap: 2rem;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  
-  .leadership-stat {
-    text-align: center;
-  }
-  
-  .leadership-stat-number {
-    display: block;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--l3-teal);
-    margin-bottom: 0.5rem;
-  }
-  
-  .leadership-stat-label {
-    font-size: 0.875rem;
-    opacity: 0.8;
-    color: white;
-    max-width: 120px;
-    line-height: 1.4;
-  }
-  
-  .leadership-hero-visual {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .leadership-visual-element {
-    position: relative;
-    width: 300px;
-    height: 300px;
-  }
-  
-  .leadership-orbits {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: 100%;
-  }
-  
-  .orbit {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    animation: l3-rotate 20s linear infinite;
-  }
-  
-  .orbit-1 {
-    width: 200px;
-    height: 200px;
-    animation-duration: 25s;
-  }
-  
-  .orbit-2 {
-    width: 150px;
-    height: 150px;
-    animation-duration: 20s;
-    animation-direction: reverse;
-  }
-  
-  .orbit-3 {
-    width: 100px;
-    height: 100px;
-    animation-duration: 15s;
-  }
-  
-  .leadership-center-icon {
-    font-size: 4rem;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    opacity: 0.9;
-  }
-  
-  /* Executive Team Section */
-  .executive-team {
+  /* Leadership Overview Section */
+  .leadership-overview {
     padding: 5rem 0;
-    background: white;
+    background: linear-gradient(to bottom, #f8fafc 0%, #ffffff 100%);
+    position: relative;
+  }
+  
+  .leadership-overview::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--l3-teal), transparent);
   }
   
   .section-header {
     text-align: center;
     margin-bottom: 4rem;
+  }
+  
+  .leadership-overview .l3-section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--l3-navy-dark);
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .leadership-overview .l3-section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: var(--l3-gradient);
+    border-radius: 2px;
+  }
+  
+  .leadership-overview .l3-section-subtitle {
+    font-size: 1.25rem;
+    line-height: 1.7;
+    color: var(--l3-text-light);
+    max-width: 800px;
+    margin: 2rem auto 0;
+    font-weight: 400;
+  }
+  
+  .leadership-content {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    padding: 3rem 3.5rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 163, 180, 0.1);
+    position: relative;
+  }
+  
+  .leadership-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: var(--l3-gradient);
+    border-radius: 16px 0 0 16px;
+  }
+  
+  .leadership-text {
+    font-size: 1.125rem;
+    line-height: 1.9;
+    color: var(--l3-text-light);
+  }
+  
+  .leadership-text p {
+    margin-bottom: 2rem;
+    position: relative;
+    padding-left: 2rem;
+  }
+  
+  .leadership-text p::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--l3-teal);
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1.5;
+  }
+  
+  .leadership-text p:last-child {
+    margin-bottom: 0;
+  }
+  
+  @media (max-width: 768px) {
+    .leadership-content {
+      padding: 2rem 1.5rem;
+      margin: 0 1rem;
+    }
+    
+    .leadership-text p {
+      padding-left: 1.5rem;
+      font-size: 1rem;
+    }
+    
+    .leadership-overview .l3-section-title {
+      font-size: 2rem;
+    }
+    
+    .leadership-overview .l3-section-subtitle {
+      font-size: 1.1rem;
+      padding: 0 1rem;
+    }
   }
   
   .executive-grid {
@@ -494,6 +518,17 @@
   .philosophy-content {
     max-width: 1000px;
     margin: 0 auto;
+  }
+  
+  .philosophy-intro {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--l3-text-light);
+    text-align: center;
+    margin-bottom: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   .philosophy-grid {

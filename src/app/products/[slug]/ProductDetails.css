@@ -2,12 +2,14 @@
 .product-details-page {
   min-height: 100vh;
   background-color: #ffffff;
-  font-family: inherit;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   width: 100%;
   max-width: 100%;
   overflow-x: hidden;
   box-sizing: border-box;
   position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Layout */
@@ -110,31 +112,37 @@
 }
 
 .product-details-page .brand-name {
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--l3-text-light);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
 .product-details-page .product-title {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: var(--l3-navy-dark);
-  margin-bottom: 1rem;
-  line-height: 1.2;
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: #0A1931;
+  margin-bottom: 1.25rem;
+  line-height: 1.25;
   word-wrap: break-word;
   overflow-wrap: break-word;
   hyphens: auto;
+  letter-spacing: -0.5px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 }
 
 .product-details-page .product-type-badge {
   display: inline-block;
   background: var(--l3-gradient);
   color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
+  padding: 0.625rem 1.25rem;
+  border-radius: 24px;
   font-size: 0.875rem;
   font-weight: 600;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.75rem;
+  letter-spacing: 0.3px;
+  box-shadow: 0 2px 8px rgba(0, 163, 180, 0.2);
 }
 
 .product-details-page .product-description {
@@ -146,12 +154,14 @@
 }
 
 .product-details-page .product-description p {
-  font-size: 1.1rem;
-  color: var(--l3-text-light);
-  line-height: 1.6;
+  font-size: 1.125rem;
+  color: #475569;
+  line-height: 1.75;
   word-wrap: break-word;
   overflow-wrap: break-word;
   hyphens: auto;
+  font-weight: 400;
+  letter-spacing: 0.01em;
 }
 
 /* Features List */
@@ -160,10 +170,12 @@
 }
 
 .product-details-page .product-details-features h3 {
-  font-size: 1.25rem;
-  font-weight: bold;
-  color: var(--l3-navy-dark);
-  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0A1931;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.3px;
+  line-height: 1.3;
 }
 
 .product-details-page .product-features-list {
@@ -188,13 +200,15 @@
 }
 
 .product-details-page .product-feature-text {
-  color: var(--l3-text-light);
-  font-size: 1rem;
-  line-height: 1.5;
+  color: #475569;
+  font-size: 1.0625rem;
+  line-height: 1.7;
   word-wrap: break-word;
   overflow-wrap: break-word;
   flex: 1;
   min-width: 0;
+  font-weight: 400;
+  letter-spacing: 0.01em;
 }
 
 /* Product Details Info */
@@ -203,27 +217,33 @@
 }
 
 .product-details-page .product-details-info h3 {
-  font-size: 1.25rem;
-  font-weight: bold;
-  color: var(--l3-navy-dark);
-  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0A1931;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.3px;
+  line-height: 1.3;
 }
 
 .product-details-page .details-content {
-  color: var(--l3-text-light);
-  line-height: 1.6;
+  color: #475569;
+  line-height: 1.75;
   width: 100%;
   max-width: 100%;
   overflow-wrap: break-word;
   word-wrap: break-word;
   word-break: break-word;
+  font-size: 1.0625rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
 }
 
 .product-details-page .details-content p {
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   word-wrap: break-word;
   overflow-wrap: break-word;
   hyphens: auto;
+  line-height: 1.75;
 }
 
 .product-details-page .details-content * {
@@ -285,13 +305,15 @@
 }
 
 .product-details-page .cta-section .cta-question {
-  font-size: 1.25rem;
-  font-weight: bold;
-  color: var(--l3-navy-dark);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0A1931;
   margin-bottom: 1rem;
   word-wrap: break-word;
   overflow-wrap: break-word;
   text-align: center !important;
+  letter-spacing: -0.3px;
+  line-height: 1.3;
 }
 
 .product-details-page .cta-instructions {
@@ -304,12 +326,15 @@
 }
 
 .product-details-page .cta-instructions p {
-  color: var(--l3-text-light);
-  margin-bottom: 0.5rem;
-  font-size: 1rem;
+  color: #475569;
+  margin-bottom: 0.625rem;
+  font-size: 1.0625rem;
   word-wrap: break-word;
   overflow-wrap: break-word;
   text-align: center;
+  line-height: 1.7;
+  font-weight: 400;
+  letter-spacing: 0.01em;
 }
 
 .product-details-page .cta-button {
@@ -319,11 +344,11 @@
   background: var(--l3-teal);
   color: white;
   border: none;
-  padding: 0.9rem 1.5rem;
-  border-radius: 10px;
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.2px;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease;
   width: 100%;
@@ -333,6 +358,7 @@
   margin-left: auto;
   margin-right: auto;
   box-sizing: border-box;
+  text-transform: uppercase;
 }
 
 .product-details-page .cta-button:hover {
@@ -356,6 +382,8 @@
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
 }
 
 .product-details-page .back-link:hover {
@@ -373,7 +401,8 @@
   }
 
   .product-details-page .product-title {
-    font-size: 2.25rem;
+    font-size: 2.5rem;
+    line-height: 1.3;
   }
 }
 
@@ -396,8 +425,17 @@
   }
 
   .product-details-page .product-title {
-    font-size: 2rem;
+    font-size: 2.25rem;
     line-height: 1.3;
+  }
+  
+  .product-details-page .product-details-features h3,
+  .product-details-page .product-details-info h3 {
+    font-size: 1.375rem;
+  }
+  
+  .product-details-page .cta-section .cta-question {
+    font-size: 1.375rem;
   }
 
   .product-details-page .main-image-container {
@@ -432,12 +470,8 @@
   }
 
   .product-details-page .product-description p {
-    font-size: 1rem;
-  }
-
-  .product-details-page .product-details-features h3,
-  .product-details-page .product-details-info h3 {
-    font-size: 1.15rem;
+    font-size: 1.0625rem;
+    line-height: 1.7;
   }
 
   .product-details-page .cta-section {
@@ -469,7 +503,16 @@
   }
 
   .product-details-page .cta-question {
-    font-size: 1.15rem;
+    font-size: 1.25rem;
+  }
+  
+  .product-details-page .cta-instructions p {
+    font-size: 1rem;
+  }
+  
+  .product-details-page .cta-button {
+    font-size: 1rem;
+    padding: 0.9rem 1.75rem;
   }
 
   .product-details-page .back-to-products {
@@ -495,8 +538,18 @@
   }
 
   .product-details-page .product-title {
-    font-size: 1.75rem;
-    margin-bottom: 0.75rem;
+    font-size: 1.875rem;
+    margin-bottom: 0.875rem;
+    line-height: 1.35;
+  }
+  
+  .product-details-page .product-details-features h3,
+  .product-details-page .product-details-info h3 {
+    font-size: 1.25rem;
+  }
+  
+  .product-details-page .cta-section .cta-question {
+    font-size: 1.125rem;
   }
 
   .product-details-page .product-brand {
@@ -538,8 +591,18 @@
   }
 
   .product-details-page .product-description p {
-    font-size: 0.95rem;
-    line-height: 1.5;
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+  
+  .product-details-page .product-feature-text {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+  }
+  
+  .product-details-page .details-content {
+    font-size: 0.9375rem;
+    line-height: 1.65;
   }
 
   .product-details-page .product-details-features {
@@ -547,8 +610,8 @@
   }
 
   .product-details-page .product-details-features h3 {
-    font-size: 1.1rem;
-    margin-bottom: 0.875rem;
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
   }
 
   .product-details-page .product-feature-item {
@@ -566,13 +629,8 @@
   }
 
   .product-details-page .product-details-info h3 {
-    font-size: 1.1rem;
-    margin-bottom: 0.875rem;
-  }
-
-  .product-details-page .details-content {
-    font-size: 0.9rem;
-    line-height: 1.5;
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
   }
 
   .product-details-page .details-content p {
@@ -611,7 +669,7 @@
   }
 
   .product-details-page .cta-question {
-    font-size: 1.1rem;
+    font-size: 1.125rem;
     margin-bottom: 0.875rem;
   }
 
@@ -620,14 +678,15 @@
   }
 
   .product-details-page .cta-instructions p {
-    font-size: 0.9rem;
-    margin-bottom: 0.4rem;
+    font-size: 0.9375rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.65;
   }
 
   .product-details-page .cta-button {
-    padding: 0.875rem 1.25rem;
-    font-size: 0.95rem;
-    border-radius: 8px;
+    padding: 0.875rem 1.5rem;
+    font-size: 0.9375rem;
+    border-radius: 10px;
   }
 
   .product-details-page .back-to-products {
