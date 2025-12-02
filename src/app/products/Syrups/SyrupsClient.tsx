@@ -79,37 +79,12 @@ export default function SyrupsClient({ initialProducts }: SyrupsClientProps) {
 
   return (
     <div className="l3-container syrups-page">
-      <section className="syrups-hero">
-        <div className="l3-container-inner">
-          <div className="syrups-hero-content">
-            <div className="syrups-hero-text">
-              <h1 className="syrups-hero-title">
-                <span className="l3-title-line">Syrups</span>
-                <span className="l3-title-line">Liquid Solutions</span>
-              </h1>
-              <p className="syrups-hero-subtitle">
-                High-quality liquid formulations for easy administration and effective treatment across all age groups.
-              </p>
-              <div className="syrups-stats">
-                <div className="syrups-stat">
-                  <div className="syrups-stat-number">{products.length}+</div>
-                  <div className="syrups-stat-label">Products</div>
-                </div>
-                <div className="syrups-stat">
-                  <div className="syrups-stat-number">100%</div>
-                  <div className="syrups-stat-label">Quality Assured</div>
-                </div>
-              </div>
-            </div>
-            <div className="syrups-hero-visual">
-              <div className="syrups-visual-element">
-                <div className="syrups-bottle">🍯</div>
-                <div className="syrups-drops">💧</div>
-                <div className="syrups-spoon">🥄</div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <section className="syrups-hero" aria-label="Syrups hero banner">
+        <img
+          src="/syrup%20dekstop.png"
+          alt="SPC Healthcare syrup product banner"
+          className="syrups-hero-img"
+        />
       </section>
 
      

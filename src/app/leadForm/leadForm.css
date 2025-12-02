@@ -868,3 +868,43 @@
     overflow-y: auto;
   }
 }
+
+@media (max-width: 640px) {
+  .lead-form-modal {
+    padding: 20px 16px 24px;
+    border-radius: 16px;
+  }
+
+  .lead-form-body {
+    gap: 0;
+  }
+
+  .lead-form-visual {
+    display: none;
+  }
+
+  .lead-form-right {
+    padding: 16px;
+    background: #ffffff;
+    box-shadow: none;
+    border-radius: 12px;
+  }
+
+  .lead-form-close {
+    top: 12px;
+    right: 12px;
+  }
+
+  .lead-form-brand-row h2 {
+    font-size: 1.4rem;
+  }
+
+  .lead-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .lead-form-fields input,
+  .lead-form-fields textarea {
+    font-size: 1rem;
+  }
+}
