@@ -5,49 +5,14 @@ import Link from 'next/link';
 import './footer.css';
 
 const Footer: React.FC = () => {
-  const [email, setEmail] = useState('');
   const [currentYear, setCurrentYear] = useState(2024);
 
   useEffect(() => {
     setCurrentYear(new Date().getFullYear());
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle newsletter subscription
-    console.log('Subscribed with:', email);
-    setEmail('');
-  };
-
-
   return (
     <footer className="footer" id="main-footer">
-      {/* Newsletter Section - MOVED TO TOP */}
-      <div className="footer-newsletter" id="footer-newsletter">
-        <div className="footer-container">
-          <div className="newsletter-content">
-            <div className="newsletter-text">
-              <h3>Stay Informed</h3>
-              <p>Subscribe to our newsletter for the latest medical breakthroughs and updates</p>
-            </div>
-            <form className="newsletter-form" onSubmit={handleSubmit}>
-              <input 
-                type="email" 
-                placeholder="Enter your email address" 
-                className="newsletter-input"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-              <button type="submit" className="newsletter-btn">
-                <i className="fas fa-paper-plane"></i>
-                Subscribe
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-
       {/* Main Footer Content */}
       <div className="footer-main" id="footer-main">
         <div className="footer-container">

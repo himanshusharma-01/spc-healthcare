@@ -19,86 +19,95 @@ export default function CareersPage() {
   };
 
   const jobCategories = [
-    { id: 'all', name: 'All Positions', count: 24, icon: '💼' },
-    { id: 'research', name: 'Research & Development', count: 8, icon: '🔬' },
-    { id: 'medical', name: 'Medical Affairs', count: 5, icon: '⚕️' },
-    { id: 'operations', name: 'Operations', count: 6, icon: '🏭' },
-    { id: 'commercial', name: 'Commercial', count: 3, icon: '📈' },
-    { id: 'technology', name: 'Technology', count: 2, icon: '💻' }
+    { id: 'all', name: 'All Positions', count: 3, icon: '💼' },
+    { id: 'sales', name: 'Sales', count: 2, icon: '📈' },
+    { id: 'marketing', name: 'Marketing', count: 1, icon: '📱' }
   ];
 
   const jobOpenings = [
     {
       id: 1,
-      title: 'Senior Clinical Research Associate',
-      department: 'Research & Development',
-      location: 'Boston, MA / Remote',
+      title: 'Medical Representative',
+      department: 'Sales',
+      location: 'Multiple Openings Across Punjab',
       type: 'Full-time',
-      experience: '5+ years',
-      category: 'research',
-      description: 'Lead clinical trial monitoring and ensure compliance with protocols and regulatory requirements.',
-      requirements: ['PhD in Life Sciences', '5+ years clinical research experience', 'GCP certification'],
-      posted: '2024-03-15'
+      experience: '6 months to 2 years',
+      category: 'sales',
+      description: 'We are seeking experienced Medical Representatives to promote our product portfolio, strengthen retailer relationships, and drive sales performance across assigned territories in Punjab.',
+      responsibilities: [
+        'Visit potential and existing retail partners/chemists to pitch and promote company products',
+        'Achieve assigned sales targets through effective territory coverage and consistent field activity',
+        'Build and maintain strong relationships with retailers, stockists, and distributors',
+        'Address customer queries promptly and ensure timely follow-ups for order placement and fulfilment',
+        'Collect and report market insights, competitor activities, and customer feedback to support sales strategy',
+        'Maintain daily activity reports and adhere to company reporting requirements'
+      ],
+      requirements: [
+        'Minimum 6 months to 2 years of experience in pharmaceutical/FMCG sales or related field (mandatory)',
+        'Strong communication, negotiation, and relationship-building skills',
+        'Ability to independently manage field operations with discipline and accountability',
+        'Valid two-wheeler and driving license preferred'
+      ],
+      posted: '2024-12-01'
     },
     {
       id: 2,
-      title: 'Pharmaceutical Manufacturing Manager',
-      department: 'Operations',
-      location: 'Research Triangle Park, NC',
+      title: 'Sales Support Executive',
+      department: 'Sales',
+      location: 'Corporate Office',
       type: 'Full-time',
-      experience: '8+ years',
-      category: 'operations',
-      description: 'Oversee GMP manufacturing operations and ensure quality standards in pharmaceutical production.',
-      requirements: ['Bachelor in Chemical Engineering', '8+ years pharma manufacturing', 'GMP expertise'],
-      posted: '2024-03-14'
+      experience: '1+ years',
+      category: 'sales',
+      description: 'We are looking for a result-oriented Sales Support Executive to convert leads into customers, build strong customer relationships, and contribute to overall sales growth. The role requires good communication skills, product understanding, and the ability to meet sales targets consistently.',
+      responsibilities: [
+        'Convert assigned leads into active customers through follow-up calls and product explanations',
+        'Drive sales by promoting products and ensuring repeat orders from existing customers',
+        'Build and maintain strong customer relationships to ensure long-term engagement',
+        'Understand customer needs and provide suitable product recommendations',
+        'Maintain lead conversion records and update daily progress reports',
+        'Work towards achieving monthly and quarterly sales targets',
+        'Address customer queries and ensure smooth communication throughout the sales cycle'
+      ],
+      requirements: [
+        'B.Pharmacy or D.Pharmacy preferred for better product understanding',
+        'Minimum 1 year of experience in telesales, customer handling, or sales conversion roles',
+        'Strong communication and persuasion skills',
+        'Ability to achieve targets and manage customer relations effectively',
+        'Basic knowledge of CRM tools or Excel is an added advantage'
+      ],
+      posted: '2024-12-01'
     },
     {
       id: 3,
-      title: 'Medical Science Liaison',
-      department: 'Medical Affairs',
-      location: 'Chicago, IL / Remote',
+      title: 'Digital Marketing Executive',
+      department: 'Marketing',
+      location: 'Corporate Office',
       type: 'Full-time',
-      experience: '3+ years',
-      category: 'medical',
-      description: 'Build relationships with healthcare professionals and provide scientific expertise.',
-      requirements: ['PharmD or MD', '3+ years MSL experience', 'Therapeutic area expertise'],
-      posted: '2024-03-12'
-    },
-    {
-      id: 4,
-      title: 'Regulatory Affairs Specialist',
-      department: 'Research & Development',
-      location: 'Remote',
-      type: 'Full-time',
-      experience: '4+ years',
-      category: 'research',
-      description: 'Prepare and submit regulatory documents to health authorities worldwide.',
-      requirements: ['BS in Regulatory Affairs', '4+ years regulatory experience', 'FDA/EMA knowledge'],
-      posted: '2024-03-10'
-    },
-    {
-      id: 5,
-      title: 'Digital Health Product Manager',
-      department: 'Technology',
-      location: 'San Francisco, CA / Remote',
-      type: 'Full-time',
-      experience: '5+ years',
-      category: 'technology',
-      description: 'Lead development of digital healthcare solutions and patient engagement platforms.',
-      requirements: ['MBA or related degree', '5+ years product management', 'Healthcare tech experience'],
-      posted: '2024-03-08'
-    },
-    {
-      id: 6,
-      title: 'Quality Assurance Director',
-      department: 'Operations',
-      location: 'New Jersey, NJ',
-      type: 'Full-time',
-      experience: '10+ years',
-      category: 'operations',
-      description: 'Establish and maintain quality systems ensuring compliance with global regulations.',
-      requirements: ['MS in Quality Assurance', '10+ years QA leadership', 'FDA inspection experience'],
-      posted: '2024-03-05'
+      experience: '1+ years',
+      category: 'marketing',
+      description: 'We are seeking a creative and data-driven Digital Marketer who can manage online marketing activities, enhance brand visibility, and support sales growth through digital channels. The ideal candidate should be skilled in running targeted campaigns, creating engaging content, managing social media platforms, and analyzing performance metrics to improve ROI.',
+      responsibilities: [
+        'Plan, execute, and optimize digital marketing campaigns across platforms (Meta, Google, LinkedIn, etc.)',
+        'Manage SPC Healthcare\'s social media presence—posting, monitoring engagement, and increasing reach',
+        'Create engaging content for social media, website, emailers, and promotional materials',
+        'Run paid ads and monitor campaign performance to ensure maximum lead generation',
+        'Coordinate with the sales team to support product promotions and improve lead quality',
+        'Track, analyze, and report on key digital metrics (traffic, leads, conversion rates, cost per lead)',
+        'Maintain and update the company website with relevant banners, product info, and content',
+        'Work with designers and vendors for creative assets, videos, and marketing materials',
+        'Stay updated with digital trends, competitor activities, and new marketing tools',
+        'Contribute to brand-building, online reputation management, and customer engagement strategies'
+      ],
+      requirements: [
+        'Bachelor\'s degree in Marketing, Digital Media, Communications, or a related field',
+        'Minimum 1 year of experience in digital marketing or managing social media campaigns',
+        'Strong understanding of digital platforms: Meta Ads, Google Ads, SEO, basic analytics',
+        'Good communication skills and the ability to create clear, appealing content',
+        'Knowledge of tools such as Canva, Meta Business Suite, Google Analytics, Mailchimp, or similar',
+        'Ability to work with sales teams and align digital activities with business goals',
+        'Creative mindset with strong attention to detail and analytical thinking'
+      ],
+      posted: '2024-12-01'
     }
   ];
 
@@ -144,38 +153,52 @@ export default function CareersPage() {
 
   return (
     <div className="l3-container careers-page">
-      {/* Why Join SPC Section */}
+      {/* Career Opportunities Description */}
       <section className="why-join-section">
         <div className="l3-container-inner">
           <div className="section-header">
-            <h2 className="l3-section-title">Why Join SPC Healthcare?</h2>
+            <h2 className="l3-section-title">Career Opportunities at SPC Healthcare</h2>
             <p className="l3-section-subtitle">
-              Be part of a mission-driven organization where your work directly impacts patient lives worldwide.
+              At our organization, we provide dynamic and rewarding career opportunities for individuals who are passionate, dedicated, and eager to grow. We believe in fostering an environment where talent is recognized, encouraged, and empowered to thrive.
+            </p>
+            <p className="l3-section-subtitle">
+              Our career opportunities span across various domains, offering roles for both experienced professionals and fresh graduates who aspire to build a meaningful career. We focus on continuous learning, skill development, and professional advancement to ensure our team members can achieve their full potential.
             </p>
           </div>
           <div className="mission-grid">
             <div className="mission-card">
-              <div className="mission-icon">🎯</div>
-              <h3>Purpose-Driven Work</h3>
+              <div className="mission-icon">💼</div>
+              <h3>Diverse Roles Across Departments</h3>
               <p>
-                Every role at SPC Healthcare contributes to our mission of improving patient 
-                outcomes and advancing global healthcare.
+                Opportunities in operations, administration, finance, customer service, project management, technology, and more.
               </p>
             </div>
             <div className="mission-card">
-              <div className="mission-icon">🚀</div>
-              <h3>Innovation Culture</h3>
+              <div className="mission-icon">📚</div>
+              <h3>Professional Growth & Development</h3>
               <p>
-                Work with cutting-edge technologies and contribute to groundbreaking research 
-                in pharmaceutical development.
+                Access to training programs, mentorship, and skill-building initiatives to support long-term career advancement.
               </p>
             </div>
             <div className="mission-card">
-              <div className="mission-icon">🌍</div>
-              <h3>Global Impact</h3>
+              <div className="mission-icon">💡</div>
+              <h3>Innovative Work Environment</h3>
               <p>
-                Join a team that serves 80+ countries, making quality healthcare accessible 
-                to communities worldwide.
+                A culture that values creativity, problem-solving, and new ideas, encouraging employees to contribute meaningfully.
+              </p>
+            </div>
+            <div className="mission-card">
+              <div className="mission-icon">⭐</div>
+              <h3>Employee-Centered Policies</h3>
+              <p>
+                Competitive compensation, performance recognition, work–life balance practices, and a supportive workplace atmosphere.
+              </p>
+            </div>
+            <div className="mission-card">
+              <div className="mission-icon">👔</div>
+              <h3>Opportunities for Leadership</h3>
+              <p>
+                Clear pathways for high-performing individuals to take on leadership and managerial responsibilities.
               </p>
             </div>
           </div>
@@ -263,8 +286,18 @@ export default function CareersPage() {
                   </div>
                 </div>
                 <p className="job-description">{job.description}</p>
+                {job.responsibilities && (
+                  <div className="job-responsibilities">
+                    <h4>Key Responsibilities:</h4>
+                    <ul>
+                      {job.responsibilities.map((resp, index) => (
+                        <li key={index}>{resp}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
                 <div className="job-requirements">
-                  <h4>Key Requirements:</h4>
+                  <h4>Required Qualifications:</h4>
                   <ul>
                     {job.requirements.map((req, index) => (
                       <li key={index}>{req}</li>
