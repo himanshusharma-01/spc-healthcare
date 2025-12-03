@@ -25,7 +25,17 @@ export const categoryKeywords: CategoryKeywords = {
   suspensions: ['suspension', 'oral suspension', 'powder', 'granules', 'reconstitute', 'suspensions', 'oral suspensions'],
   tablets: ['tablet', 'tab', 'oral tablet', 'coated', 'uncoated', 'tablets'],
   capsules: ['capsule', 'cap', 'gelatin', 'hard capsule', 'soft capsule', 'capsules'],
-  drops: ['drops', 'oral drops', 'ear drops', 'eye drops', 'nasal drops', 'drops', 'oral drops']
+  drops: ['drops', 'oral drops', 'ear drops', 'eye drops', 'nasal drops', 'drops', 'oral drops'],
+  orthopedic: ['orthopedic', 'orthopaedic', 'bone', 'joint', 'musculoskeletal', 'fracture', 'arthritis', 'osteoporosis', 'ortho'],
+  gynae: ['gynae', 'gynecology', 'gynaecology', 'gynecological', 'gynaecological', 'women', 'female', 'reproductive', 'menstrual', 'pregnancy', 'fertility', 'hormone', 'estrogen', 'progesterone'],
+  gastro: ['gastro', 'gastroenterology', 'gastroenterological', 'stomach', 'digestive', 'intestinal', 'gut', 'acid', 'ulcer', 'gastritis', 'indigestion', 'antacid', 'peptic', 'gerd', 'reflux'],
+  derma: ['derma', 'dermatology', 'dermatological', 'skin', 'topical', 'cream', 'ointment', 'lotion', 'gel', 'dermatitis', 'eczema', 'psoriasis', 'acne', 'fungal', 'rash', 'allergy'],
+  antibiotic: ['antibiotic', 'antibiotics', 'anti-biotic', 'anti-bacterial', 'antibacterial', 'antimicrobial', 'bacterial', 'infection', 'bactericidal', 'bacteriostatic', 'amoxicillin', 'penicillin', 'cephalosporin', 'macrolide', 'quinolone'],
+  analgesic: ['analgesic', 'analgesics', 'pain', 'painkiller', 'pain relief', 'pain management', 'antipyretic', 'fever', 'paracetamol', 'acetaminophen', 'ibuprofen', 'aspirin', 'naproxen', 'diclofenac', 'morphine', 'opioid', 'non-opioid'],
+  cardiodiabetic: ['cardiodiabetic', 'cardio diabetic', 'cardiovascular', 'cardiac', 'heart', 'diabetes', 'diabetic', 'diabetes mellitus', 'blood sugar', 'glucose', 'insulin', 'hypertension', 'blood pressure', 'cholesterol', 'lipid', 'statin', 'ace inhibitor', 'beta blocker', 'antidiabetic', 'metformin', 'sulfonylurea'],
+  anticold: ['anticold', 'anti cold', 'anti-cold', 'cold', 'cough', 'cough syrup', 'decongestant', 'expectorant', 'antitussive', 'nasal', 'sinus', 'congestion', 'sore throat', 'phlegm', 'mucus', 'respiratory', 'bronchial', 'flu', 'influenza', 'rhinitis', 'allergic rhinitis'],
+  neuro: ['neuro', 'neurology', 'neurological', 'neurological disorder', 'brain', 'nervous system', 'cns', 'central nervous system', 'epilepsy', 'seizure', 'migraine', 'headache', 'parkinson', 'alzheimer', 'dementia', 'anxiety', 'depression', 'antidepressant', 'anticonvulsant', 'antiepileptic', 'antipsychotic', 'neuropathic', 'neuralgia'],
+  pediatric: ['pediatric', 'paediatric', 'pediatrics', 'paediatrics', 'child', 'children', 'infant', 'baby', 'toddler', 'kids', 'pediatrician', 'paediatrician', 'pediatric medicine', 'child health', 'pediatric formulation', 'pediatric dosage', 'pediatric care', 'neonatal', 'newborn', 'adolescent', 'juvenile']
 };
 
 // Filter products based on category keywords

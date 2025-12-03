@@ -2,7 +2,17 @@
 .products-page {
     background: var(--l3-gray-light);
     min-height: 100vh;
+    position: relative;
+    z-index: 1;
   }
+
+/* Search Page - Higher z-index than navbar for mobile */
+@media (max-width: 768px) {
+  .products-page {
+    z-index: 1003;
+    position: relative;
+  }
+}
   
   /* Loading State */
   .products-loading {

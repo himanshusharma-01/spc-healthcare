@@ -342,7 +342,17 @@ const Navbar: React.FC = () => {
         { href: '/products/OralSuspensions', label: 'Oral Suspensions' },
         { href: '/products/OralDrops', label: 'Oral Drops' },
         { href: '/products/Tablets', label: 'Tablets' },
-        { href: '/products/Capsules', label: 'Capsules' }
+        { href: '/products/Capsules', label: 'Capsules' },
+        { href: '/products/orthopedic', label: 'Orthopedic' },
+        { href: '/products/gynae', label: 'Gynae' },
+        { href: '/products/gastro', label: 'Gastro' },
+        { href: '/products/derma', label: 'Derma' },
+        { href: '/products/antiBiotic', label: 'Antibiotic' },
+        { href: '/products/analgesic', label: 'Analgesic' },
+        { href: '/products/cardioDiabatic', label: 'Cardio Diabetic' },
+        { href: '/products/antiCold', label: 'Anti Cold' },
+        { href: '/products/neuro', label: 'Neuro' },
+        { href: '/products/pediatric', label: 'Pediatric' }
       ]
     },
     { href: '/contact', label: 'Contact', icon: 'fas fa-envelope' }
@@ -492,9 +502,9 @@ const Navbar: React.FC = () => {
             </div>
 
             {/* Search Section - Moved to Top */}
-            <div className="mobile-search-top">
-              <div className="mobile-search-container-top">
-                <div className="mobile-search-field-wrapper">
+            <div className="mobile-search-top" onClick={(e) => e.stopPropagation()}>
+              <div className="mobile-search-container-top" onClick={(e) => e.stopPropagation()}>
+                <div className="mobile-search-field-wrapper" onClick={(e) => e.stopPropagation()}>
                   <i className="fas fa-search mobile-search-icon-top"></i>
                   <input
                     type="text"
@@ -502,11 +512,30 @@ const Navbar: React.FC = () => {
                     value={localSearchQuery}
                     onChange={handleSearchChange}
                     onKeyDown={handleSearchSubmit}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.currentTarget.focus();
+                    }}
+                    onTouchStart={(e) => {
+                      e.stopPropagation();
+                      e.currentTarget.focus();
+                    }}
+                    onFocus={(e) => {
+                      e.stopPropagation();
+                    }}
+                    onMouseDown={(e) => {
+                      e.stopPropagation();
+                    }}
                     className="mobile-search-input-top"
+                    autoComplete="off"
+                    id="mobile-search-input"
                   />
                   {localSearchQuery && (
                     <button
-                      onClick={handleClearSearch}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleClearSearch();
+                      }}
                       className="mobile-search-clear-top"
                       aria-label="Clear search"
                     >

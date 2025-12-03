@@ -243,8 +243,9 @@
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   border-radius: 12px;
-  padding: 0.5rem;
-  min-width: 200px;
+  padding: 1rem;
+  min-width: 600px;
+  max-width: 700px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   opacity: 0;
   visibility: hidden;
@@ -252,6 +253,10 @@
   transition: all 0.3s ease;
   border: 1px solid rgba(255, 255, 255, 0.2);
   z-index: 999;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem 1rem;
+  column-gap: 1.5rem;
 }
 
 .dropdown-menu.active {
@@ -271,12 +276,15 @@
 
 .dropdown-link {
   display: block;
-  padding: 0.8rem 1rem;
+  padding: 0.75rem 1rem;
   color: #1A365D;
   text-decoration: none;
   border-radius: 8px;
   transition: all 0.3s ease;
   font-weight: 500;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  text-align: left;
 }
 
 .dropdown-link:hover {
@@ -728,6 +736,33 @@ html.mobile-menu-open .mobile-menu {
   max-width: 100% !important;
 }
 
+/* Ensure input fields in mobile menu are interactive */
+body.mobile-menu-open .mobile-menu input,
+html.mobile-menu-open .mobile-menu input,
+body.mobile-menu-open .mobile-menu .mobile-search-input-top,
+html.mobile-menu-open .mobile-menu .mobile-search-input-top {
+  touch-action: manipulation !important;
+  pointer-events: auto !important;
+  -webkit-user-select: text !important;
+  user-select: text !important;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Prevent mobile menu from blocking input interactions */
+.mobile-menu-content {
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+}
+
+.mobile-menu-content * {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
+}
+
+.mobile-menu-content input,
+.mobile-menu-content button {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0.3);
+}
+
 /* Override any inline styles that might prevent scrolling */
 body.mobile-menu-open .mobile-menu.active,
 html.mobile-menu-open .mobile-menu.active {
@@ -809,6 +844,9 @@ html.mobile-menu-open .mobile-menu.active {
   padding: 80px 20px 6rem;
   max-width: 400px;
   margin: 0 auto;
+  pointer-events: auto;
+  position: relative;
+  z-index: 1;
   min-height: calc(100vh + 200px);
   display: flex;
   flex-direction: column;
@@ -1054,10 +1092,16 @@ html.mobile-menu-open .mobile-menu.active {
 .mobile-search-top {
   margin-bottom: 1.5rem;
   flex-shrink: 0;
+  pointer-events: auto;
+  position: relative;
+  z-index: 10;
 }
 
 .mobile-search-container-top {
   width: 100%;
+  pointer-events: auto;
+  position: relative;
+  z-index: 10;
 }
 
 .mobile-search-field-wrapper {
@@ -1071,6 +1115,9 @@ html.mobile-menu-open .mobile-menu.active {
   gap: 0.75rem;
   transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  pointer-events: auto;
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
@@ -1099,6 +1146,22 @@ html.mobile-menu-open .mobile-menu.active {
   font-weight: 500;
   outline: none;
   min-width: 0;
+  pointer-events: auto !important;
+  cursor: text;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-user-select: text !important;
+  user-select: text !important;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
+  touch-action: manipulation;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.mobile-search-input-top:focus {
+  outline: 2px solid rgba(0, 163, 180, 0.6);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 .mobile-search-input-top::placeholder {
@@ -1112,6 +1175,9 @@ html.mobile-menu-open .mobile-menu.active {
   color: rgba(255, 255, 255, 0.9);
   cursor: pointer;
   padding: 0.4rem;
+  pointer-events: auto;
+  z-index: 2;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1204,6 +1270,34 @@ html.mobile-menu-open .mobile-menu.active {
   
   .action-btn {
     padding: 0.8rem;
+  }
+  
+  .dropdown-menu {
+    min-width: 550px;
+    max-width: 600px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4rem 1rem;
+    column-gap: 1.2rem;
+  }
+  
+  .dropdown-link {
+    padding: 0.7rem 0.9rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .dropdown-menu {
+    min-width: 500px;
+    max-width: 550px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4rem 0.8rem;
+    column-gap: 1rem;
+  }
+  
+  .dropdown-link {
+    padding: 0.65rem 0.8rem;
+    font-size: 0.8rem;
   }
 }
 

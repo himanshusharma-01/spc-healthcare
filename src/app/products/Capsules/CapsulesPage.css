@@ -39,6 +39,8 @@
   background-repeat: no-repeat;
   z-index: 1;
   background-color: #1A365D;
+  animation: bannerSlideIn 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  opacity: 0;
 }
 
 /* Desktop: Show split layout (left content, right banner) */
@@ -353,6 +355,17 @@
 }
 
 /* Animations */
+@keyframes bannerSlideIn {
+  0% {
+    transform: translateX(30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
 @keyframes float {
   0%, 100% {
     transform: translateY(0px);

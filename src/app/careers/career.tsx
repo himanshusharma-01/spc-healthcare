@@ -153,10 +153,15 @@ export default function CareersPage() {
 
   return (
     <div className="l3-container careers-page">
+      {/* Hero Section */}
+      <section className="careers-hero-section">
+        <div className="careers-hero-background"></div>
+      </section>
+
       {/* Career Opportunities Description */}
       <section className="why-join-section">
         <div className="l3-container-inner">
-          <div className="section-header">
+          {/* <div className="section-header">
             <h2 className="l3-section-title">Career Opportunities at SPC Healthcare</h2>
             <p className="l3-section-subtitle">
               At our organization, we provide dynamic and rewarding career opportunities for individuals who are passionate, dedicated, and eager to grow. We believe in fostering an environment where talent is recognized, encouraged, and empowered to thrive.
@@ -164,8 +169,8 @@ export default function CareersPage() {
             <p className="l3-section-subtitle">
               Our career opportunities span across various domains, offering roles for both experienced professionals and fresh graduates who aspire to build a meaningful career. We focus on continuous learning, skill development, and professional advancement to ensure our team members can achieve their full potential.
             </p>
-          </div>
-          <div className="mission-grid">
+          </div> */}
+          {/* <div className="mission-grid">
             <div className="mission-card">
               <div className="mission-icon">💼</div>
               <h3>Diverse Roles Across Departments</h3>
@@ -201,7 +206,7 @@ export default function CareersPage() {
                 Clear pathways for high-performing individuals to take on leadership and managerial responsibilities.
               </p>
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
 
@@ -230,9 +235,14 @@ export default function CareersPage() {
       <section id="job-openings" className="jobs-section">
         <div className="l3-container-inner">
           <div className="section-header">
-            <h2 className="l3-section-title">Current Open Positions</h2>
+            <h2 className="l3-section-title">Job Openings</h2>
             <p className="l3-section-subtitle">
-              Explore opportunities to join our innovative healthcare team.
+              Ready for a new & exciting adventure?
+            </p>
+            <p className="jobs-intro-text">
+              Find your ideal job with us! We're looking for talented individuals across various functions. 
+              Discover exciting roles that match your skills and passion. Our current openings span multiple 
+              fields, offering you the chance to grow and innovate. Apply now and help us shape the future together!
             </p>
           </div>
 
@@ -267,47 +277,19 @@ export default function CareersPage() {
           <div className="jobs-grid">
             {filteredJobs.map(job => (
               <div key={job.id} className="job-card">
-                <div className="job-header">
+                <div className="job-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6H16V4C16 2.89 15.11 2 14 2H10C8.89 2 8 2.89 8 4V6H4C2.89 6 2 6.89 2 8V19C2 20.11 2.89 21 4 21H20C21.11 21 22 20.11 22 19V8C22 6.89 21.11 6 20 6ZM10 4H14V6H10V4ZM20 19H4V8H20V19Z" fill="white"/>
+                  </svg>
+                </div>
+                <div className="job-content">
                   <h3 className="job-title">{job.title}</h3>
-                  <div className="job-badge">{job.type}</div>
-                </div>
-                <div className="job-meta">
-                  <div className="meta-item">
-                    <span className="meta-icon">🏢</span>
-                    <span className="meta-text">{job.department}</span>
-                  </div>
-                  <div className="meta-item">
-                    <span className="meta-icon">📍</span>
-                    <span className="meta-text">{job.location}</span>
-                  </div>
-                  <div className="meta-item">
-                    <span className="meta-icon">⏱️</span>
-                    <span className="meta-text">{job.experience}</span>
+                  <div className="job-location">
+                    <span className="location-icon">📍</span>
+                    <span className="location-text">{job.location}</span>
                   </div>
                 </div>
-                <p className="job-description">{job.description}</p>
-                {job.responsibilities && (
-                  <div className="job-responsibilities">
-                    <h4>Key Responsibilities:</h4>
-                    <ul>
-                      {job.responsibilities.map((resp, index) => (
-                        <li key={index}>{resp}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                <div className="job-requirements">
-                  <h4>Required Qualifications:</h4>
-                  <ul>
-                    {job.requirements.map((req, index) => (
-                      <li key={index}>{req}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="job-footer">
-                  <div className="job-posted">Posted: {formatDate(job.posted)}</div>
-                  <button className="l3-btn l3-btn-primary">Apply Now</button>
-                </div>
+                <button className="job-apply-btn">Apply Here</button>
               </div>
             ))}
           </div>
@@ -326,30 +308,41 @@ export default function CareersPage() {
       <section className="culture-section">
         <div className="l3-container-inner">
           <div className="culture-content">
+            <h2 className="culture-section-title">Our Commitment to Our People</h2>
             <div className="culture-text">
-              <h2 className="l3-section-title">Our Culture & Values</h2>
               <p>
-                At SPC Healthcare, we foster a collaborative environment where innovation thrives 
-                and every team member&apos;s contribution is valued. Our culture is built on:
+                SPC Healthcare has been growing with a unidirectional approach of growth and success. 
+                Since the beginning, we have focused on employee&apos;s wellbeing, productivity and satisfaction 
+                in their roles and have been creating the environment best suited for them. This has enabled 
+                us to create a healthy and competitive environment which aids in employee&apos;s skill enhancement.
               </p>
-              <div className="values-list">
-                
-                <div className="value-item">
-                  <strong>Scientific Excellence:</strong> Rigorous research and evidence-based approaches
-                </div>
-                <div className="value-item">
-                  <strong>Collaborative Innovation:</strong> Cross-functional teamwork driving breakthroughs
-                </div>
-                <div className="value-item">
-                  <strong>Global Citizenship:</strong> Commitment to healthcare accessibility worldwide
-                </div>
-              </div>
-            </div>
-            <div className="culture-visual">
-              <div className="culture-placeholder">
-                <div className="culture-icon">🌟</div>
-                <p>Team Collaboration & Innovation</p>
-              </div>
+              <p>
+                Rewards and appreciation are the game-changing factors for any organization. Other than 
+                employee retention, they help shape employee&apos;s behavior and work ethics and make employees 
+                feel like an integral part of the company. We at SPC Healthcare timely and continuously recognize, 
+                appreciate and honor the individuals and/or teams with great performances, additional inputs, 
+                dedication and hard work.
+              </p>
+              <p>
+                Additional bonuses, timely increments & promotions, appreciation awards and letters are few of 
+                the means by which we say thank you to our hard-working and dedicated team.
+              </p>
+              <h3 className="culture-highlights-title">Key Highlights of our team building practices:</h3>
+              <ul className="culture-highlights-list">
+                <li>Equal opportunities for all</li>
+                <li>Personal career development</li>
+                <li>Diverse team members to learn from</li>
+                <li>Innovation and ownership driven work environment</li>
+                <li>Proper recognition of efforts</li>
+              </ul>
+              <p>
+                We empower individuals with the mindset and belief that taking that extra mile leads to personal 
+                growth, innovation, and remarkable accomplishments. We help them to embrace challenges and exceed 
+                their own limitations through extraordinary efforts.
+              </p>
+              <p>
+                Together we have built a workplace that is healthy, safe, ingenious and nurtures healthy smiles.
+              </p>
             </div>
           </div>
         </div>
