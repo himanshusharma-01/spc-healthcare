@@ -73,7 +73,7 @@ const Footer: React.FC = () => {
             <div className="contact-info">
               <div className="contact-item">
                 <i className="fas fa-map-marker-alt"></i>
-                <span>SPC Healthcare Private Limited<br />7455 Ground floor St no 1, Maha Singh Nagar,<br />Daba Lohara Road Ludhiana, Punjab 141014.</span>
+                <span>Ground Floor, Plot No. I-7, Hampton Court Business Park,<br />Chandigarh Road, Mundian Khurd, Ludhiana – 141015,<br />Punjab.</span>
               </div>
               <div className="contact-item">
                 <i className="fas fa-phone"></i>

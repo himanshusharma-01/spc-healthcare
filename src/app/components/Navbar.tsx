@@ -491,6 +491,32 @@ const Navbar: React.FC = () => {
               </div>
             </div>
 
+            {/* Search Section - Moved to Top */}
+            <div className="mobile-search-top">
+              <div className="mobile-search-container-top">
+                <div className="mobile-search-field-wrapper">
+                  <i className="fas fa-search mobile-search-icon-top"></i>
+                  <input
+                    type="text"
+                    placeholder="Search products..."
+                    value={localSearchQuery}
+                    onChange={handleSearchChange}
+                    onKeyDown={handleSearchSubmit}
+                    className="mobile-search-input-top"
+                  />
+                  {localSearchQuery && (
+                    <button
+                      onClick={handleClearSearch}
+                      className="mobile-search-clear-top"
+                      aria-label="Clear search"
+                    >
+                      <i className="fas fa-times"></i>
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+
             <ul className="mobile-nav-links">
               {navItems.map((item) => (
                 <li key={item.href} className="mobile-nav-item">
@@ -523,33 +549,6 @@ const Navbar: React.FC = () => {
                 </li>
               ))}
             </ul>
-
-            <div className="mobile-search-footer">
-                      <button
-                        type="button"
-                className="mobile-search-inline-trigger"
-                        aria-label="Search products"
-                      >
-                <i className="fas fa-search"></i>
-                      </button>
-              <div className="mobile-search-inline-field">
-                          <input
-                            type="text"
-                            placeholder="Search products..."
-                            value={localSearchQuery}
-                            onChange={handleSearchChange}
-                            onKeyDown={handleSearchSubmit}
-                          />
-                          {localSearchQuery && (
-                            <button
-                              onClick={handleClearSearch}
-                              aria-label="Clear search"
-                            >
-                              <i className="fas fa-times"></i>
-                            </button>
-                          )}
-                        </div>
-                      </div>
 
             <div className="mobile-actions" id="mobile-actions">
               <button 
