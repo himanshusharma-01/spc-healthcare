@@ -68,7 +68,7 @@ export default function SearchResultsPage() {
   return (
     <div className="products-page">
       {/* Hero Section */}
-      <section className="products-hero">
+      <section className="products-hero search-hero">
         <div className="l3-container-inner">
           <div className="products-hero-content">
             <h1 className="products-hero-title">

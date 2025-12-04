@@ -355,6 +355,7 @@ const Navbar: React.FC = () => {
         { href: '/products/pediatric', label: 'Pediatric' }
       ]
     },
+    { href: '/careers', label: 'Career', icon: 'fas fa-briefcase' },
     { href: '/contact', label: 'Contact', icon: 'fas fa-envelope' }
   ];
 
@@ -400,7 +401,7 @@ const Navbar: React.FC = () => {
                         {item.label}
                         <i className="fas fa-chevron-down dropdown-arrow"></i>
                       </button>
-                      <div className={`dropdown-menu ${activeDropdown === item.label ? 'active' : ''}`}>
+                      <div className={`dropdown-menu ${activeDropdown === item.label ? 'active' : ''} ${item.label === 'About Us' ? 'dropdown-vertical' : ''}`}>
                         {item.dropdown.map((dropdownItem) => (
                           <Link 
                             key={dropdownItem.href} 

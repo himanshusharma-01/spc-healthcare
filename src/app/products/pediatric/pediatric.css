@@ -53,7 +53,7 @@
 /* Mobile: Hide content, show full banner */
 @media (max-width: 768px) {
   .pediatric-hero {
-    min-height: 50vh;
+    min-height: 55vh;
   }
   
   .pediatric-hero-background {
@@ -63,7 +63,7 @@
     right: 0;
     width: 100%;
     height: 100%;
-    min-height: 50vh;
+    min-height: 55vh;
     background-image: url('/pediatric%20mobile.png');
     background-size: cover;
     background-position: center;
@@ -550,11 +550,11 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .pediatric-hero {
-    min-height: 50vh;
+    min-height: 55vh;
   }
 
   .pediatric-hero-background {
-    min-height: 50vh;
+    min-height: 55vh;
     background-size: cover;
     background-position: center;
   }
@@ -637,4 +637,5 @@
     gap: 0.25rem;
   }
 }
+
 

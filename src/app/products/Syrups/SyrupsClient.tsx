@@ -80,7 +80,7 @@ export default function SyrupsClient({ initialProducts }: SyrupsClientProps) {
   return (
     <div className="l3-container syrups-page">
       <section className="syrups-hero" aria-label="Syrups hero banner">
-        <img
+        <Image
           src="/syrup%20dekstop.png"
           alt="SPC Healthcare syrup product banner"
           className="syrups-hero-img"

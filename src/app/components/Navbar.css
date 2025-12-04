@@ -259,6 +259,14 @@
   column-gap: 1.5rem;
 }
 
+/* Vertical dropdown for About Us */
+.dropdown-menu.dropdown-vertical {
+  grid-template-columns: 1fr;
+  min-width: 200px;
+  max-width: 250px;
+  gap: 0.5rem;
+}
+
 .dropdown-menu.active {
   opacity: 1;
   visibility: visible;
@@ -1280,6 +1288,12 @@ html.mobile-menu-open .mobile-menu.active {
     column-gap: 1.2rem;
   }
   
+  .dropdown-menu.dropdown-vertical {
+    min-width: 200px;
+    max-width: 250px;
+    grid-template-columns: 1fr;
+  }
+  
   .dropdown-link {
     padding: 0.7rem 0.9rem;
     font-size: 0.85rem;
@@ -1293,6 +1307,12 @@ html.mobile-menu-open .mobile-menu.active {
     grid-template-columns: repeat(3, 1fr);
     gap: 0.4rem 0.8rem;
     column-gap: 1rem;
+  }
+  
+  .dropdown-menu.dropdown-vertical {
+    min-width: 200px;
+    max-width: 250px;
+    grid-template-columns: 1fr;
   }
   
   .dropdown-link {

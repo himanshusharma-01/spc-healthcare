@@ -750,9 +750,13 @@ body .careers-page {
       align-items: center;
     }
   
-    .mission-grid,
-    .benefits-grid {
+    .mission-grid {
       grid-template-columns: 1fr;
+    }
+    
+    /* Hide benefits section on mobile */
+    .benefits-section {
+      display: none !important;
     }
   
     .category-filters {

@@ -46,6 +46,11 @@
     position: relative;
     overflow: hidden;
   }
+
+  /* Search Page Hero - Dark Blue Background */
+  .search-hero {
+    background: #0A1931 !important;
+  }
   
   .products-hero::before {
     content: '';
