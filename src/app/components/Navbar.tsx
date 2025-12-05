@@ -12,6 +12,7 @@ const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [activeMobileDropdown, setActiveMobileDropdown] = useState<string | null>(null);
   const scrollPositionRef = useRef<number>(0);
   const navigationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const pathname = usePathname();
@@ -36,8 +37,13 @@ const Navbar: React.FC = () => {
     setActiveDropdown(activeDropdown === dropdown ? null : dropdown);
   };
 
+  const toggleMobileDropdown = (dropdown: string) => {
+    setActiveMobileDropdown(activeMobileDropdown === dropdown ? null : dropdown);
+  };
+
   const closeAllDropdowns = () => {
     setActiveDropdown(null);
+    setActiveMobileDropdown(null);
     setIsMobileMenuOpen(false);
   };
 
@@ -65,6 +71,7 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     setIsMobileMenuOpen(false);
     setActiveDropdown(null);
+    setActiveMobileDropdown(null);
   }, [pathname]);
 
   // Prevent body scroll when mobile menu is open, but allow mobile menu to scroll
@@ -595,19 +602,33 @@ const Navbar: React.FC = () => {
             <ul className="mobile-nav-links">
               {navItems.map((item) => (
                 <li key={item.href} className="mobile-nav-item">
-                  <Link 
-                    href={item.href} 
-                    className={`mobile-nav-link ${isActiveLink(item.href)}`}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    <i className={item.icon}></i>
-                    {item.label}
-                    {item.dropdown && <i className="fas fa-chevron-right"></i>}
-                  </Link>
+                  {item.dropdown ? (
+                    <div 
+                      className={`mobile-nav-link ${isActiveLink(item.href)} ${activeMobileDropdown === item.label ? 'active' : ''}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        toggleMobileDropdown(item.label);
+                      }}
+                    >
+                      <i className={item.icon}></i>
+                      {item.label}
+                      <i className={`fas fa-chevron-${activeMobileDropdown === item.label ? 'down' : 'right'} mobile-dropdown-arrow`}></i>
+                    </div>
+                  ) : (
+                    <Link 
+                      href={item.href} 
+                      className={`mobile-nav-link ${isActiveLink(item.href)}`}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      <i className={item.icon}></i>
+                      {item.label}
+                    </Link>
+                  )}
                   
                   {/* Mobile Dropdown */}
                   {item.dropdown && (
-                    <div className={`mobile-dropdown ${item.label === 'Products' ? 'mobile-dropdown-grouped' : ''}`}>
+                    <div className={`mobile-dropdown ${activeMobileDropdown === item.label ? 'active' : ''} ${item.label === 'Products' ? 'mobile-dropdown-grouped' : ''}`}>
                       {item.dropdownGroups ? (
                         item.dropdownGroups.map((group, groupIndex) => (
                           <div key={groupIndex} className="mobile-dropdown-group">
@@ -617,7 +638,10 @@ const Navbar: React.FC = () => {
                                 key={dropdownItem.href} 
                                 href={dropdownItem.href}
                                 className={`mobile-dropdown-link ${item.label === 'Products' ? 'mobile-dropdown-link-grouped' : ''}`}
-                                onClick={() => setIsMobileMenuOpen(false)}
+                                onClick={() => {
+                                  setIsMobileMenuOpen(false);
+                                  setActiveMobileDropdown(null);
+                                }}
                               >
                                 {dropdownItem.label}
                               </Link>
@@ -630,7 +654,10 @@ const Navbar: React.FC = () => {
                             key={dropdownItem.href} 
                             href={dropdownItem.href}
                             className="mobile-dropdown-link"
-                            onClick={() => setIsMobileMenuOpen(false)}
+                            onClick={() => {
+                              setIsMobileMenuOpen(false);
+                              setActiveMobileDropdown(null);
+                            }}
                           >
                             {dropdownItem.label}
                           </Link>

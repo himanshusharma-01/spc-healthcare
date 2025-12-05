@@ -69,6 +69,7 @@ export const filterProductsByCategory = (products: Product[], category: string):
   
   const filtered = products.filter(product => {
     const categoryField = product.category?.toLowerCase() || '';
+    const drugTypeField = product.drugType?.toLowerCase() || '';
     const name = product.name.toLowerCase();
     const description = product.shortDescription.toLowerCase();
     
@@ -77,7 +78,22 @@ export const filterProductsByCategory = (products: Product[], category: string):
       return true;
     }
     
-    // Then check keywords
+    // Check if drugType field contains any of the category keywords
+    // drugType can have multiple keywords separated by comma, space, or other delimiters
+    const drugTypeKeywords = drugTypeField.split(/[,;|\s]+/).map(k => k.trim()).filter(k => k);
+    
+    // Check if any keyword from the category matches any keyword in drugType
+    const matchesDrugType = keywords.some(keyword => 
+      drugTypeKeywords.some(drugKeyword => 
+        drugKeyword.includes(keyword) || keyword.includes(drugKeyword)
+      )
+    );
+    
+    if (matchesDrugType) {
+      return true;
+    }
+    
+    // Also check in other fields as fallback
     return keywords.some(keyword => 
       categoryField.includes(keyword) || 
       name.includes(keyword) || 

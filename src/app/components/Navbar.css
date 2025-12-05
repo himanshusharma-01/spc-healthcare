@@ -284,8 +284,8 @@
   flex-direction: row;
   gap: 0;
   padding: 0;
-  min-width: 700px;
-  max-width: 800px;
+  min-width: 750px;
+  max-width: 850px;
   border-radius: 12px;
   overflow: hidden;
   background: linear-gradient(135deg, #0A1931, #1A365D);
@@ -293,23 +293,27 @@
 }
 
 .dropdown-group {
-  flex: 1;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.25rem 0.75rem;
+  grid-template-columns: 1fr;
+  gap: 0.25rem;
   align-content: start;
   padding: 1.5rem;
   position: relative;
 }
 
-/* Add visual separator between groups */
+/* Product Forms - narrower column (5 items) */
 .dropdown-group:first-child {
+  flex: 0 0 280px;
   background: rgba(10, 25, 49, 0.4);
   border-right: 2px solid rgba(255, 255, 255, 0.15);
 }
 
+/* Therapeutic Categories - wider column (10 items, 2 columns) */
 .dropdown-group:last-child {
+  flex: 1;
   background: rgba(26, 54, 93, 0.4);
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.25rem 1rem;
 }
 
 .dropdown-group-title {
@@ -1058,25 +1062,45 @@ html.mobile-menu-open .mobile-menu.active {
   transform: scale(1.1);
 }
 
+.mobile-dropdown-arrow {
+  margin-left: auto;
+  font-size: 0.9rem !important;
+  transition: transform 0.3s ease;
+  color: rgba(255, 255, 255, 0.7) !important;
+  width: auto !important;
+}
+
 .mobile-dropdown {
   padding-left: 2rem;
   margin-top: 0.5rem;
-  display: block;
-  visibility: visible;
-  opacity: 1;
   width: 100%;
   max-width: 100%;
   overflow-x: hidden !important;
   box-sizing: border-box;
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  overflow-y: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease, visibility 0.3s ease, margin-top 0.3s ease;
+}
+
+.mobile-dropdown.active {
+  max-height: 2000px;
+  opacity: 1;
+  visibility: visible;
+  overflow-y: visible;
 }
 
 /* Grouped mobile dropdown for Products */
 .mobile-dropdown.mobile-dropdown-grouped {
   padding-left: 0;
-  margin-top: 0.75rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+}
+
+.mobile-dropdown.mobile-dropdown-grouped.active {
+  margin-top: 0.75rem;
 }
 
 .mobile-dropdown-group {
@@ -1466,9 +1490,16 @@ html.mobile-menu-open .mobile-menu.active {
   }
   
   .dropdown-menu.dropdown-grouped {
-    min-width: 600px;
-    max-width: 650px;
-    gap: 1.5rem;
+    min-width: 650px;
+    max-width: 700px;
+  }
+  
+  .dropdown-group:first-child {
+    flex: 0 0 240px;
+    padding: 1.25rem;
+  }
+  
+  .dropdown-group:last-child {
     padding: 1.25rem;
   }
   
@@ -1494,9 +1525,16 @@ html.mobile-menu-open .mobile-menu.active {
   }
   
   .dropdown-menu.dropdown-grouped {
-    min-width: 550px;
-    max-width: 600px;
-    gap: 1.25rem;
+    min-width: 600px;
+    max-width: 650px;
+  }
+  
+  .dropdown-group:first-child {
+    flex: 0 0 220px;
+    padding: 1rem;
+  }
+  
+  .dropdown-group:last-child {
     padding: 1rem;
   }
   
