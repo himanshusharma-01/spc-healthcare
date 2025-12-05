@@ -353,6 +353,33 @@ const Navbar: React.FC = () => {
         { href: '/products/antiCold', label: 'Anti Cold' },
         { href: '/products/neuro', label: 'Neuro' },
         { href: '/products/pediatric', label: 'Pediatric' }
+      ],
+      dropdownGroups: [
+        {
+          title: 'Product Forms',
+          items: [
+            { href: '/products/Syrups', label: 'Syrups' },
+            { href: '/products/OralSuspensions', label: 'Oral Suspensions' },
+            { href: '/products/OralDrops', label: 'Oral Drops' },
+            { href: '/products/Tablets', label: 'Tablets' },
+            { href: '/products/Capsules', label: 'Capsules' }
+          ]
+        },
+        {
+          title: 'Therapeutic Categories',
+          items: [
+            { href: '/products/orthopedic', label: 'Orthopedic' },
+            { href: '/products/gynae', label: 'Gynae' },
+            { href: '/products/gastro', label: 'Gastro' },
+            { href: '/products/derma', label: 'Derma' },
+            { href: '/products/antiBiotic', label: 'Antibiotic' },
+            { href: '/products/analgesic', label: 'Analgesic' },
+            { href: '/products/cardioDiabatic', label: 'Cardio Diabetic' },
+            { href: '/products/antiCold', label: 'Anti Cold' },
+            { href: '/products/neuro', label: 'Neuro' },
+            { href: '/products/pediatric', label: 'Pediatric' }
+          ]
+        }
       ]
     },
     { href: '/careers', label: 'Career', icon: 'fas fa-briefcase' },
@@ -401,17 +428,35 @@ const Navbar: React.FC = () => {
                         {item.label}
                         <i className="fas fa-chevron-down dropdown-arrow"></i>
                       </button>
-                      <div className={`dropdown-menu ${activeDropdown === item.label ? 'active' : ''} ${item.label === 'About Us' ? 'dropdown-vertical' : ''}`}>
-                        {item.dropdown.map((dropdownItem) => (
-                          <Link 
-                            key={dropdownItem.href} 
-                            href={dropdownItem.href}
-                            className="dropdown-link"
-                            onClick={() => setActiveDropdown(null)}
-                          >
-                            {dropdownItem.label}
-                          </Link>
-                        ))}
+                      <div className={`dropdown-menu ${activeDropdown === item.label ? 'active' : ''} ${item.label === 'About Us' ? 'dropdown-vertical' : ''} ${item.label === 'Products' ? 'dropdown-grouped' : ''}`}>
+                        {item.dropdownGroups ? (
+                          item.dropdownGroups.map((group, groupIndex) => (
+                            <div key={groupIndex} className="dropdown-group">
+                              <h4 className="dropdown-group-title">{group.title}</h4>
+                              {group.items.map((dropdownItem) => (
+                                <Link 
+                                  key={dropdownItem.href} 
+                                  href={dropdownItem.href}
+                                  className="dropdown-link"
+                                  onClick={() => setActiveDropdown(null)}
+                                >
+                                  {dropdownItem.label}
+                                </Link>
+                              ))}
+                            </div>
+                          ))
+                        ) : (
+                          item.dropdown.map((dropdownItem) => (
+                            <Link 
+                              key={dropdownItem.href} 
+                              href={dropdownItem.href}
+                              className="dropdown-link"
+                              onClick={() => setActiveDropdown(null)}
+                            >
+                              {dropdownItem.label}
+                            </Link>
+                          ))
+                        )}
                       </div>
                     </div>
                   ) : (
@@ -562,17 +607,35 @@ const Navbar: React.FC = () => {
                   
                   {/* Mobile Dropdown */}
                   {item.dropdown && (
-                    <div className="mobile-dropdown">
-                      {item.dropdown.map((dropdownItem) => (
-                        <Link 
-                          key={dropdownItem.href} 
-                          href={dropdownItem.href}
-                          className="mobile-dropdown-link"
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          {dropdownItem.label}
-                        </Link>
-                      ))}
+                    <div className={`mobile-dropdown ${item.label === 'Products' ? 'mobile-dropdown-grouped' : ''}`}>
+                      {item.dropdownGroups ? (
+                        item.dropdownGroups.map((group, groupIndex) => (
+                          <div key={groupIndex} className="mobile-dropdown-group">
+                            <h4 className="mobile-dropdown-group-title">{group.title}</h4>
+                            {group.items.map((dropdownItem) => (
+                              <Link 
+                                key={dropdownItem.href} 
+                                href={dropdownItem.href}
+                                className={`mobile-dropdown-link ${item.label === 'Products' ? 'mobile-dropdown-link-grouped' : ''}`}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                              >
+                                {dropdownItem.label}
+                              </Link>
+                            ))}
+                          </div>
+                        ))
+                      ) : (
+                        item.dropdown.map((dropdownItem) => (
+                          <Link 
+                            key={dropdownItem.href} 
+                            href={dropdownItem.href}
+                            className="mobile-dropdown-link"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                          >
+                            {dropdownItem.label}
+                          </Link>
+                        ))
+                      )}
                     </div>
                   )}
                   

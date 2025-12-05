@@ -240,18 +240,18 @@
   position: absolute;
   top: 100%;
   left: 0;
-  background: rgba(255, 255, 255, 0.95);
+  background: linear-gradient(135deg, #0A1931, #1A365D);
   backdrop-filter: blur(20px);
   border-radius: 12px;
   padding: 1rem;
   min-width: 600px;
   max-width: 700px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   opacity: 0;
   visibility: hidden;
   transform: translateY(10px);
   transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   z-index: 999;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -265,6 +265,98 @@
   min-width: 200px;
   max-width: 250px;
   gap: 0.5rem;
+  background: linear-gradient(135deg, #0A1931, #1A365D);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-menu.dropdown-vertical .dropdown-link {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.dropdown-menu.dropdown-vertical .dropdown-link:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+/* Grouped dropdown for Products */
+.dropdown-menu.dropdown-grouped {
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  padding: 0;
+  min-width: 700px;
+  max-width: 800px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0A1931, #1A365D);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-group {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.25rem 0.75rem;
+  align-content: start;
+  padding: 1.5rem;
+  position: relative;
+}
+
+/* Add visual separator between groups */
+.dropdown-group:first-child {
+  background: rgba(10, 25, 49, 0.4);
+  border-right: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+.dropdown-group:last-child {
+  background: rgba(26, 54, 93, 0.4);
+}
+
+.dropdown-group-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0 0 1rem 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  position: relative;
+  grid-column: 1 / -1;
+}
+
+/* Add icon/indicator to group titles */
+.dropdown-group:first-child .dropdown-group-title::before {
+  content: '📦';
+  margin-right: 0.5rem;
+  font-size: 1rem;
+}
+
+.dropdown-group:last-child .dropdown-group-title::before {
+  content: '⚕️';
+  margin-right: 0.5rem;
+  font-size: 1rem;
+}
+
+.dropdown-group .dropdown-link {
+  padding: 0.5rem 0.75rem;
+  border-left: 3px solid transparent;
+  transition: all 0.3s ease;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Different hover colors for each group */
+.dropdown-group:first-child .dropdown-link:hover {
+  background: rgba(0, 163, 180, 0.2);
+  border-left-color: rgba(0, 163, 180, 0.6);
+  color: white;
+}
+
+.dropdown-group:last-child .dropdown-link:hover {
+  background: rgba(0, 166, 118, 0.2);
+  border-left-color: rgba(0, 166, 118, 0.6);
+  color: white;
 }
 
 .dropdown-menu.active {
@@ -285,7 +377,7 @@
 .dropdown-link {
   display: block;
   padding: 0.75rem 1rem;
-  color: #1A365D;
+  color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
   border-radius: 8px;
   transition: all 0.3s ease;
@@ -296,8 +388,8 @@
 }
 
 .dropdown-link:hover {
-  background: rgba(0, 163, 180, 0.1);
-  color: #00A3B4;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
   transform: translateX(5px);
 }
 
@@ -978,6 +1070,60 @@ html.mobile-menu-open .mobile-menu.active {
   box-sizing: border-box;
 }
 
+/* Grouped mobile dropdown for Products */
+.mobile-dropdown.mobile-dropdown-grouped {
+  padding-left: 0;
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.mobile-dropdown-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 10px;
+  background: rgba(10, 25, 49, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-dropdown-group:first-child {
+  background: rgba(10, 25, 49, 0.3);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.mobile-dropdown-group:last-child {
+  background: rgba(10, 25, 49, 0.3);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.mobile-dropdown-group-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0 0 0.75rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  position: relative;
+}
+
+/* Add icon/indicator to mobile group titles */
+.mobile-dropdown-group:first-child .mobile-dropdown-group-title::before {
+  content: '📦';
+  margin-right: 0.5rem;
+  font-size: 1rem;
+}
+
+.mobile-dropdown-group:last-child .mobile-dropdown-group-title::before {
+  content: '⚕️';
+  margin-right: 0.5rem;
+  font-size: 1rem;
+}
+
 .mobile-dropdown-link {
   display: block !important;
   visibility: visible !important;
@@ -1019,6 +1165,31 @@ html.mobile-menu-open .mobile-menu.active {
 .mobile-dropdown-link:hover::before {
   color: #00A3B4;
   transform: translateX(2px);
+}
+
+/* Grouped mobile dropdown links */
+.mobile-dropdown-link-grouped {
+  padding-left: 1.2rem;
+  border-left: 3px solid transparent;
+  margin-bottom: 0.5rem;
+}
+
+.mobile-dropdown-group:first-child .mobile-dropdown-link-grouped:hover {
+  background: rgba(0, 163, 180, 0.2);
+  border-left-color: rgba(0, 163, 180, 0.6);
+  color: white;
+  transform: translateX(4px);
+}
+
+.mobile-dropdown-group:last-child .mobile-dropdown-link-grouped:hover {
+  background: rgba(0, 166, 118, 0.2);
+  border-left-color: rgba(0, 166, 118, 0.6);
+  color: white;
+  transform: translateX(4px);
+}
+
+.mobile-dropdown-link-grouped::before {
+  display: none;
 }
 
 .mobile-actions {
@@ -1294,6 +1465,13 @@ html.mobile-menu-open .mobile-menu.active {
     grid-template-columns: 1fr;
   }
   
+  .dropdown-menu.dropdown-grouped {
+    min-width: 600px;
+    max-width: 650px;
+    gap: 1.5rem;
+    padding: 1.25rem;
+  }
+  
   .dropdown-link {
     padding: 0.7rem 0.9rem;
     font-size: 0.85rem;
@@ -1313,6 +1491,18 @@ html.mobile-menu-open .mobile-menu.active {
     min-width: 200px;
     max-width: 250px;
     grid-template-columns: 1fr;
+  }
+  
+  .dropdown-menu.dropdown-grouped {
+    min-width: 550px;
+    max-width: 600px;
+    gap: 1.25rem;
+    padding: 1rem;
+  }
+  
+  .dropdown-group-title {
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
   }
   
   .dropdown-link {

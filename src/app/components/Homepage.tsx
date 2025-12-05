@@ -524,7 +524,7 @@ export default function Homepage() {
       <div className="about-stats">
         <div className="stats-container">
           <div className="stat-item">
-            <div className="stat-number" data-target="8">0</div>
+            <div className="stat-number" data-target="08">0</div>
             <div className="stat-label">Years of Innovation</div>
             <div className="stat-bar">
               <div className="stat-progress" style={{width: '100%'}}></div>
@@ -533,8 +533,8 @@ export default function Homepage() {
           
         
           <div className="stat-item">
-            <div className="stat-number" data-target="15">0</div>
-            <div className="stat-label">Countries Served</div>
+            <div className="stat-number" data-target="07">0</div>
+            <div className="stat-label">States Served</div>
             <div className="stat-bar">
               <div className="stat-progress" style={{width: '100%'}}></div>
             </div>
