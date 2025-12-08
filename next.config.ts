@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import path from "path";
 
 const nextConfig: NextConfig = {
   images: {
@@ -14,6 +15,8 @@ const nextConfig: NextConfig = {
     ],
     unoptimized: false,
   },
+  // Set output file tracing root to prevent lockfile warning
+  outputFileTracingRoot: path.join(__dirname),
 };
 
 export default nextConfig;
