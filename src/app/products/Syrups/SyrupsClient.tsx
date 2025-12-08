@@ -13,7 +13,8 @@ interface SyrupsClientProps {
 export default function SyrupsClient({ initialProducts }: SyrupsClientProps) {
   const [activeFilter, setActiveFilter] = useState('all');
   const [products] = useState<SPCProduct[]>(initialProducts);
-  const { searchQuery } = useProductSearch();
+  const { searchQuery, setSearchQuery } = useProductSearch();
+  const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery || '');
 
   const productFilters = [
     { id: 'all', name: 'All Syrups', count: products.length },
@@ -99,6 +100,55 @@ export default function SyrupsClient({ initialProducts }: SyrupsClientProps) {
             </p>
           </div>
 
+          {/* Search Box */}
+          <div className="category-search-container">
+            <div className="category-search-box">
+              <i className="fas fa-search category-search-icon"></i>
+              <input
+                type="text"
+                placeholder="Search syrups by name, description, or usage..."
+                value={localSearchQuery}
+                onChange={(e) => {
+                  setLocalSearchQuery(e.target.value);
+                  setSearchQuery(e.target.value);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.currentTarget.blur();
+                  }
+                }}
+                className="category-search-input"
+              />
+              {localSearchQuery && (
+                <button
+                  className="category-search-clear-btn"
+                  onClick={() => {
+                    setLocalSearchQuery('');
+                    setSearchQuery('');
+                  }}
+                  aria-label="Clear search"
+                >
+                  <i className="fas fa-times"></i>
+                </button>
+              )}
+              <button
+                className="category-search-btn"
+                onClick={() => {
+                  setSearchQuery(localSearchQuery);
+                  const input = document.querySelector('.category-search-input') as HTMLInputElement;
+                  if (input) {
+                    input.focus();
+                    input.blur();
+                  }
+                }}
+                aria-label="Search products"
+              >
+                <i className="fas fa-search"></i>
+                <span>Search</span>
+              </button>
+            </div>
+          </div>
+
           {/* Filter Tabs */}
           <div className="products-filter-container">
             <div className="filter-tabs">
@@ -117,36 +167,58 @@ export default function SyrupsClient({ initialProducts }: SyrupsClientProps) {
 
           {/* Products Grid - No Loading State Needed! */}
           {filteredProducts.length > 0 ? (
-            <div className="products-grid">
-              {filteredProducts.map((product, index) => (
-                <Link prefetch key={`${product.id}-${index}`} href={`/products/${product.slug}`} className="product-card-link">
-                  <div className="product-card">
-                    <div className="product-image-container square">
-                      {product.imageUrls && product.imageUrls.length > 0 ? (
-                        <Image 
-                          src={product.imageUrls[0]} 
-                          alt={product.name}
-                          className="product-image"
-                          width={300}
-                          height={300}
-                          style={{ objectFit: 'cover' }}
-                        />
-                      ) : null}
-                      <div className="product-image-fallback" style={{ display: product.imageUrls && product.imageUrls.length > 0 ? 'none' : 'flex' }}>
-                        <span className="product-icon">💊</span>
+            <>
+              <div className="products-grid">
+                {filteredProducts.map((product, index) => (
+                  <Link prefetch key={`${product.id}-${index}`} href={`/products/${product.slug}`} className="product-card-link">
+                    <div className="product-card">
+                      <div className="product-image-container square">
+                        {product.imageUrls && product.imageUrls.length > 0 ? (
+                          <Image 
+                            src={product.imageUrls[0]} 
+                            alt={product.name}
+                            className="product-image"
+                            width={300}
+                            height={300}
+                            style={{ objectFit: 'cover' }}
+                          />
+                        ) : null}
+                        <div className="product-image-fallback" style={{ display: product.imageUrls && product.imageUrls.length > 0 ? 'none' : 'flex' }}>
+                          <span className="product-icon">💊</span>
+                        </div>
+                      </div>
+                      <div className="product-content">
+                        <h3 className="product-name">{product.name}</h3>
+                        <p className="product-short">{product.shortDescription}</p>
+                        <div className="product-actions">
+                          <span className="l3-product-btn">View product details</span>
+                        </div>
                       </div>
                     </div>
-                    <div className="product-content">
-                      <h3 className="product-name">{product.name}</h3>
-                      <p className="product-short">{product.shortDescription}</p>
-                      <div className="product-actions">
-                        <span className="l3-product-btn">View product details</span>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
+                  </Link>
+                ))}
+              </div>
+              
+              {/* Action Button Section */}
+              <div className="products-action-section">
+                <button
+                  className="products-action-btn"
+                  onClick={() => {
+                    // Scroll to top and focus search
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    setTimeout(() => {
+                      const searchInput = document.querySelector('.category-search-input') as HTMLInputElement;
+                      if (searchInput) {
+                        searchInput.focus();
+                      }
+                    }, 500);
+                  }}
+                >
+                  <i className="fas fa-search"></i>
+                  <span>Search More Products</span>
+                </button>
+              </div>
+            </>
           ) : (
             <div className="no-products">
               <h3>No products found</h3>

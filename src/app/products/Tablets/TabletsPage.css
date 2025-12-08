@@ -154,6 +154,155 @@
   background: var(--l3-gray-light);
 }
 
+/* Category Search Container */
+.category-search-container {
+  margin-bottom: 2rem;
+}
+
+.category-search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: white;
+  padding: 0;
+  border-radius: var(--l3-border-radius-lg);
+}
+
+.category-search-icon {
+  position: absolute;
+  left: 1rem;
+  color: var(--l3-text-light);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.category-search-input {
+  flex: 1;
+  padding: 0.875rem 1rem 0.875rem 3rem;
+  padding-right: 3.5rem;
+  border: 2px solid var(--l3-gray-medium);
+  border-radius: var(--l3-border-radius);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: white;
+  color: #000000;
+}
+
+.category-search-input::placeholder {
+  color: #6b7280;
+  opacity: 1;
+}
+
+.category-search-input:focus {
+  outline: none;
+  border-color: var(--l3-teal);
+  box-shadow: 0 0 0 3px rgba(0, 163, 180, 0.1);
+}
+
+.category-search-input:focus + .category-search-clear-btn,
+.category-search-input:focus ~ .category-search-btn {
+  border-color: var(--l3-teal);
+}
+
+.category-search-clear-btn {
+  position: absolute;
+  right: 4.5rem;
+  background: transparent;
+  border: none;
+  color: var(--l3-text-light);
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  z-index: 3;
+  width: 28px;
+  height: 28px;
+}
+
+.category-search-clear-btn:hover {
+  background: var(--l3-gray-medium);
+  color: var(--l3-navy-dark);
+}
+
+.category-search-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  background: var(--l3-teal);
+  color: white;
+  border: 2px solid var(--l3-teal);
+  border-radius: var(--l3-border-radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.category-search-btn:hover {
+  background: var(--l3-navy-dark);
+  border-color: var(--l3-navy-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 163, 180, 0.3);
+}
+
+.category-search-btn:active {
+  transform: translateY(0);
+}
+
+.category-search-btn i {
+  font-size: 0.9rem;
+}
+
+/* Products Action Section */
+.products-action-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 0 2rem;
+  margin-top: 2rem;
+  border-top: 1px solid var(--l3-gray-medium);
+}
+
+.products-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 2.5rem;
+  background: var(--l3-teal);
+  color: white;
+  border: 2px solid var(--l3-teal);
+  border-radius: var(--l3-border-radius);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 163, 180, 0.2);
+}
+
+.products-action-btn:hover {
+  background: var(--l3-navy-dark);
+  border-color: var(--l3-navy-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 163, 180, 0.4);
+}
+
+.products-action-btn:active {
+  transform: translateY(-1px);
+}
+
+.products-action-btn i {
+  font-size: 1rem;
+}
+
 .products-filter-container {
   background: white;
   padding: 2rem;
@@ -573,6 +722,58 @@
 
   .product-actions {
     flex-direction: column;
+  }
+
+  .category-search-container {
+    margin-bottom: 1.5rem;
+  }
+
+  .category-search-box {
+    flex-direction: row;
+    gap: 0.5rem;
+    padding: 0;
+  }
+
+  .category-search-icon {
+    left: 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .category-search-input {
+    flex: 1;
+    padding: 0.625rem 0.75rem 0.625rem 2.5rem;
+    padding-right: 2.5rem;
+    border-radius: var(--l3-border-radius);
+    font-size: 0.9rem;
+  }
+
+  .category-search-clear-btn {
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    padding: 0.25rem;
+  }
+
+  .category-search-clear-btn i {
+    font-size: 0.75rem;
+  }
+
+  .category-search-btn {
+    flex-shrink: 0;
+    padding: 0.625rem 1rem;
+    border-radius: var(--l3-border-radius);
+    font-size: 0.9rem;
+    min-width: auto;
+  }
+
+  .category-search-btn i {
+    font-size: 0.85rem;
+  }
+
+  .category-search-btn span {
+    display: none;
   }
   
   .tablets-hero {

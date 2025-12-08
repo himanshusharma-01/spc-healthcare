@@ -117,8 +117,8 @@
   margin: 0 auto;
   padding: 0 20px;
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1.5fr;
-  gap: 3rem;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+  gap: 2.5rem;
   align-items: start;
 }
 
@@ -372,6 +372,12 @@
   
   #main-footer .footer-social {
     justify-content: center;
+  }
+  
+  /* Stack Product Forms and Therapeutic Range side by side on tablet */
+  #main-footer .footer-section:nth-child(2),
+  #main-footer .footer-section:nth-child(3) {
+    grid-column: span 1;
   }
 }
 

@@ -207,8 +207,37 @@ const ProductsPage: React.FC = () => {
                 placeholder="Search products by name, generic name, or indication..."
                 value={contextSearchQuery || filters.searchQuery}
                 onChange={(e) => handleFilterChange('searchQuery', e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.currentTarget.blur();
+                  }
+                }}
                 className="search-input"
               />
+              {(contextSearchQuery || filters.searchQuery) && (
+                <button
+                  className="search-clear-btn"
+                  onClick={() => handleFilterChange('searchQuery', '')}
+                  aria-label="Clear search"
+                >
+                  <i className="fas fa-times"></i>
+                </button>
+              )}
+              <button
+                className="search-btn"
+                onClick={() => {
+                  // Trigger search by focusing and blurring
+                  const input = document.querySelector('.search-input') as HTMLInputElement;
+                  if (input) {
+                    input.focus();
+                    input.blur();
+                  }
+                }}
+                aria-label="Search products"
+              >
+                <i className="fas fa-search"></i>
+                <span>Search</span>
+              </button>
             </div>
             
             <div className="filter-select">
@@ -245,15 +274,37 @@ const ProductsPage: React.FC = () => {
               <p>Try adjusting your search criteria or filters</p>
             </div>
           ) : (
-            <div className="products-grid">
-              {filteredProducts.map((product, index) => (
-                <ProductCard
-                  key={`${product.id}-${index}`}
-                  product={product}
-                  onViewDetails={handleViewDetails}
-                />
-              ))}
-            </div>
+            <>
+              <div className="products-grid">
+                {filteredProducts.map((product, index) => (
+                  <ProductCard
+                    key={`${product.id}-${index}`}
+                    product={product}
+                    onViewDetails={handleViewDetails}
+                  />
+                ))}
+              </div>
+              
+              {/* Action Button Section */}
+              <div className="products-action-section">
+                <button
+                  className="products-action-btn"
+                  onClick={() => {
+                    // Scroll to top and focus search
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    setTimeout(() => {
+                      const searchInput = document.querySelector('.search-input') as HTMLInputElement;
+                      if (searchInput) {
+                        searchInput.focus();
+                      }
+                    }, 500);
+                  }}
+                >
+                  <i className="fas fa-search"></i>
+                  <span>Search More Products</span>
+                </button>
+              </div>
+            </>
           )}
         </div>
       </section>

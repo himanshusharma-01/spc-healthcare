@@ -121,7 +121,8 @@ h1, h2, h3, h4, h5, h6 {
   padding-top: 2rem;
 }
 
-.l3-hero-background {
+/* Hero Carousel */
+.l3-hero-carousel {
   position: absolute;
   top: 0;
   left: 0;
@@ -129,14 +130,34 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   height: 100%;
   min-height: 90vh;
-  background-image: url('/BANNER%20DESKTOP.png');
+  overflow: hidden;
+}
+
+.l3-hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 90vh;
   background-size: cover;
   background-position: center 55%;
   background-repeat: no-repeat;
-  animation: bannerSlideIn 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards, heroImageZoom 20s ease-in-out 1.4s infinite alternate;
-  transform-origin: center 55%;
-  will-change: transform, filter, opacity;
   opacity: 0;
+  transform: scale(1);
+  transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1), transform 20s ease-in-out;
+  transform-origin: center 55%;
+  will-change: transform, opacity;
+  background-image: var(--desktop-image);
+}
+
+.l3-hero-slide.active {
+  opacity: 1;
+  animation: heroImageZoom 20s ease-in-out infinite alternate;
+}
+
+.l3-hero-slide:first-child.active {
+  animation: bannerSlideIn 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards, heroImageZoom 20s ease-in-out 1.4s infinite alternate;
 }
 
 /* Hero content and signature-style tagline */
@@ -218,10 +239,54 @@ h1, h2, h3, h4, h5, h6 {
   to { width: 9ch; }
 }
 
+/* Carousel Navigation Dots */
+.l3-carousel-dots {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.75rem;
+  z-index: 10;
+}
+
+.l3-carousel-dot {
+  width: 40px;
+  height: 2px;
+  border-radius: 2px;
+  border: none;
+  background: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0;
+  outline: none;
+}
+
+.l3-carousel-dot:hover {
+  background: rgba(255, 255, 255, 0.7);
+  height: 3px;
+}
+
+.l3-carousel-dot.active {
+  background: rgba(255, 255, 255, 1);
+  width: 60px;
+  height: 3px;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
 @media (max-width: 768px) {
-  .l3-hero-background {
-    background-image: url('/BANNER%20MOBILE.png');
-    background-position: center calc(50% + 10vh);
+  .l3-hero-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 60vh;
+    background-position: center;
+    background-image: var(--mobile-image);
+    background-size: cover;
+    background-repeat: no-repeat;
   }
 }
 
@@ -231,12 +296,33 @@ h1, h2, h3, h4, h5, h6 {
   .l3-hero { padding-top: clamp(40px, 10vh, 88px); }
   /* Decrease hero height and center family on mobile */
   .l3-hero { min-height: 60vh; }
-  .l3-hero-background { 
+  .l3-hero-carousel {
+    min-height: 60vh;
+  }
+  .l3-hero-slide { 
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
     min-height: 60vh; 
-    background-image: url('/BANNER%20MOBILE.png');
-    background-position: center calc(50% + 8vh); 
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
   }
   .l3-hero-content { margin-top: clamp(60px, 12vh, 120px); }
+  .l3-carousel-dots {
+    bottom: 1rem;
+  }
+  .l3-carousel-dot {
+    width: 30px;
+    height: 2px;
+  }
+  .l3-carousel-dot.active {
+    width: 45px;
+    height: 3px;
+  }
 }
 
 /* Creative Hero Banner Animations */
@@ -267,7 +353,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Parallax Overlay Effect */
-.l3-hero-background::before {
+.l3-hero-carousel::before {
   content: '';
   position: absolute;
   top: 0;
@@ -282,6 +368,7 @@ h1, h2, h3, h4, h5, h6 {
   );
   animation: overlayShift 15s ease-in-out infinite alternate;
   pointer-events: none;
+  z-index: 1;
 }
 
 @keyframes overlayShift {
@@ -296,7 +383,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Floating Particles Animation */
-.l3-hero-background::after {
+.l3-hero-carousel::after {
   content: '';
   position: absolute;
   top: 0;
@@ -313,6 +400,7 @@ h1, h2, h3, h4, h5, h6 {
   animation: particleFloat 25s ease-in-out infinite;
   pointer-events: none;
   opacity: 0.6;
+  z-index: 1;
 }
 
 @keyframes particleFloat {
@@ -870,37 +958,30 @@ h1, h2, h3, h4, h5, h6 {
   gap: 1.25rem;
 }
 
-/* Fixed Banner Section with homepage.png */
+/* Simple Banner Section with homepage.png */
 .l3-homepage-banner-wrapper {
   position: relative;
   width: 100%;
-  height: 100vh;
-  min-height: 600px;
+  height: auto;
   z-index: 1;
-  overflow: hidden;
+  overflow: visible;
   margin: 0;
   padding: 0;
 }
 
 .l3-homepage-banner {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  min-height: 600px;
-  z-index: 1;
-  background-image: url('/homepage.png');
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
   animation: bannerSlideIn 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   opacity: 0;
 }
 
 .l3-homepage-banner.l3-banner-fixed {
-  position: fixed;
-  top: 0;
+  /* Removed fixed positioning to prevent overlap */
+  position: relative;
 }
 
 @media (max-width: 1200px) {
@@ -913,22 +994,18 @@ h1, h2, h3, h4, h5, h6 {
   .l3-products-grid { grid-template-columns: 1fr; }
 }
 
-/* Add a container to maintain spacing */
-.l3-homepage-banner-wrapper::after {
-  content: '';
-  display: block;
-  height: 100vh;
-  min-height: 600px;
-}
+/* Removed pseudo-element as banner is now static */
 
-/* Hide banner on mobile */
+/* Mobile banner adjustments */
 @media (max-width: 768px) {
   .l3-homepage-banner-wrapper {
-    display: none;
+    height: auto;
   }
   
-  .l3-homepage-banner-wrapper::after {
-    display: none;
+  .l3-homepage-banner {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
   }
 }
 

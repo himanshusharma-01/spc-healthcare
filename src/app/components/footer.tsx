@@ -55,15 +55,32 @@ const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Products */}
+          {/* Product Forms */}
           <div className="footer-section">
-            <h4 className="footer-title">Products</h4>
+            <h4 className="footer-title">Product Forms</h4>
             <ul className="footer-links">
               <li><Link href="/products/Syrups">Syrups</Link></li>
               <li><Link href="/products/Tablets">Tablets</Link></li>
               <li><Link href="/products/Capsules">Capsules</Link></li>
               <li><Link href="/products/OralDrops">Oral Drops</Link></li>
               <li><Link href="/products/OralSuspensions">Oral Suspensions</Link></li>
+            </ul>
+          </div>
+
+          {/* Therapeutic Categories */}
+          <div className="footer-section">
+            <h4 className="footer-title">Therapeutic Range</h4>
+            <ul className="footer-links">
+              <li><Link href="/products/orthopedic">Orthopedic</Link></li>
+              <li><Link href="/products/gynae">Gynae</Link></li>
+              <li><Link href="/products/gastro">Gastro</Link></li>
+              <li><Link href="/products/derma">Derma</Link></li>
+              <li><Link href="/products/antiBiotic">Antibiotic</Link></li>
+              <li><Link href="/products/analgesic">Analgesic</Link></li>
+              <li><Link href="/products/cardioDiabatic">Cardio Diabetic</Link></li>
+              <li><Link href="/products/antiCold">Anti Cold</Link></li>
+              <li><Link href="/products/neuro">Neuro</Link></li>
+              <li><Link href="/products/pediatric">Pediatric</Link></li>
             </ul>
           </div>
 
@@ -87,10 +104,10 @@ const Footer: React.FC = () => {
                 <i className="fas fa-clock"></i>
                 <span><strong>Hours of Business</strong><br />Monday – Saturday	9 am to 6 pm<br />Sunday	Closed<br />Public Holidays	Closed</span>
               </div>
-              <div className="contact-item emergency">
+              {/* <div className="contact-item emergency">
                 <i className="fas fa-ambulance"></i>
                 <span>Medical Emergency<br /><strong>+1 (800) 911-HELP</strong></span>
-              </div>
+              </div> */}
             </div>
           </div>
 

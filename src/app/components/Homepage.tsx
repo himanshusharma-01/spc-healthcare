@@ -18,10 +18,38 @@ const DetailedGlobe = dynamic(
 
 export default function Homepage() {
   const [featuredProducts, setFeaturedProducts] = useState<SPCProduct[]>([]);
-  const [isBannerFixed, setIsBannerFixed] = useState(false);
   const [isLeadFormOpen, setIsLeadFormOpen] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const leadFormScheduled = useRef(false);
   const router = useRouter();
+
+  // Banner carousel data
+  const allBanners = [
+    {
+      id: 1,
+      desktop: '/BANNER DESKTOP.png',
+      mobile: '/BANNER MOBILE.png',
+    },
+    {
+      id: 2,
+      desktop: '/BANNER TWO DESKTOP.png',
+      mobile: '/BANNER TWO MOBILE.png',
+    },
+    {
+      id: 3,
+      desktop: '/BANNER THREE DESKTOP.png',
+      mobile: '/BANNER THREE MOBILE.png',
+    },
+    {
+      id: 4,
+      desktop: '/BANNER FOUR DESKTOP.png',
+      mobile: '/BANNER FOUR MOBILE.png',
+    },
+  ];
+
+  // Filter banners based on screen size - show only 3 on mobile
+  const banners = isMobile ? allBanners.slice(0, 3) : allBanners;
 
   const productDivisions = [
     {
@@ -240,23 +268,7 @@ export default function Homepage() {
     window.addEventListener('resize', tryStartCounters);
     setTimeout(tryStartCounters, 300);
 
-    // Handle banner scroll - make it fixed after scrolling past it
-    const handleBannerScroll = () => {
-      const bannerWrapper = document.querySelector('.l3-homepage-banner-wrapper');
-      if (bannerWrapper) {
-        const rect = bannerWrapper.getBoundingClientRect();
-        // If banner has been scrolled past (top of banner is above viewport top)
-        if (rect.top <= 0) {
-          setIsBannerFixed(true);
-        } else {
-          setIsBannerFixed(false);
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleBannerScroll, { passive: true });
-    // Check on mount
-    setTimeout(handleBannerScroll, 100);
+    // Removed banner scroll handler - banner is now static to prevent overlap
 
     // Observe the about section - no longer necessary; keep for safety
     // const aboutSection = document.querySelector('.about-section');
@@ -268,9 +280,32 @@ export default function Homepage() {
       window.removeEventListener('pageshow', removeHomepageScrollbars);
       window.removeEventListener('scroll', tryStartCounters);
       window.removeEventListener('resize', tryStartCounters);
-      window.removeEventListener('scroll', handleBannerScroll);
     };
   }, []);
+
+  // Detect mobile screen size
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+      // Reset slide to 0 if we switch to mobile and current slide is out of bounds
+      if (window.innerWidth <= 768 && currentSlide >= 3) {
+        setCurrentSlide(0);
+      }
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, [currentSlide]);
+
+  // Auto-slide carousel
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % banners.length);
+    }, 5000); // Change slide every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [banners.length]);
 
   // Show lead form 2 seconds after the user's first scroll
   useEffect(() => {
@@ -321,10 +356,31 @@ export default function Homepage() {
     <div className="l3-container">
       {/* Hero Section */}
       <section className="l3-hero l3-section">
-        <div className="l3-hero-background"></div>
+        <div className="l3-hero-carousel">
+          {banners.map((banner, index) => (
+            <div
+              key={banner.id}
+              className={`l3-hero-slide ${index === currentSlide ? 'active' : ''}`}
+              style={{
+                '--desktop-image': `url('${banner.desktop}')`,
+                '--mobile-image': `url('${banner.mobile}')`,
+              } as React.CSSProperties}
+            />
+          ))}
+        </div>
         <div className="l3-hero-content">
           <h1 className="l3-hero-title-main">SPC Healthcare</h1>
           <div className="l3-hero-tagline" aria-label="Secure. Pure. Cure.">Secure. Pure. Cure.</div>
+        </div>
+        <div className="l3-carousel-dots">
+          {banners.map((_, index) => (
+            <button
+              key={index}
+              className={`l3-carousel-dot ${index === currentSlide ? 'active' : ''}`}
+              onClick={() => setCurrentSlide(index)}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
         </div>
       </section>
 
@@ -417,7 +473,7 @@ export default function Homepage() {
  {/* Product Divisions */}
  <section id="products" className="l3-divisions l3-section">
         <div className="l3-container-inner">
-          <h2 className="l3-section-title">Our Product Divisions</h2>
+          <h2 className="l3-section-title">Our Therapeutic Range</h2>
           <p className="l3-section-subtitle">Comprehensive healthcare solutions across multiple therapeutic areas</p>
           <div className="l3-divisions-grid">
             {productDivisions.map((division) => (
@@ -567,8 +623,8 @@ export default function Homepage() {
       {/* Featured Products */}
       <section className="l3-featured l3-section">
         <div className="l3-container-inner">
-          <h2 className="l3-section-title">Featured Products</h2>
-          <p className="l3-section-subtitle">Our latest innovations making a difference in patient care</p>
+          <h2 className="l3-section-title">Our Highlighted Products</h2>
+          <p className="l3-section-subtitle">Handpicked Essentials for Better Care</p>
           <div className="l3-products-grid">
             {featuredProducts.length > 0 ? (
               featuredProducts.map(product => (
@@ -636,9 +692,17 @@ export default function Homepage() {
       </section>
 
 
-      {/* Fixed Banner Section with homepage.png */}
+      {/* Simple Banner Section with homepage.png */}
       <div className="l3-homepage-banner-wrapper">
-        <div className={`l3-homepage-banner ${isBannerFixed ? 'l3-banner-fixed' : ''}`}></div>
+        <Image
+          src="/homepage.png"
+          alt="SPC Healthcare"
+          width={1920}
+          height={1080}
+          className="l3-homepage-banner"
+          priority
+          style={{ width: '100%', height: 'auto' }}
+        />
       </div>
 
       {/* R&D Section */}
