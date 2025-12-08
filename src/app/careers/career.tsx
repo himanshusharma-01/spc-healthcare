@@ -1,22 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import '../components/Homepage.css';
 import './career.css';
 import Link from 'next/link';
 
 export default function CareersPage() {
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
-
-  // Format date consistently to avoid hydration mismatch
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    const year = date.getFullYear();
-    return `${month}/${day}/${year}`;
-  };
 
   const jobCategories = [
     { id: 'all', name: 'All Positions', count: 3, icon: '💼' },
@@ -152,7 +142,7 @@ export default function CareersPage() {
   });
 
   return (
-    <div className="l3-container careers-page">
+    <div className="careers-page">
       {/* Hero Section */}
       <section className="careers-hero-section">
         <div className="careers-hero-background"></div>

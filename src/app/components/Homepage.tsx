@@ -55,7 +55,7 @@ export default function Homepage() {
     {
       id: 1,
       title: 'Syrups',
-      image: '/1.jpg',
+      image: '/2.jpg',
       href: '/products/Syrups',
       icon: '',
       desc: '',
@@ -64,7 +64,7 @@ export default function Homepage() {
     {
       id: 2,
       title: 'Capsules',
-      image: '/2.jpg',
+      image: '/3.jpg',
       href: '/products/Capsules',
       icon: '',
       desc: '',
@@ -73,7 +73,7 @@ export default function Homepage() {
     {
       id: 3,
       title: 'Tablets',
-      image: '/3.jpg',
+      image: '/5.jpg',
       href: '/products/Tablets',
       icon: '',
       desc: '',
@@ -91,7 +91,7 @@ export default function Homepage() {
     {
       id: 5,
       title: 'Oral Suspension',
-      image: '/5.jpg',
+      image: '/1.jpg',
       href: '/products/OralSuspensions',
       icon: '',
       desc: '',
@@ -477,8 +477,9 @@ export default function Homepage() {
           <p className="l3-section-subtitle">Comprehensive healthcare solutions across multiple therapeutic areas</p>
           <div className="l3-divisions-grid">
             {productDivisions.map((division) => (
-              <div
+              <Link
                 key={division.id}
+                href={division.href}
                 className="l3-division-card"
                 role="group"
                 aria-label={`${division.title} division`}
@@ -499,16 +500,14 @@ export default function Homepage() {
                   ) : null}
                 </div>
                 <div className="l3-division-content">
-                  <button
+                  <span
                     className="l3-division-btn"
-                    type="button"
                     aria-label={`Explore ${division.title} division`}
-                    onClick={() => router.push(division.href)}
                   >
                     Explore Division
-                  </button>
+                  </span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
