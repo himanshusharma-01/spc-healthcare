@@ -3,24 +3,20 @@
 import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import dynamic from 'next/dynamic';
 import { getProducts } from '@/lib/getProducts';
 import { filterProductsByCategory, type Product as SPCProduct } from '@/lib/productCategoryUtils';
 import './Homepage.css';
 import LeadForm from '@/app/leadForm/leadForm';
 
-// Dynamically import Globe component with SSR disabled
-const DetailedGlobe = dynamic(
-  () => import('@/app/components/DetailedGlobe/Globe'),
-  { ssr: false }
-);
 
 export default function Homepage() {
   const [featuredProducts, setFeaturedProducts] = useState<SPCProduct[]>([]);
   const [isLeadFormOpen, setIsLeadFormOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [videoError, setVideoError] = useState(false);
   const leadFormScheduled = useRef(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   // Banner carousel data
   const allBanners = [
@@ -682,7 +678,34 @@ export default function Homepage() {
               </div>
             </div>
             <div className="l3-globe-wrapper">
-              <DetailedGlobe />
+              {!videoError ? (
+                <video
+                  ref={videoRef}
+                  className="l3-indian-map-video"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="auto"
+                  onError={() => {
+                    setVideoError(true);
+                  }}
+                  aria-label="Indian Map showing states served by SPC Healthcare"
+                >
+                  <source src="/indian-map.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              ) : (
+                <Image
+                  src="/Indian Map.gif"
+                  alt="Indian Map showing states served by SPC Healthcare"
+                  width={480}
+                  height={480}
+                  className="l3-indian-map-video"
+                  style={{ objectFit: 'contain' }}
+                  unoptimized
+                />
+              )}
             </div>
           </div>
         </div>

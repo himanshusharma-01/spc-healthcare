@@ -1426,39 +1426,33 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 1;
   width: 480px;
   max-width: 480px;
-  height: 680px;
+  height: 480px;
   max-height: 480px;
-  aspect-ratio: 1 / 5;
   overflow: hidden;
-  contain: layout style paint;
   display: flex;
   align-items: center;
   justify-content: center;
   background: transparent !important;
-  border-radius: 50px;
+  border-radius: 20px;
 }
 
 .l3-globe-wrapper::before {
   display: none !important;
 }
 
-.l3-globe-section .l3-globe-wrapper > div {
-  position: relative !important;
-  z-index: 1 !important;
-  overflow: hidden !important;
-  width: 100% !important;
-  height: 100% !important;
-}
-
-.l3-globe-section canvas {
+.l3-indian-map-video {
   position: relative !important;
   z-index: 1 !important;
   width: 100% !important;
   height: 100% !important;
-  max-width: 480px !important;
-  max-height: 480px !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
   display: block !important;
-  touch-action: pan-x pan-y !important;
+  object-fit: contain;
+  border-radius: 20px;
+  background: transparent;
 }
 
 .l3-globe-stat-number {
@@ -1694,6 +1688,13 @@ h1, h2, h3, h4, h5, h6 {
     max-height: 300px;
     margin: 0 auto;
     order: 1;
+  }
+
+  .l3-indian-map-video {
+    max-width: 300px !important;
+    max-height: 300px !important;
+    width: 100% !important;
+    height: 100% !important;
   }
 
   .l3-globe-stat-number {
