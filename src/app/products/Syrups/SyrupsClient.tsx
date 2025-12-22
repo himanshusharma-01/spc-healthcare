@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useProductSearch } from '@/app/contexts/ProductSearchContext';
@@ -15,6 +15,11 @@ export default function SyrupsClient({ initialProducts }: SyrupsClientProps) {
   const [products] = useState<SPCProduct[]>(initialProducts);
   const { searchQuery, setSearchQuery } = useProductSearch();
   const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery || '');
+
+  // Sync localSearchQuery with persisted searchQuery from context
+  useEffect(() => {
+    setLocalSearchQuery(searchQuery || '');
+  }, [searchQuery]);
 
   const productFilters = [
     { id: 'all', name: 'All Syrups', count: products.length },

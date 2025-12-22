@@ -16,6 +16,11 @@ export default function SyrupsPage() {
   const [loading, setLoading] = useState(true);
   const { searchQuery, setSearchQuery } = useProductSearch();
   const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery || '');
+
+  // Sync localSearchQuery with persisted searchQuery from context
+  useEffect(() => {
+    setLocalSearchQuery(searchQuery || '');
+  }, [searchQuery]);
   
   // Filter products that contain syrup-related keywords
   const filterSyrupProducts = useCallback((products: SPCProduct[]) => {

@@ -13,6 +13,11 @@ export default function NeuroPage() {
   const { searchQuery, setSearchQuery } = useProductSearch();
   const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery || '');
 
+  // Sync localSearchQuery with persisted searchQuery from context
+  useEffect(() => {
+    setLocalSearchQuery(searchQuery || '');
+  }, [searchQuery]);
+
   // Filter products based on search query
   const filteredProducts = useMemo(() => {
     if (!searchQuery.trim()) {

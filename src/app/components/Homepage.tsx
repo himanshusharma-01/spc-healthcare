@@ -296,10 +296,19 @@ export default function Homepage() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % banners.length);
-    }, 5000); // Change slide every 5 seconds
+    }, 15000); // Change slide every 15 seconds
 
     return () => clearInterval(interval);
   }, [banners.length]);
+
+  // Navigation functions for arrow buttons
+  const goToPreviousSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + banners.length) % banners.length);
+  };
+
+  const goToNextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % banners.length);
+  };
 
   // Show lead form 2 seconds after the user's first scroll
   useEffect(() => {
@@ -366,6 +375,21 @@ export default function Homepage() {
           <h1 className="l3-hero-title-main">SPC Healthcare</h1>
           <div className="l3-hero-tagline" aria-label="Secure. Pure. Cure.">Secure. Pure. Cure.</div>
         </div>
+        {/* Carousel Navigation Arrows */}
+        <button
+          className="l3-carousel-arrow l3-carousel-arrow-left"
+          onClick={goToPreviousSlide}
+          aria-label="Previous slide"
+        >
+          <i className="fas fa-chevron-left"></i>
+        </button>
+        <button
+          className="l3-carousel-arrow l3-carousel-arrow-right"
+          onClick={goToNextSlide}
+          aria-label="Next slide"
+        >
+          <i className="fas fa-chevron-right"></i>
+        </button>
         <div className="l3-carousel-dots">
           {banners.map((_, index) => (
             <button

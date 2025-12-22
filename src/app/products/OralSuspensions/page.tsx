@@ -16,6 +16,11 @@ export default function OralSuspensionsPage() {
   const [loading, setLoading] = useState(true);
   const { searchQuery, setSearchQuery } = useProductSearch();
   const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery || '');
+
+  // Sync localSearchQuery with persisted searchQuery from context
+  useEffect(() => {
+    setLocalSearchQuery(searchQuery || '');
+  }, [searchQuery]);
   
   // Filter products that contain suspension-related keywords
   const filterSuspensionProducts = useCallback((products: SPCProduct[]) => {
