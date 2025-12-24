@@ -42,8 +42,8 @@ export default function Homepage() {
     },
   ];
 
-  // Filter banners based on screen size - show only 3 on mobile
-  const banners = isMobile ? allBanners.slice(0, 3) : allBanners;
+  // Show all banners on all screen sizes
+  const banners = allBanners;
 
   const productDivisions = [
     {
@@ -281,16 +281,12 @@ export default function Homepage() {
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
-      // Reset slide to 0 if we switch to mobile and current slide is out of bounds
-      if (window.innerWidth <= 768 && currentSlide >= 3) {
-        setCurrentSlide(0);
-      }
     };
 
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
-  }, [currentSlide]);
+  }, []);
 
   // Auto-slide carousel
   useEffect(() => {
