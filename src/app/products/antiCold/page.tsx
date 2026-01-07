@@ -5,11 +5,18 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useProductSearch } from '@/app/contexts/ProductSearchContext';
 import './anticold.css';
-import { loadCategoryProducts, productMatchesQuery, type Product } from '@/lib/productCategoryUtils';
+import { 
+  loadCategoryProducts, 
+  productMatchesQuery, 
+  extractSubcategories,
+  filterProductsBySubcategory,
+  type Product 
+} from '@/lib/productCategoryUtils';
 
 export default function AntiColdPage() {
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [activeSubcategory, setActiveSubcategory] = useState('all');
   const { searchQuery, setSearchQuery } = useProductSearch();
   const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery || '');
 
@@ -18,15 +25,29 @@ export default function AntiColdPage() {
     setLocalSearchQuery(searchQuery || '');
   }, [searchQuery]);
 
-  // Filter products based on search query
+  // Extract subcategories from products
+  const subcategories = useMemo(() => {
+    return extractSubcategories(allProducts, 'anticold');
+  }, [allProducts]);
+
+  // Filter products based on subcategory and search query
   const filteredProducts = useMemo(() => {
-    if (!searchQuery.trim()) {
-      return allProducts;
+    let filtered = allProducts;
+
+    // Apply subcategory filter
+    if (activeSubcategory !== 'all') {
+      filtered = filterProductsBySubcategory(filtered, 'anticold', activeSubcategory);
     }
-    return allProducts.filter(product =>
-      productMatchesQuery(product, searchQuery)
-    );
-  }, [allProducts, searchQuery]);
+
+    // Apply search query filter
+    if (searchQuery.trim()) {
+      filtered = filtered.filter(product =>
+        productMatchesQuery(product, searchQuery)
+      );
+    }
+
+    return filtered;
+  }, [allProducts, activeSubcategory, searchQuery]);
 
   // Load products
   useEffect(() => {
@@ -111,6 +132,27 @@ export default function AntiColdPage() {
               </button>
             </div>
           </div>
+
+          {/* Subcategory Filter Tabs */}
+          {subcategories.length > 1 && (
+            <div className="products-filter-container">
+              <div className="filter-tabs">
+                {subcategories.map(subcategory => {
+                  const count = filterProductsBySubcategory(allProducts, 'anticold', subcategory.id).length;
+                  return (
+                    <button
+                      key={subcategory.id}
+                      className={`filter-tab ${activeSubcategory === subcategory.id ? 'active' : ''}`}
+                      onClick={() => setActiveSubcategory(subcategory.id)}
+                    >
+                      <span className="filter-name">{subcategory.name}</span>
+                      <span className="filter-count">{count}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
           {/* Products Grid */}
           {loading ? (

@@ -70,15 +70,13 @@ export const filterProductsByCategory = (products: Product[], category: string):
   const filtered = products.filter(product => {
     const categoryField = product.category?.toLowerCase() || '';
     const drugTypeField = product.drugType?.toLowerCase() || '';
-    const name = product.name.toLowerCase();
-    const description = product.shortDescription.toLowerCase();
     
     // Direct category match first
     if (categoryField === category) {
       return true;
     }
     
-    // Check if drugType field contains any of the category keywords
+    // ONLY check drugType field - don't check name or description
     // drugType can have multiple keywords separated by comma, space, or other delimiters
     const drugTypeKeywords = drugTypeField.split(/[,;|\s]+/).map(k => k.trim()).filter(k => k);
     
@@ -89,16 +87,7 @@ export const filterProductsByCategory = (products: Product[], category: string):
       )
     );
     
-    if (matchesDrugType) {
-      return true;
-    }
-    
-    // Also check in other fields as fallback
-    return keywords.some(keyword => 
-      categoryField.includes(keyword) || 
-      name.includes(keyword) || 
-      description.includes(keyword)
-    );
+    return matchesDrugType;
   });
   
   return filtered;
@@ -126,4 +115,148 @@ export const generateFilterCounts = (
       filter.keywords.some(keyword => productMatchesQuery(product, keyword))
     ).length
   }));
+};
+
+// Extract subcategories from drugType field for a given therapeutic category
+export interface Subcategory {
+  id: string;
+  name: string;
+  keywords: string[];
+}
+
+export const extractSubcategories = (products: Product[], mainCategory: string): Subcategory[] => {
+  const mainCategoryLower = mainCategory.toLowerCase();
+  
+  // Normalize main category (handle pediatric/pediatrics and derma/skin)
+  let normalizedMainCategory: string[];
+  if (mainCategoryLower === 'pediatric') {
+    normalizedMainCategory = ['pediatric', 'pediatrics'];
+  } else if (mainCategoryLower === 'derma') {
+    normalizedMainCategory = ['derma', 'skin', 'dermatology', 'dermatological'];
+  } else {
+    normalizedMainCategory = [mainCategoryLower];
+  }
+  
+  // Map to store subcategories and their product counts
+  const subcategoryMap = new Map<string, number>();
+  
+  // First, filter products that belong to main category
+  const mainCategoryProducts = products.filter(product => {
+    const drugType = (product.drugType || '').toLowerCase();
+    const keywords = drugType.split(/[,;|\s]+/).map(k => k.trim().toLowerCase()).filter(k => k);
+    
+    // Check if product contains main category keyword
+    return keywords.some(k => 
+      normalizedMainCategory.some(mc => k === mc || k.includes(mc) || mc.includes(k))
+    );
+  });
+  
+  // Count products for "All Products"
+  subcategoryMap.set('all', mainCategoryProducts.length);
+  
+  // Find subcategories by checking other keywords in drugType
+  mainCategoryProducts.forEach(product => {
+    const drugType = (product.drugType || '').toLowerCase();
+    const keywords = drugType.split(/[,;|\s]+/).map(k => k.trim().toLowerCase()).filter(k => k);
+    
+    // Find other categories in the drugType (subcategories)
+    const otherCategories = keywords.filter(k => {
+      const kLower = k.toLowerCase();
+      // Exclude the main category variants and common words
+      const isMainCategory = normalizedMainCategory.some(mc => 
+        kLower === mc || kLower.includes(mc) || mc.includes(kLower)
+      );
+      return !isMainCategory && 
+             kLower !== 'general' && 
+             kLower !== 'products' &&
+             kLower !== 'n/a' &&
+             kLower.length > 2;
+    });
+    
+    // Create subcategory key
+    if (otherCategories.length > 0) {
+      const subcategoryKey = otherCategories.sort().join('; ');
+      subcategoryMap.set(subcategoryKey, (subcategoryMap.get(subcategoryKey) || 0) + 1);
+    }
+  });
+  
+  // Convert to Subcategory array, only include subcategories with products
+  const subcategories: Subcategory[] = [];
+  
+  // Add "All Products" first if there are products
+  if (subcategoryMap.get('all')! > 0) {
+    subcategories.push({
+      id: 'all',
+      name: 'All Products',
+      keywords: []
+    });
+  }
+  
+  // Add other subcategories that have products
+  Array.from(subcategoryMap.entries())
+    .filter(([key, count]) => key !== 'all' && count > 0)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .forEach(([key]) => {
+      // Format name: capitalize first letter of each word
+      const nameParts = key.split(';').map(part => {
+        const trimmed = part.trim();
+        return trimmed.charAt(0).toUpperCase() + trimmed.slice(1);
+      });
+      const displayName = nameParts.join(' + ');
+      
+      subcategories.push({
+        id: key,
+        name: displayName,
+        keywords: key.split(';').map(k => k.trim())
+      });
+    });
+  
+  return subcategories;
+};
+
+// Filter products by subcategory
+export const filterProductsBySubcategory = (
+  products: Product[],
+  mainCategory: string,
+  subcategoryId: string
+): Product[] => {
+  const mainCategoryLower = mainCategory.toLowerCase();
+  // Normalize main category (handle pediatric/pediatrics and derma/skin)
+  let normalizedMainCategory: string[];
+  if (mainCategoryLower === 'pediatric') {
+    normalizedMainCategory = ['pediatric', 'pediatrics'];
+  } else if (mainCategoryLower === 'derma') {
+    normalizedMainCategory = ['derma', 'skin', 'dermatology', 'dermatological'];
+  } else {
+    normalizedMainCategory = [mainCategoryLower];
+  }
+  
+  // First filter by main category - products must contain main category keyword
+  let filtered = products.filter(product => {
+    const drugType = (product.drugType || '').toLowerCase();
+    const keywords = drugType.split(/[,;|\s]+/).map(k => k.trim().toLowerCase()).filter(k => k);
+    
+    // Must contain main category keyword
+    return keywords.some(k => 
+      normalizedMainCategory.some(mc => k === mc || k.includes(mc) || mc.includes(k))
+    );
+  });
+  
+  // If "all", return all products with main category
+  if (subcategoryId === 'all') {
+    return filtered;
+  }
+  
+  // Filter by subcategory keywords - product must contain ALL subcategory keywords
+  const subcategoryKeywords = subcategoryId.split(';').map(k => k.trim().toLowerCase());
+  
+  return filtered.filter(product => {
+    const drugType = (product.drugType || '').toLowerCase();
+    const keywords = drugType.split(/[,;|\s]+/).map(k => k.trim().toLowerCase()).filter(k => k);
+    
+    // Check if ALL subcategory keywords are present in drugType
+    return subcategoryKeywords.every(subKeyword => 
+      keywords.some(k => k === subKeyword || k.includes(subKeyword) || subKeyword.includes(k))
+    );
+  });
 };
