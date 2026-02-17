@@ -132,28 +132,7 @@ export default function NeuroPage() {
               </button>
             </div>
           </div>
-
-          {/* Subcategory Filter Tabs */}
-          {subcategories.length > 1 && (
-            <div className="products-filter-container">
-              <div className="filter-tabs">
-                {subcategories.map(subcategory => {
-                  const count = filterProductsBySubcategory(allProducts, 'neuro', subcategory.id).length;
-                  return (
-                    <button
-                      key={subcategory.id}
-                      className={`filter-tab ${activeSubcategory === subcategory.id ? 'active' : ''}`}
-                      onClick={() => setActiveSubcategory(subcategory.id)}
-                    >
-                      <span className="filter-name">{subcategory.name}</span>
-                      <span className="filter-count">{count}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
+          
           {/* Products Grid */}
           {loading ? (
             <div className="loading-container">
@@ -217,6 +196,27 @@ export default function NeuroPage() {
               <div className="no-products-icon">🔍</div>
               <h3>No products found</h3>
               <p>Try selecting a different category or browse all products.</p>
+            </div>
+          )}
+
+          {/* Subcategory Filter Tabs - moved near footer/bottom */}
+          {subcategories.length > 1 && (
+            <div className="products-filter-container">
+              <div className="filter-tabs">
+                {subcategories.map(subcategory => {
+                  const count = filterProductsBySubcategory(allProducts, 'neuro', subcategory.id).length;
+                  return (
+                    <button
+                      key={subcategory.id}
+                      className={`filter-tab ${activeSubcategory === subcategory.id ? 'active' : ''}`}
+                      onClick={() => setActiveSubcategory(subcategory.id)}
+                    >
+                      <span className="filter-name">{subcategory.name}</span>
+                      <span className="filter-count">{count}</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           )}
         </div>

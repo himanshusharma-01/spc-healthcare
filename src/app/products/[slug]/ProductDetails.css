@@ -145,6 +145,11 @@
   box-shadow: 0 2px 8px rgba(0, 163, 180, 0.2);
 }
 
+.product-details-page .type-label {
+  margin-right: 0.35rem;
+  opacity: 0.95;
+}
+
 .product-details-page .product-description {
   margin-bottom: 2rem;
   width: 100%;

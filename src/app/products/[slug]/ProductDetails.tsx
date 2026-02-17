@@ -86,7 +86,8 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               <h1 className="product-title">{product.name}</h1>
               
               <div className="product-type-badge">
-                <span className="type-text">{product.drugType}</span>
+                <span className="type-label">Therapeutic Range:</span>
+                <span className="type-text">{product.category || product.drugType}</span>
               </div>
               
               <div className="product-description">
