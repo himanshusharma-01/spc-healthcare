@@ -537,6 +537,29 @@
   flex-wrap: wrap;
 }
 
+/* Zoho Recruit Embedded Jobs */
+.zoho-jobs-section {
+  padding: 4rem 0;
+  background: #ffffff;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.zoho-jobs-iframe-wrapper {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.08);
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.zoho-jobs-iframe-wrapper iframe {
+  display: block;
+}
+
 /* Animations */
 @keyframes bannerSlideIn {
   0% {

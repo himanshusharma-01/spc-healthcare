@@ -294,6 +294,26 @@ export default function CareersPage() {
         </div>
       </section>
 
+      {/* Zoho Recruit Embedded Jobs */}
+      <section className="zoho-jobs-section">
+        <div className="l3-container-inner">
+          <div className="section-header">
+            <h2 className="l3-section-title">Apply Online</h2>
+            <p className="l3-section-subtitle">
+              View all current openings and submit your application directly through our Zoho Recruit portal.
+            </p>
+          </div>
+          <div className="zoho-jobs-iframe-wrapper">
+            <iframe
+              src="https://spchealthcare.zohorecruit.in/forms/d4e85022e8a1295393a84594a21065f94fc912e2b65ef41ae9bb86b38028b4d6"
+              frameBorder="0"
+              title="SPC Healthcare Careers - Zoho Recruit"
+              style={{ height: '500px', width: '100%', border: 'none' }}
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Culture Section */}
       <section className="culture-section">
         <div className="l3-container-inner">
