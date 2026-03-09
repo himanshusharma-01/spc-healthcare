@@ -6,7 +6,8 @@ import Image from 'next/image';
 import { getProducts } from '@/lib/getProducts';
 import { filterProductsByCategory, type Product as SPCProduct } from '@/lib/productCategoryUtils';
 import './Homepage.css';
-import LeadForm from '@/app/leadForm/leadForm';
+// import LeadForm from '@/app/leadForm/leadForm';
+import ZohoLeadForm from '@/app/leadForm/ZohoLeadForm';
 
 
 export default function Homepage() {
@@ -306,19 +307,17 @@ export default function Homepage() {
     setCurrentSlide((prev) => (prev + 1) % banners.length);
   };
 
-  // Show lead form 2 seconds after the user's first scroll
+  // Show Zoho Desk lead form 2 seconds after the user's first scroll
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
     let timer: number | null = null;
 
     const handleFirstScroll = () => {
-      // Ignore if we've already scheduled or if there is no actual scroll yet
       if (leadFormScheduled.current || window.scrollY <= 0) return;
 
       leadFormScheduled.current = true;
 
-      // Show the lead form after 2 seconds
       timer = window.setTimeout(() => {
         setIsLeadFormOpen(true);
       }, 2000);
@@ -823,7 +822,14 @@ export default function Homepage() {
 
      
 
+      {/* Legacy internal lead form (temporarily disabled)
       <LeadForm
+        isOpen={isLeadFormOpen}
+        onClose={() => setIsLeadFormOpen(false)}
+        triggerElement="homepage_first_scroll"
+      />
+      */}
+      <ZohoLeadForm
         isOpen={isLeadFormOpen}
         onClose={() => setIsLeadFormOpen(false)}
         triggerElement="homepage_first_scroll"
