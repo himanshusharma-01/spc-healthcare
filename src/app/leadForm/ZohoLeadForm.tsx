@@ -67,7 +67,7 @@ const ZohoLeadForm: React.FC<ZohoLeadFormProps> = ({ isOpen, onClose }) => {
         <div className="zoho-lead-form-frame-wrapper">
           <iframe
             srcDoc={zohoFormHtml}
-            sandbox="allow-same-origin allow-scripts allow-forms"
+            sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"
             title="SPC Healthcare Website Inquiry"
             className="zoho-lead-form-frame"
           />
