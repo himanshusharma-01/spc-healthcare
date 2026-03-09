@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import './leadForm.css';
+import { zohoFormHtml } from './zohoFormHtml';
 
 interface ZohoLeadFormProps {
   isOpen: boolean;
@@ -65,7 +66,8 @@ const ZohoLeadForm: React.FC<ZohoLeadFormProps> = ({ isOpen, onClose }) => {
 
         <div className="zoho-lead-form-frame-wrapper">
           <iframe
-            src="/spc-zoho-form.html"
+            srcDoc={zohoFormHtml}
+            sandbox="allow-same-origin allow-scripts allow-forms"
             title="SPC Healthcare Website Inquiry"
             className="zoho-lead-form-frame"
           />
