@@ -1,2 +1,303 @@
-export const zohoFormHtml = `<!DOCTYPE html><html><head><META HTTP-EQUIV='content-type' CONTENT='text/html; charset=UTF-8'><style> #zohoSupportWebToCase textarea, #zohoSupportWebToCase input[type='text'], #zohoSupportWebToCase input[type='date'], #zohoSupportWebToCase select, .wb_common{width: 280px;}#zohoSupportWebToCase td {padding: 11px 5px;}#zohoSupportWebToCase textarea, #zohoSupportWebToCase input[type='text'], #zohoSupportWebToCase input[type='date'], #zohoSupportWebToCase select{border: 1px solid #ddd;padding: 3px 5px;border-radius: 3px;}#zohoSupportWebToCase select {box-sizing: unset}#zohoSupportWebToCase .wb_selectDate {width: auto}#zohoSupportWebToCase input.wb_cusInput {width: 108px}.wb_FtCon{display: flex;align-items: center;justify-content: flex-end;margin-top: 15px;padding-left: 10px}.wb_logoCon{display: flex;margin-left: 5px}.wb_logo{max-width: 16px;max-height: 16px;}#zohoSupportWebToCase .wb_multi_pick {border: 1px solid #ddd;padding: 3px 5px;border-radius: 3px;width: 280px;height: 95px;overflow-y:auto;}#zohoSupportWebToCase .wb_multi_pick_label {display: block;}#zohoSupportWebToCase .wb_multi_pick_input,  .wb_multi_pick_input_all{vertical-align: middle;margin-right: 5px;}.zsFormClass{background-color:#FFFFFF;width:600px} </style><style>.zsFontClass{color:#000000;font-family:Arial;font-size:13px}</style> <style>.manfieldbdr{border-left: 1px solid #ff6448!important} .hleft{text-align:left;} input[type=file]::-webkit-file-upload-button{cursor:pointer;}.wtcsepcode{margin:0px 15px; color:#aaa; float:left;}.wtccloudattach{float:left; color:#00a3fe!important; cursor:pointer; text-decoration: none!important;}.wtccloudattach:hover{text-decoration: none!important;}.wtcuploadinput{cursor:pointer; float:left; width:62px; margin-top:-20px; opacity:0; clear:both;}.wtcuploadfile{float:left;color: #00a3fe;}.filenamecls{margin-right:15px; float:left; margin-top:5px;} .clboth{clear:both;} #zsFileBrowseAttachments{clear:both; margin:5px 0px 10px;} .zsFontClass{vertical-align:top;} #tooltip-zc{font: normal 12px Arial, Helvetica, sans-serif; line-height:18px;position:absolute;padding:8px;margin:20px 0 0;background:#fff;border:1px solid #528dd1;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;color:#eee;-webkit-box-shadow:5px 5px 20px rgba(0,0,0,0.2);-moz-box-shadow:5px 5px 20px rgba(0,0,0,0.2);z-index:10000; color:#777}.wtcmanfield{color:#f00;font-size:16px;position:relative;top:2px;left:1px;} #zsCloudAttachmentIframe{width: 100%;height: 100%;z-index: 99999!important;position: fixed;left: 0px;top:0px; border-style: none; display: none; background-color:#fff;} .wtchelpinfo{background-position: -246px -485px;width:15px;height:15px;display:inline-block;position: relative;top: 2px;background-image: url(https://static.zohocdn.com/zohodeskstatic/app/images/zs-mpro.b6c9cf2347c62390fdcb.png);} .zsMaxSizeMessage{font-size:13px;}</style><script src='https://static.zohocdn.com/zohodeskstatic/app/js/jqueryandencoder.ef05974972bf3bca1b87.js'></script><script>window.addEventListener('pageshow', function () {const submitButton = document.getElementById('zsSubmitButton_24260000008253001');if (submitButton) {  submitButton.removeAttribute('disabled');}const captchaTextField = document.forms['zsWebToCase_24260000008253001']['zsWebFormCaptchaWord'];if(window.zsRegenerateCaptcha && captchaTextField.value) {captchaTextField.value = '';captchaTextField.focus();zsRegenerateCaptcha();}});function trimBoth(str){return jQuery.trim(str);}function setAllDependancyFieldsMapping(){var mapDependancyLabels = getMapDependenySelectValues(jQuery("[id='property(module)']").val(), "JSON_MAP_DEP_LABELS");if(mapDependancyLabels){for(var i = 0; i < mapDependancyLabels.length; i++){var label = mapDependancyLabels[i];var obj = document.forms['zsWebToCase_24260000008253001'][label];if(obj){setDependent(obj, true);}}}}function getMapDependenySelectValues(module, key){var dependencyObj = jQuery.parseJSON( jQuery("[id='dependent_field_values_" + module + "']").val() );if(dependencyObj == undefined){return dependencyObj;}return dependencyObj[key];}function setDependent(obj, isload){var name = obj.id || (obj[0] && obj[0].id) || "";var module = jQuery("[id='property(module)']").val();var val = "";var myObject = getMapDependenySelectValues(module, "JSON_VALUES");if(myObject !=undefined){val = myObject[name];}var mySelObject = getMapDependenySelectValues(module, "JSON_SELECT_VALUES");if(val != null && val != "" && val != "null" && mySelObject){var fields = val;for(var i in fields){if (fields.hasOwnProperty(i)){var isDependent = false;var label = i;var values = fields[i];if(label.indexOf(")") > -1){label = label.replace(/\\)/g, '_____');}if(label.indexOf("(") > -1){label = label.replace(/\\(/g, '____');}if(label.indexOf(".") > -1){label = label.replace(/\\./g, '___');}var depObj = document.forms['zsWebToCase_24260000008253001'][label];if(depObj && depObj.options){var mapValues = "";var selected_val = depObj.value;var depLen = depObj.options.length-1;for (var n = depLen; n >= 0; n--) {if (depObj.options[n].selected){if(mapValues == ""){mapValues = depObj.options[n].value;}else{mapValues = mapValues + ";;;"+depObj.options[n].value;}}}depObj.value = "";var selectValues = mySelObject[label];for(var k in values){var rat = k;if(rat == "-None-"){rat = "";}var parentValues = mySelObject[name];if(rat == trimBoth(obj.value)){isDependent = true;depObj.length = 0;var depvalues = values[k];var depLen = depvalues.length - 1;for(var j = 0; j <= depLen; j++){var optionElement = document.createElement("OPTION");var displayValue = depvalues[j];var actualValue = displayValue;if(actualValue == "-None-"){optionElement.value = "";displayValue = "-None-";}else{optionElement.value = actualValue;}optionElement.text = displayValue;if(mapValues != undefined){var mapValue = mapValues.split(";;;");var len = mapValue.length;for(var p = 0; p < len; p++){if(actualValue == mapValue[p]){optionElement.selected = true;}}}depObj.options.add(optionElement);}}}if(!isDependent){depObj.length = 0;var len = selectValues.length;for(var j = 0; j < len; j++){var actualValue = selectValues[j];var optionElement = document.createElement("OPTION");if(actualValue == "-None-"){optionElement.value = "";}else{optionElement.value = selectValues[j];}optionElement.text = selectValues[j];depObj.options.add(optionElement);}depObj.value =  selected_val;}if(!isload){setDependent(depObj,false);}var jdepObj = jQuery(depObj);if(jdepObj.hasClass('select2-offscreen')){jdepObj.select2("val", jdepObj.val());}}}}}}function setSelectAll(id){var parentElement = document.getElementById(id);var hiddenInput = parentElement.querySelector('#hiddenoptions');var selectAllElement = parentElement.querySelector('#selectall' + id);var selectedValues = [];var checkboxes = parentElement.querySelectorAll('.wb_multi_pick_input');checkboxes.forEach(function (cb) {cb.checked = selectAllElement.checked;if (cb.checked && cb.value) {selectedValues.push(cb.value);}});hiddenInput.value = selectedValues.join(',');}function setMultiSelectOption(id, obj){var parentElement = document.getElementById(id);var hiddenInput = parentElement.querySelector('#hiddenoptions');var selectAllElement = parentElement.querySelector('#selectall' + id);var selectedStr = hiddenInput.value;var selectedValues = selectedStr ? selectedStr.split(',') : [];if(obj.checked && obj.value) {selectedValues.push(obj.value);}else if(!obj.checked && obj.value) {selectedValues.splice(selectedValues.indexOf(obj.value), 1);selectAllElement.checked = false;}else {selectAllElement.checked = false;}hiddenInput.value = selectedValues.join(',');}var zctt = function(){var tt, mw = 400, top = 10, left = 0, doctt = document;var ieb = doctt.all ? true : false;return{showtt: function(cont, wid){if(tt == null){tt = doctt.createElement('div');tt.setAttribute('id', 'tooltip-zc');doctt.body.appendChild(tt);doctt.onmousemove = this.setpos;doctt.onclick = this.hidett;}tt.style.display = 'block';tt.innerHTML = cont;tt.style.width = wid ? wid + 'px' : 'auto';if(!wid && ieb){tt.style.width = tt.offsetWidth;}if(tt.offsetWidth > mw){tt.style.width = mw + 'px'}h = parseInt(tt.offsetHeight) + top;w = parseInt(tt.offsetWidth) + left;},hidett: function(){tt.style.display = 'none';},setpos: function(e){var u = ieb ? event.clientY + doctt.body.scrollTop : e.pageY;var l = ieb ? event.clientX + doctt.body.scrollLeft : e.pageX;var cw = doctt.body.clientWidth;var ch = doctt.body.clientHeight;if(l < 0){tt.style.left = left + 'px';tt.style.right = '';}else if((l+w+left) > cw){tt.style.left = '';tt.style.right = ((cw-l) + left) + 'px';}else{tt.style.right = '';tt.style.left = (l + left) + 'px';}if(u < 0){tt.style.top = top + 'px';tt.style.bottom = '';}else if((u + h + left) > ch){tt.style.top = '';tt.style.bottom = ((ch - u) + top) + 'px';}else{tt.style.bottom = '';tt.style.top = (u + top) + 'px';}}};}();var zsWebFormMandatoryFields = new Array("Contact Name","Email","Subject");var zsFieldsDisplayLabelArray = new Array("Name","Email","City");function reformatAllDateFields() {const dateFields = document.querySelectorAll('.dob-field');dateFields.forEach(field => {if (field.value && field.value.includes('-')) {const parts = field.value.split('-');if (parts.length === 3) {const [yyyy, mm, dd] = parts;field.type= 'text';field.value = \`\${dd}/\${mm}/\${yyyy}\`;}}});}function zsValidateMandatoryFields(){var name = '';var email = '';var isError = 0;for(var index = 0; index < zsWebFormMandatoryFields.length; index++){isError = 0;var fieldObject = document.forms['zsWebToCase_24260000008253001'][zsWebFormMandatoryFields[index]];if(fieldObject){if(((fieldObject.value).replace(/^\s+|\s+$/g, '')).length == 0){alert(zsFieldsDisplayLabelArray[index] +' cannot be empty ');fieldObject.focus();isError = 1;return false;}else{if(fieldObject.name == 'Email'){if(!fieldObject.value.match(/^([\\w_][\\w\\-_.+\\'&]*)@(?=.{4,256}$)(([\\w]+)([\\-_]*[\\w])*[\\.])+[a-zA-Z]{2,22}$/)){isError = 1;alert('Enter a valid email-Id');fieldObject.focus();return false;}}}if(fieldObject.nodeName == 'SELECT'){if(fieldObject.options[fieldObject.selectedIndex].value == '-None-'){alert(zsFieldsDisplayLabelArray[index] +' cannot be none');fieldObject.focus();isError = 1;return false;}}if(fieldObject.type == 'checkbox'){if (fieldObject.checked == false){alert('Please accept '+zsFieldsDisplayLabelArray[index]);fieldObject.focus();isError = 1;return false;}}}}if(isError == 0){reformatAllDateFields();document.getElementById('zsSubmitButton_24260000008253001').setAttribute('disabled', 'disabled');}}document.addEventListener('readystatechange',function(){if(document.readyState === 'complete' && window.zsRegenerateCaptcha ){zsRegenerateCaptcha();}setAllDependancyFieldsMapping();document.getElementById('zsSubmitButton_24260000008253001').removeAttribute('disabled');});function zsResetWebForm(webFormId){document.forms['zsWebToCase_'+webFormId].reset();document.getElementById('zsSubmitButton_24260000008253001').removeAttribute('disabled');setAllDependancyFieldsMapping();} </script></head><div id='zohoSupportWebToCase' align='center'> <form name='zsWebToCase_24260000008253001' id='zsWebToCase_24260000008253001' action='https://desk.zoho.in/support/WebToCase' method='POST' onSubmit='return zsValidateMandatoryFields()' enctype='multipart/form-data' target='_blank'>  <input type='hidden' name='xnQsjsdp' value='edbsn81fee833e1018811b554111894ef0882'/>  <input type='hidden' name='xmIwtLD' value='edbsn733dc34fa572aa5626a043f1b0fa74b5d189a5a048ee40669e06ce8d664e1661'/>  <input type='hidden' name='xJdfEaS' value=''/>  <input type='hidden' name='actionType' value='Q2FzZXM='/>>   <input type="hidden" id="property(module)" value="Cases"/>  <input type="hidden" id="dependent_field_values_Cases" value="{&#34;JSON_VALUES&#34;:{},&#34;JSON_SELECT_VALUES&#34;:{},&#34;JSON_MAP_DEP_LABELS&#34;:[]}"/> <input type='hidden' name='returnURL' value='https://desk.zoho.in/agent/spchealthcarepvtltd/it-department/tickets/list/all-cases'/><table border='0' cellspacing='0' class='zsFormClass'><tr><td colspan='2' class='zsFontClass'><strong>Website Inquiry Form</strong></td></tr><br><tr ><td nowrap class='zsFontClass ' width='25%' align='left'>Name&nbsp;&nbsp;</td><td align='left' width='75%'><input type='text' maxlength='120' name='Contact Name' class='manfieldbdr'/></td></tr><tr ><td nowrap class='zsFontClass ' width='25%' align='left'>Email&nbsp;&nbsp;</td><td align='left' width='75%'><input type='text' maxlength='120' name='Email' value='' class='manfieldbdr'/></td></tr> <tr ><td nowrap class='zsFontClass ' width='25%' align='left'>Phone&nbsp;&nbsp;</td><td align='left' width='75%'><input type='text' maxlength='120' name='Phone' value='' /></td></tr> <tr ><td nowrap class='zsFontClass ' width='25%' align='left'>City&nbsp;&nbsp;</td><td align='left' width='75%'><input type='text' maxlength='255' name='Subject' value='' class='manfieldbdr'/></td></tr> <tr ><td nowrap class='zsFontClass ' width='25%' align='left'>Message &nbsp;&nbsp;</td><td align='left' width='75%'> <textarea name='Description' maxlength='3000' width='250' height='250' ></textarea></td></tr><tr><td style='padding: 11px 5px 0px 5px;' colspan='2' align='center' width='25%'> <input type='submit' id="zsSubmitButton_24260000008253001" class='zsFontClass' value='Submit'> &nbsp; &nbsp; <input type='button' class='zsFontClass' value='Reset' onclick="zsResetWebForm('24260000008253001')"> </td></tr><tr><td width='25%' align='left'></td><td style='padding: 0px 5px;' align='left' width='75%'> <div class='wb_FtCon wb_common'><span>powered by  </span><a target='_blank' rel='noopener noreferrer' href='https://zoho.in/desk' class='wb_logoCon'><img class='wb_logo' src='https://static.zohocdn.com/zohodeskstatic/app/images/portalLogo.de847024ebc0131731a3.png' /></a></div></td></tr></table></form></div></html>`;
+export const zohoFormHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Website Inquiry – SPC Healthcare</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:  #0b1f3a;
+      --navy2: #112d52;
+      --teal:  #0e7f7f;
+      --teal2: #0ab5b5;
+      --cream: #f4f1ec;
+      --white: #ffffff;
+      --grey:  #8a95a3;
+      --border:#d4dde6;
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body:    'DM Sans', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--cream);
+      font-family: var(--font-body);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 16px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 20px;
+      overflow: hidden;
+      width: 100%;
+      max-width: 560px;
+      box-shadow: 0 24px 80px rgba(11,31,58,0.13), 0 4px 16px rgba(11,31,58,0.06);
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 60%, #1a4a72 100%);
+      padding: 40px 40px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-header::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      background: rgba(14,127,127,0.18);
+    }
+    .card-header::after {
+      content: '';
+      position: absolute;
+      bottom: -20px; left: 30px;
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+    }
+    .header-tag {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--teal2);
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    .header-title {
+      font-family: var(--font-display);
+      font-size: 34px;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.15;
+      position: relative;
+      z-index: 1;
+    }
+    .header-sub {
+      margin-top: 10px;
+      font-size: 13.5px;
+      color: rgba(255,255,255,0.6);
+      font-weight: 300;
+      position: relative;
+      z-index: 1;
+    }
+    .header-line {
+      width: 40px; height: 3px;
+      background: var(--teal2);
+      border-radius: 2px;
+      margin-top: 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-body { padding: 36px 40px 32px; }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    .field-group { margin-bottom: 22px; }
+
+    label {
+      display: block;
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 7px;
+    }
+    label .req { color: var(--teal); margin-left: 2px; }
+
+    input[type='text'],
+    textarea {
+      width: 100%;
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--navy);
+      background: #f8fafc;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+    }
+    input[type='text']:focus,
+    textarea:focus {
+      border-color: var(--teal);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(14,127,127,0.1);
+    }
+    input[type='text'].manfieldbdr,
+    textarea.manfieldbdr {
+      border-left: 3px solid var(--teal);
+    }
+    input[type='text']::placeholder,
+    textarea::placeholder {
+      color: #b8c3cc;
+      font-weight: 300;
+    }
+    textarea { resize: vertical; min-height: 120px; }
+
+    .btn-row { display: flex; gap: 12px; margin-top: 6px; }
+
+    .btn-submit {
+      flex: 1;
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal2) 100%);
+      color: var(--white);
+      border: none;
+      border-radius: 10px;
+      padding: 14px 24px;
+      font-family: var(--font-body);
+      font-size: 13.5px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+      box-shadow: 0 6px 24px rgba(14,127,127,0.3);
+    }
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(14,127,127,0.38);
+    }
+    .btn-submit:active { transform: translateY(0); }
+    .btn-submit:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+    .btn-reset {
+      background: transparent;
+      color: var(--grey);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 20px;
+      font-family: var(--font-body);
+      font-size: 13.5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-reset:hover { border-color: var(--navy); color: var(--navy); }
+
+    .card-footer {
+      border-top: 1px solid #edf1f5;
+      padding: 14px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fafbfc;
+    }
+    .footer-brand { font-size: 11px; color: var(--grey); }
+    .footer-brand strong { color: var(--navy); font-weight: 600; }
+    .powered {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      color: #b0bac5;
+      text-decoration: none;
+    }
+    .powered img { width: 14px; height: 14px; opacity: 0.6; }
+
+    @media (max-width: 520px) {
+      .card-header, .card-body, .card-footer { padding-left: 24px; padding-right: 24px; }
+      .field-row { grid-template-columns: 1fr; }
+      .header-title { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+
+  <div class="card-header">
+    <div class="header-tag">SPC Healthcare</div>
+    <div class="header-title">Website Inquiry</div>
+    <div class="header-sub">We'll get back to you within 1 business day.</div>
+    <div class="header-line"></div>
+  </div>
+
+  <form
+    name="zsWebToCase_24260000008253001"
+    id="zsWebToCase_24260000008253001"
+    action="https://desk.zoho.in/support/WebToCase"
+    method="POST"
+    enctype="multipart/form-data"
+    target="_blank"
+  >
+    <input type="hidden" name="xnQsjsdp" value="edbsn81fee833e1018811b554111894ef0882"/>
+    <input type="hidden" name="xmIwtLD"  value="edbsn733dc34fa572aa5626a043f1b0fa74b5d189a5a048ee40669e06ce8d664e1661"/>
+    <input type="hidden" name="xJdfEaS" value=""/>
+    <input type="hidden" name="actionType" value="Q2FzZXM="/>
+    <input type="hidden" id="property(module)" value="Cases"/>
+    <input type="hidden" id="dependent_field_values_Cases" value='{"JSON_VALUES":{},"JSON_SELECT_VALUES":{},"JSON_MAP_DEP_LABELS":[]}'/>
+    <input type="hidden" name="returnURL" value="https://spchealthcare.com/"/>
+
+    <div class="card-body">
+
+      <div class="field-row">
+        <div class="field-group">
+          <label for="f-name">Name <span class="req">*</span></label>
+          <input type="text" id="f-name" name="Contact Name" maxlength="120" class="manfieldbdr" placeholder="Full name"/>
+        </div>
+        <div class="field-group">
+          <label for="f-email">Email <span class="req">*</span></label>
+          <input type="text" id="f-email" name="Email" maxlength="120" class="manfieldbdr" placeholder="you@example.com"/>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label for="f-phone">Phone</label>
+          <input type="text" id="f-phone" name="Phone" maxlength="120" placeholder="+91 XXXXX XXXXX"/>
+        </div>
+        <div class="field-group">
+          <label for="f-city">City <span class="req">*</span></label>
+          <input type="text" id="f-city" name="Subject" maxlength="255" class="manfieldbdr" placeholder="Your city"/>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label for="f-msg">Message</label>
+        <textarea id="f-msg" name="Description" maxlength="3000" placeholder="Tell us how we can help you…"></textarea>
+      </div>
+
+      <div class="btn-row">
+        <button type="submit" id="zsSubmitButton_24260000008253001" class="btn-submit">
+          Send Inquiry →
+        </button>
+        <button type="reset" class="btn-reset">Reset</button>
+      </div>
+
+    </div>
+  </form>
+
+  <div class="card-footer">
+    <span class="footer-brand"><strong>SPC Healthcare</strong> — Secure. Pure. Cure.</span>
+    <a href="https://zoho.in/desk" target="_blank" rel="noopener noreferrer" class="powered">
+      powered by
+      <img src="https://static.zohocdn.com/zohodeskstatic/app/images/portalLogo.de847024ebc0131731a3.png" alt="Zoho Desk"/>
+    </a>
+  </div>
+
+</div>
+
+</body>
+</html>`;
+
 
